@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KosEase – Panduan Hidup Hemat Anak Kos</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+  <link rel="icon" type="image/png" href="ui.png">
 <style>
   * {
     margin: 0;
@@ -63,7 +63,7 @@
 
   /* HOME */
   #home {
-    background: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
+    background: url('image/kost.jpg') center/cover no-repeat;
     height: 100vh;
     color: white;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -150,12 +150,18 @@
     <a href="#home">Home</a>
     <a href="#about">About</a>
     <a href="#kategori">Kategori</a>
-    <a href="#info">Tips</a>
      <a href="#team">Member</a>
     <a href="#contact">Contact</a>
-    <span id="audioToggle" class="audio-icon">🔊</span>
+   <span id="audioToggle" class="audio-icon" style="cursor:pointer; font-size:24px;">
+  🔊
+</span>  
   </div>
 </nav>
+
+<audio id="bgMusic" loop>
+  <source src="sound/Dr. Dog _Where'd All The Time Go__ [bmZQpbNK7t4].mp3" type="audio/mpeg">
+</audio>
+
 
 <!-- 🏠 HOME -->
 <section id="home">
@@ -177,28 +183,25 @@
   <h2>Kategori Hemat</h2>
   <p>Pilih kategori untuk lihat tips cerdas ala anak kos!</p>
   <div class="cards">
-    <div class="card" onclick="showInfo('outfit')">
-      <h3>Outfit Hemat 👕</h3>
-      <p>Tampil keren tanpa boros belanja.</p>
-    </div>
-    <div class="card" onclick="showInfo('makanan')">
+<div class="card" onclick="goToPage('outfit')">
+  <h3>Outfit Hemat 👕</h3>
+  <p>Tampil keren tanpa boros belanja.</p>
+</div>
+    
+    <div class="card" onclick="goToPage('makanan')">
       <h3>Makanan Irit 🍜</h3>
       <p>Masakan sederhana hemat tapi lezat.</p>
     </div>
-    <div class="card" onclick="showInfo('barang')">
+
+    <div class="card" onclick="goToPage('reuse')">
       <h3>Reuse Corner 🔧</h3>
       <p>Daur ulang barang bekas biar bermanfaat lagi!</p>
+
     </div>
+  
   </div>
 </section>
 
-<!-- 💡 INFO -->
-<section id="info">
-  <h2>Tips & Informasi</h2>
-  <div id="infoText">
-    <p>Klik kategori di atas buat lihat tips hemat dari KosEase!</p>
-  </div>
-</section>
 
 <!-- 👥 TEAM SECTION -->
 <section id="team" style="background: linear-gradient(180deg, #fcb045, #fd1d1d, #833ab4); color: white; padding: 80px 10%; text-align: center;">
@@ -209,33 +212,33 @@
     
     <!-- CARD ANGGOTA -->
     <div style="background: white; color: #333; border-radius: 20px; width: 200px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.3s; cursor: default;">
-      <img src="" alt="Foto Aila" style="width:100%; height:200px; object-fit:cover; border-radius:15px;">
+      <img src="image/aila.jpg" alt="Foto Aila" style="width:100%; height:200px; object-fit:cover; border-radius:15px;">
       <h3 style="margin-top:15px; font-weight:600;">Aila</h3>
+      <p style="color:#777;">Web Engineer</p>
+    </div>
+
+    <div style="background: white; color: #333; border-radius: 20px; width: 200px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.3s;">
+      <img src="image/vina.jpg" alt="Foto Vina" style="width:100%; height:200px; object-fit:cover; border-radius:15px;">
+      <h3 style="margin-top:15px; font-weight:600;">Vina</h3>
+      <p style="color:#777;">Web Engineer</p>
+    </div>
+
+    <div style="background: white; color: #333; border-radius: 20px; width: 200px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.3s;">
+      <img src="image/arin.jpg" alt="Foto Arin" style="width:100%; height:200px; object-fit:cover; border-radius:15px;">
+      <h3 style="margin-top:15px; font-weight:600;">Arin</h3>
       <p style="color:#777;">Project Manager</p>
     </div>
 
     <div style="background: white; color: #333; border-radius: 20px; width: 200px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.3s;">
-      <img src="https://i.imgur.com/Qb1z5zv.jpg" alt="Foto Arin" style="width:100%; height:200px; object-fit:cover; border-radius:15px;">
-      <h3 style="margin-top:15px; font-weight:600;">Arin</h3>
-      <p style="color:#777;">UI/UX Designer</p>
-    </div>
-
-    <div style="background: white; color: #333; border-radius: 20px; width: 200px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.3s;">
-      <img src="https://i.imgur.com/ebHfuth.jpg" alt="Foto Vina" style="width:100%; height:200px; object-fit:cover; border-radius:15px;">
-      <h3 style="margin-top:15px; font-weight:600;">Vina</h3>
-      <p style="color:#777;">Front-End Developer</p>
-    </div>
-
-    <div style="background: white; color: #333; border-radius: 20px; width: 200px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.3s;">
-      <img src="https://i.imgur.com/AEW8Gxz.jpg" alt="Foto Hafizh" style="width:100%; height:200px; object-fit:cover; border-radius:15px;">
+      <img src="image/hafiz.jpg" alt="Foto Hafizh" style="width:100%; height:200px; object-fit:cover; border-radius:15px;">
       <h3 style="margin-top:15px; font-weight:600;">Hafizh</h3>
       <p style="color:#777;">Web Engineer</p>
     </div>
 
     <div style="background: white; color: #333; border-radius: 20px; width: 200px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.3s;">
-      <img src="https://i.imgur.com/ZHhFZkG.jpg" alt="Foto Dieng" style="width:100%; height:200px; object-fit:cover; border-radius:15px;">
+      <img src="image/dieng.jpg" alt="Foto Dieng" style="width:100%; height:200px; object-fit:cover; border-radius:15px;">
       <h3 style="margin-top:15px; font-weight:600;">Dieng</h3>
-      <p style="color:#777;">Content Researcher</p>
+      <p style="color:#777;">Web Engineer</p>
     </div>
 
   </div>
@@ -243,14 +246,15 @@
 
 
 
+
 <!-- 📞 CONTACT -->
 <section id="contact">
   <h2>Hubungi Kami</h2>
-  <p>Kelompok KosEase – Teknologi Informasi UI</p>
+  <p>Terima kasih sudah mampir ke <strong>KosEase</strong>! ✨</p>
+  <p>Punya ide, saran, atau sekadar mau ngobrol soal hidup hemat anak kos? Yuk, reach out ke kami!</p>
   <p>Email: <a href="mailto:kosease.team@gmail.com">kosease.team@gmail.com</a></p>
-  <p>Instagram: <a href="https://instagram.com/" target="_blank">@kosease.id</a></p>
+  <p>Instagram: <a href="https://instagram.com/kosease.id" target="_blank">@kosease.id</a></p>
 </section>
-
 <!-- 🔻 FOOTER -->
 <footer>
   <p>© 2025 KosEase Team | Teknologi Informasi UI</p>
@@ -265,25 +269,21 @@
     document.getElementById("kategori").scrollIntoView({behavior: "smooth"});
     playClickSound();
   }
+  
 
   // Konten kategori
-  const info = {
-    outfit: `
-      <h3>Outfit Hemat 👕</h3>
-      <p>Belanja di thrift store bisa hemat hingga 60% dibanding beli baru. Pilih bahan berkualitas agar tahan lama dan bisa mix & match.</p>
-      <p>Menurut Kompas Lifestyle, belanja preloved juga bantu kurangi limbah tekstil hingga 20%.</p>
-    `,
-    makanan: `
-      <h3>Makanan Irit 🍜</h3>
-      <p>Masak sendiri bisa hemat 50% dari beli di luar. Menu andalan anak kos: nasi, telur, sayur — cuma Rp8.000/porsi!</p>
-      <p>Sumber: IDN Times – Tips Masak Hemat Mahasiswa Kos</p>
-    `,
-    barang: `
-      <h3>Reuse Corner 🔧</h3>
-      <p>Botol bekas bisa jadi pot tanaman, kardus bisa jadi rak mini. Kreativitasmu bantu lingkungan juga!</p>
-      <p>Sumber: Greeners.co – Ide Daur Ulang Barang Bekas</p>
-    `
-  };
+
+   function goToPage(kategori) {
+  if (kategori === "outfit") {
+    window.location.href = "outfit.html";
+  }
+  if (kategori === "makanan") {
+    window.location.href = "makanan.html";
+  }
+  if (kategori === "reuse") {
+    window.location.href = "reuse.html";
+  }
+}
 
   function showInfo(kategori) {
     document.getElementById("infoText").innerHTML = info[kategori];
@@ -291,33 +291,20 @@
   }
 
   // 🔊 Audio system
-  const bgAudio = new Audio('https://cdn.pixabay.com/download/audio/2023/03/20/audio_9f4dbe3a57.mp3?filename=lofi-study-112191.mp3');
-  bgAudio.loop = true;
-  bgAudio.volume = 0.4;
-  let isMuted = false;
+ let isPlaying = false;
+const audio = document.getElementById("bgMusic");
+const toggleBtn = document.getElementById("audioToggle");
 
-  window.addEventListener("load", () => {
-    bgAudio.play().catch(() => {
-      console.log("Autoplay diblokir browser, user perlu klik manual");
-    });
-  });
-
-  function toggleAudio() {
-    const icon = document.getElementById("audioToggle");
-    if (isMuted) {
-      bgAudio.play();
-      icon.textContent = "🔊";
-    } else {
-      bgAudio.pause();
-      icon.textContent = "🔈";
-    }
-    isMuted = !isMuted;
+toggleBtn.addEventListener("click", function () {
+  if (isPlaying) {
+    audio.pause();
+    toggleBtn.textContent = "🔇"; // ikon mute
+  } else {
+    audio.play();
+    toggleBtn.textContent = "🔊"; // ikon sound
   }
-  document.getElementById("audioToggle").addEventListener("click", toggleAudio);
-
-  // Klik sound
-  const clickSound = new Audio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_9bca6e3471.mp3?filename=click-124467.mp3');
-  function playClickSound() { clickSound.play(); }
+  isPlaying = !isPlaying;
+});
 </script>
 
 </body>
