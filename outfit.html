@@ -6,8 +6,11 @@
 <title>KosEase – Panduan Hidup Hemat Anak Kos</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="ui.png">
+<<<<<<< Updated upstream
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+=======
+>>>>>>> Stashed changes
 
 <style>
 * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
@@ -107,6 +110,7 @@ nav {
   display: inline-block;
   cursor: pointer;
   overflow: hidden;
+<<<<<<< Updated upstream
 }
 
 .category-title {
@@ -126,6 +130,8 @@ nav {
 }
 #content-pria .category-title {
   background: linear-gradient(90deg, #0b0675, #2cf9e5);
+=======
+>>>>>>> Stashed changes
 }
 
 .category-selector:hover .category-title {
@@ -133,6 +139,35 @@ nav {
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
+<<<<<<< Updated upstream
+=======
+.category-title {
+  position: absolute;
+  bottom: 12px;               /* jarak dari bawah gambar */
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, #ff8bb3, #ffb36b); /* gradient cantik */
+  padding: 6px 18px;
+  border-radius: 25px;        /* oval */
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+#content-pria .category-title {
+  background: linear-gradient(90deg, #0b0675, #2cf9e5);
+}
+
+
+.category-selector:hover .category-title {
+  transform: translateX(-50%) translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+
+>>>>>>> Stashed changes
 /* ITEM GRID SLIDER */
 #slider-wrapper { position: relative; margin-top:20px; }
 #item-grid {
@@ -206,7 +241,11 @@ footer { background:#222; color:white; padding:40px 10%; text-align:center; }
   </div>
 </nav>
 <audio id="bgMusic" loop>
+<<<<<<< Updated upstream
   <source src="sound/Cozy Drift.mp3" type="audio/mpeg">
+=======
+  <source src="namafile.mp3" type="audio/mpeg">
+>>>>>>> Stashed changes
 </audio>
 <!-- HOME -->
 <section id="home">
@@ -214,6 +253,7 @@ footer { background:#222; color:white; padding:40px 10%; text-align:center; }
   <p>OUTFIT HEMAT UNTUK ANAK KOS ✨</p>
   <p>Pilih gender:</p>
   <div class="gender-row">
+<<<<<<< Updated upstream
     <button id="btn-pria" class="gender-btn pria">Pria</button>
      <button id="btn-wanita" class="gender-btn wanita">Wanita</button>
   </div>
@@ -250,10 +290,46 @@ footer { background:#222; color:white; padding:40px 10%; text-align:center; }
     <button id="prev" class="slider-btn">◀</button>
     <main id="item-grid"></main>
     <button id="next" class="slider-btn">▶</button>
+=======
+    <button id="btn-wanita" class="gender-btn wanita">Wanita</button>
+    <button id="btn-pria" class="gender-btn pria">Pria</button>
+>>>>>>> Stashed changes
   </div>
 </section>
 
+<!-- TEAM -->
+<section id="team">
+  <!-- WANITA -->
+  <div id="content-wanita" class="hidden">
+    <h2>--- Toko Wanita ---</h2>
+    <div class="grid">
+      <div class="category-selector" data-category="outer"><img src="outer1.jpg"><h3 class="category-title">Outer</h3></div>
+      <div class="category-selector" data-category="rok"><img src="rok1.jpg"><h3 class="category-title">Rok</h3></div>
+      <div class="category-selector" data-category="dress"><img src="dres1.jpg"><h3 class="category-title">Dress</h3></div>
+      <div class="category-selector" data-category="sepatu"><img src="sepatu1.jpg"><h3 class="category-title">Sepatu</h3></div>
+      <div class="category-selector" data-category="aksesoris"><img src="akser1.jpg"><h3 class="category-title">Aksesoris</h3></div>
+    </div>
+  </div>
 
+  <!-- PRIA -->
+  <div id="content-pria" class="hidden">
+    <h2>--- Toko Pria ---</h2>
+    <div class="grid">
+      <div class="category-selector" data-category="jaket"><img src="jaket1.jpg"><h3 class="category-title">Jaket</h3></div>
+      <div class="category-selector" data-category="celana"><img src="cln1.jpg"><h3 class="category-title">Celana</h3></div>
+      <div class="category-selector" data-category="jas"><img src="jas1.jpg"><h3 class="category-title"> Jas</h3></div>
+      <div class="category-selector" data-category="sepatu"><img src="spt1.jpg"><h3 class="category-title">Sepatu</h3></div>
+      <div class="category-selector" data-category="aksesoris"><img src="ak1.jpg"><h3 class="category-title">Aksesoris</h3></div>
+    </div>
+  </div>
+
+  <!-- ITEM GRID + SLIDER -->
+  <div id="slider-wrapper" class="hidden">
+    <button id="prev" class="slider-btn">◀</button>
+    <main id="item-grid"></main>
+    <button id="next" class="slider-btn">▶</button>
+  </div>
+</section>
 
 <!-- 🔻 FOOTER -->
 <footer>
@@ -477,7 +553,229 @@ btnPria.addEventListener('click',()=>{
   updateItemGrid();
 });
 
+<script>
+// DATA 10 ITEM PER KATEGORI
+const itemsData = {
+  wanita: {
+   outer: [
+      { id:1, name:"Outer Wanita 1", price:"Rp125.000", img:"#", link:"#" },
+      { id:2, name:"Outer Wanita 2", price:"Rp130.000", img:"#", link:"#" },
+      { id:3, name:"Outer Wanita 3", price:"Rp135.000", img:"#", link:"#" },
+      { id:4, name:"Outer Wanita 4", price:"Rp140.000", img:"#", link:"#" },
+      { id:5, name:"Outer Wanita 5", price:"Rp145.000", img:"#", link:"#" },
+      { id:6, name:"Outer Wanita 6", price:"Rp150.000", img:"#", link:"#" },
+      { id:7, name:"Outer Wanita 7", price:"Rp155.000", img:"#", link:"#" },
+      { id:8, name:"Outer Wanita 8", price:"Rp160.000", img:"#", link:"#" },
+      { id:9, name:"Outer Wanita 9", price:"Rp165.000", img:"#", link:"#" },
+      { id:10,name:"Outer Wanita 10",price:"Rp170.000", img:"#", link:"#" }
+    ],
+    rok: [
+      { id:11,name:"Rok Wanita 1", price:"Rp95.000", img:"#", link:"#" },
+      { id:12,name:"Rok Wanita 2", price:"Rp99.000", img:"#", link:"#" },
+      { id:13,name:"Rok Wanita 3", price:"Rp103.000", img:"#", link:"#" },
+      { id:14,name:"Rok Wanita 4", price:"Rp107.000", img:"#", link:"#" },
+      { id:15,name:"Rok Wanita 5", price:"Rp111.000", img:"#", link:"#" },
+      { id:16,name:"Rok Wanita 6", price:"Rp115.000", img:"#", link:"#" },
+      { id:17,name:"Rok Wanita 7", price:"Rp119.000", img:"#", link:"#" },
+      { id:18,name:"Rok Wanita 8", price:"Rp123.000", img:"#", link:"#" },
+      { id:19,name:"Rok Wanita 9", price:"Rp127.000", img:"#", link:"#" },
+      { id:20,name:"Rok Wanita 10",price:"Rp131.000", img:"#", link:"#" }
+    ],
+   dress: [
+      { id:21, name:"dress Wanita 1", price:"Rp125.000", img:"#", link:"#" },
+      { id:22, name:"dress Wanita 2", price:"Rp130.000", img:"#", link:"#" },
+      { id:23, name:"dress Wanita 3", price:"Rp135.000", img:"#", link:"#" },
+      { id:24, name:"dress Wanita 4", price:"Rp140.000", img:"#", link:"#" },
+      { id:25, name:"dress Wanita 5", price:"Rp145.000", img:"#", link:"#" },
+      { id:26, name:"dress Wanita 6", price:"Rp150.000", img:"#", link:"#" },
+      { id:27, name:"dress Wanita 7", price:"Rp155.000", img:"#", link:"#" },
+      { id:28, name:"dress Wanita 8", price:"Rp160.000", img:"#", link:"#" },
+      { id:29, name:"dress Wanita 9", price:"Rp165.000", img:"#", link:"#" },
+      { id:30,name:"dress Wanita 10",price:"Rp170.000", img:"#", link:"#" }
+    ],
+    sepatu: [
+      { id:31,name:"sepatu Wanita 1", price:"Rp95.000", img:"#", link:"#" },
+      { id:32,name:"sepatu Wanita 2", price:"Rp99.000", img:"#", link:"#" },
+      { id:33,name:"sepatu Wanita 3", price:"Rp103.000", img:"#", link:"#" },
+      { id:34,name:"sepatu Wanita 4", price:"Rp107.000", img:"#", link:"#" },
+      { id:35,name:"sepatu Wanita 5", price:"Rp111.000", img:"#", link:"#" },
+      { id:36,name:"sepatu Wanita 6", price:"Rp115.000", img:"#", link:"#" },
+      { id:37,name:"sepatu Wanita 7", price:"Rp119.000", img:"#", link:"#" },
+      { id:38,name:"sepatu Wanita 8", price:"Rp123.000", img:"#", link:"#" },
+      { id:39,name:"sepatu Wanita 9", price:"Rp127.000", img:"#", link:"#" },
+      { id:40,name:"sepatu Wanita 10",price:"Rp131.000", img:"#", link:"#" }
+    ],
+     aksesoris: [
+      { id:41,name:"aksesoris Wanita 1", price:"Rp95.000", img:"#", link:"#s" },
+      { id:42,name:"aksesoris Wanita 2", price:"Rp99.000", img:"#", link:"#s" },
+      { id:43,name:"aksesoris Wanita 3", price:"Rp103.000", img:"#", link:"#" },
+      { id:44,name:"aksesoris Wanita 4", price:"Rp107.000", img:"#", link:"#" },
+      { id:45,name:"aksesoris Wanita 5", price:"Rp111.000", img:"#", link:"#" },
+      { id:46,name:"aksesoris Wanita 6", price:"Rp115.000", img:"#", link:"#" },
+      { id:47,name:"aksesoris Wanita 7", price:"Rp119.000", img:"#", link:"#" },
+      { id:48,name:"aksesoris Wanita 8", price:"Rp123.000", img:"#", link:"#" },
+      { id:49,name:"aksesoris Wanita 9", price:"Rp127.000", img:"#", link:"#" },
+      { id:50,name:"aksesoris Wanita 10",price:"Rp131.000", img:"#", link:"#" }
+    ]
+  },
+  pria: {
+    jaket: [
+      { id:51, name:"jaket pria 1", price:"Rp125.000", img:"#", link:"#" },
+      { id:52, name:"jaket pria 2", price:"Rp130.000", img:"#", link:"#" },
+      { id:53, name:"jaket pria 3", price:"Rp135.000", img:"#", link:"#" },
+      { id:54, name:"jaket pria 4", price:"Rp140.000", img:"#", link:"#" },
+      { id:55, name:"jaket pria 5", price:"Rp145.000", img:"#", link:"#" },
+      { id:56, name:"jaket pria 6", price:"Rp150.000", img:"#", link:"#" },
+      { id:57, name:"jaket pria 7", price:"Rp155.000", img:"#", link:"#" },
+      { id:58, name:"jaket pria 8", price:"Rp160.000", img:"#", link:"#" },
+      { id:59, name:"jaket pria 9", price:"Rp165.000", img:"#", link:"#" },
+      { id:60,name:"jaket pria 10",price:"Rp170.000", img:"#", link:"#1" }
+    ],
+    celana: [
+      { id:61,name:"celana pria 1", price:"Rp95.000", img:"#", link:"#" },
+      { id:62,name:"celana pria 2", price:"Rp99.000", img:"#", link:"#" },
+      { id:63,name:"celana pria 3", price:"Rp103.000", img:"#", link:"#" },
+      { id:64,name:"celana pria 4", price:"Rp107.000", img:"#", link:"#" },
+      { id:65,name:"celana pria 5", price:"Rp111.000", img:"#", link:"#" },
+      { id:66,name:"celana pria 6", price:"Rp115.000", img:"#", link:"#" },
+      { id:67,name:"celana pria 7", price:"Rp119.000", img:"#", link:"#" },
+      { id:68,name:"celana pria 8", price:"Rp123.000", img:"#", link:"#" },
+      { id:69,name:"celana pria 9", price:"Rp127.000", img:"#", link:"#" },
+      { id:70,name:"celana pria 10",price:"Rp131.000", img:"#", link:"#" }
+    ],
+   jas: [
+      { id:71, name:"jas pria 1", price:"Rp125.000", img:"", link:"#" },
+      { id:72, name:"jas pria 2", price:"Rp130.000", img:"#", link:"#" },
+      { id:73, name:"jas pria 3", price:"Rp135.000", img:"#", link:"#" },
+      { id:74, name:"jas pria 4", price:"Rp140.000", img:"#", link:"#" },
+      { id:75, name:"jas pria 5", price:"Rp145.000", img:"#", link:"#" },
+      { id:76, name:"jas pria 6", price:"Rp150.000", img:"#", link:"#" },
+      { id:77, name:"jas pria 7", price:"Rp155.000", img:"#", link:"#" },
+      { id:78, name:"jas pria 8", price:"Rp160.000", img:"#", link:"#" },
+      { id:79, name:"jas pria 9", price:"Rp165.000", img:"#", link:"#" },
+      { id:80,name:"jas pria 10",price:"Rp170.000", img:"#", link:"#" }
+    ],
+    sepatu: [
+      { id:81,name:"sepatu pria 1", price:"Rp95.000", img:"#", link:"#" },
+      { id:82,name:"sepatu pria 2", price:"Rp99.000", img:"#", link:"#" },
+      { id:83,name:"sepatu pria 3", price:"Rp103.000", img:"#", link:"#" },
+      { id:84,name:"sepatu pria 4", price:"Rp107.000", img:"#", link:"#" },
+      { id:85,name:"sepatu pria 5", price:"Rp111.000", img:"#", link:"#" },
+      { id:86,name:"sepatu pria 6", price:"Rp115.000", img:"#", link:"#" },
+      { id:87,name:"sepatu pria 7", price:"Rp119.000", img:"#", link:"#" },
+      { id:88,name:"sepatu pria 8", price:"Rp123.000", img:"#", link:"#" },
+      { id:89,name:"sepatu pria 9", price:"Rp127.000", img:"#", link:"#" },
+      { id:90,name:"sepatu pria 10",price:"Rp131.000", img:"#", link:"#" }
+    ],
+     aksesoris: [
+      { id:91,name:"aksesoris pria 1", price:"Rp95.000", img:"#", link:"#" },
+      { id:92,name:"aksesoris pria 2", price:"Rp99.000", img:"#", link:"#" },
+      { id:93,name:"aksesoris pria 3", price:"Rp103.000", img:"#", link:"#" },
+      { id:94,name:"aksesoris pria 4", price:"Rp107.000", img:"#", link:"#" },
+      { id:95,name:"aksesoris pria 5", price:"Rp111.000", img:"#", link:"#" },
+      { id:96,name:"aksesoris pria 6", price:"Rp115.000", img:"#", link:"#" },
+      { id:97,name:"aksesoris pria 7", price:"Rp119.000", img:"#", link:"#" },
+      { id:98,name:"aksesoris pria 8", price:"Rp123.000", img:"#", link:"#" },
+      { id:99,name:"aksesoris pria 9", price:"Rp127.000", img:"#", link:"#" },
+      { id:100,name:"aksesoris pria 10",price:"Rp131.000", img:"#", link:"#" }
+    ]
+  }
+};
 
+<<<<<<< Updated upstream
+=======
+// ELEMENTS
+const btnWanita=document.getElementById('btn-wanita');
+const btnPria=document.getElementById('btn-pria');
+const contentWanita=document.getElementById('content-wanita');
+const contentPria=document.getElementById('content-pria');
+const itemGrid=document.getElementById('item-grid');
+
+// STATE
+let currentGender='wanita';
+let currentCategory='outer';
+
+// UPDATE GRID
+function updateItemGrid(){
+  const items=itemsData[currentGender][currentCategory]||[];
+  itemGrid.innerHTML='';
+  if(items.length===0){
+    itemGrid.innerHTML=<p class="col-span-full text-center text-gray-500">Belum ada item.</p>;
+    return;
+  }
+  items.forEach((item,index)=>{
+    const div=document.createElement('div');
+    div.className='card';
+    div.innerHTML=`
+      <img src="${item.img}">
+      <div class="card-content">
+        <h3>${item.name}</h3>
+        <p>${item.price}</p>
+        <a href="${item.link}" target="_blank">Beli Sekarang</a>
+      </div>
+    `;
+    itemGrid.appendChild(div);
+    setTimeout(()=>{ div.classList.add('show'); }, index*100);
+  });
+}
+
+// GENDER BUTTON
+btnWanita.addEventListener('click',()=>{
+  currentGender='wanita';
+  contentWanita.classList.remove('hidden');
+  contentPria.classList.add('hidden');
+  currentCategory='outer';
+  
+  updateItemGrid();
+});
+btnPria.addEventListener('click',()=>{
+  currentGender='pria';
+  contentPria.classList.remove('hidden');
+  contentWanita.classList.add('hidden');
+  currentCategory='jaket';
+  
+  updateItemGrid();
+});
+
+// CATEGORY SELECTOR
+document.querySelectorAll('.category-selector').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    currentCategory=btn.dataset.category;
+    updateItemGrid();
+  });
+});
+
+// SLIDER BUTTONS
+document.getElementById('prev').addEventListener('click',()=>{ itemGrid.scrollBy({left:-250, behavior:'smooth'}); });
+document.getElementById('next').addEventListener('click',()=>{ itemGrid.scrollBy({left:250, behavior:'smooth'}); });
+
+const sliderWrapper = document.getElementById('slider-wrapper');
+
+btnWanita.addEventListener('click',()=>{
+  currentGender = 'wanita';
+  contentWanita.classList.remove('hidden');
+  contentPria.classList.add('hidden');
+  currentCategory = 'outer'; // pastikan ada kategori default
+  sliderWrapper.classList.remove('hidden'); // tampilkan slider
+  updateItemGrid();
+});
+
+btnPria.addEventListener('click',()=>{
+  currentGender = 'pria';
+  contentPria.classList.remove('hidden');
+  contentWanita.classList.add('hidden');
+  currentCategory = 'jaket'; // pastikan ada kategori default
+  sliderWrapper.classList.remove('hidden'); // tampilkan slider
+  updateItemGrid();
+});
+
+
+
+// INIT
+updateItemGrid();
+itemGrid.innerHTML = ''; // Kosongkan grid saat pertama kali load
+
+>>>>>>> Stashed changes
 
  // 🔊 Audio system
  let isPlaying = false;
@@ -493,7 +791,10 @@ toggleBtn.addEventListener("click", function () {
     toggleBtn.textContent = "🔊"; // ikon sound
   }
   isPlaying = !isPlaying;
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 });
 
 </script>
