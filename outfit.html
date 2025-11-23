@@ -6,11 +6,8 @@
 <title>KosEase – Panduan Hidup Hemat Anak Kos</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="ui.png">
-<<<<<<< Updated upstream
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-=======
->>>>>>> Stashed changes
 
 <style>
 * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
@@ -32,27 +29,38 @@ nav {
 .nav-left h2 {
   font-weight: 700;
   font-size: 1.6rem;
-  background: linear-gradient(90deg, #ff8bb3, #ffb36b);
+  background: linear-gradient(90deg, #aa8f5c);
   -webkit-background-clip: text;
   color: transparent;
 }
 .nav-right a {
   margin: 0 10px;
   text-decoration: none;
-  color: #ff9a6b;
+  color:#aa8f5c;
   font-weight: 500;
   transition:0.3s;
 }
-.nav-right a:hover { color:#ff70a6; }
+.nav-right a:hover { color:#aa8f5c; }
 .audio-icon { cursor:pointer; font-size:22px; margin-left:10px; transition:0.3s; }
 .audio-icon:hover { transform:scale(1.2); }
 
 /* HOME */
-#home { background:url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat; height:100vh; color:white; display:flex; flex-direction:column; justify-content:center; align-items:center; position:relative; }
+#home { background:url('image/outfit.png') center/cover no-repeat; height:100vh; color:white; display:flex; flex-direction:column; justify-content:center; align-items:center; position:relative; }
 #home::before { content:''; position:absolute; inset:0; background:rgba(0,0,0,0.6); }
 #home * { position:relative; z-index:2; }
 #home h1 { font-size:3em; font-weight:700; animation: fadeInDown 1s ease; }
 #home p { font-size:1.2em; margin-bottom:15px; animation: fadeInUp 1.2s ease; }
+ #startBtnPria {
+    background-color:  #ff8bb3, #ffb36b; border: none; padding: 12px 30px; border-radius: 30px;
+    font-size: 1em; cursor: pointer; transition: 0.3s; font-weight: 600;
+    color:  #fff5e2;
+  }
+   #startBtnWanita {
+    background-color:  #0b0675, #2cf9e5; border: none; padding: 12px 30px; border-radius: 30px;
+    font-size: 1em; cursor: pointer; transition: 0.3s; font-weight: 600;
+    color:  #fff5e2;
+  }
+   #startBtn:hover { background-color: #fff5e2; transform: scale(1.05); }
 
 @keyframes fadeInDown { from {opacity:0; transform:translateY(-20px);} to {opacity:1; transform:translateY(0);} }
 @keyframes fadeInUp { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
@@ -110,7 +118,6 @@ nav {
   display: inline-block;
   cursor: pointer;
   overflow: hidden;
-<<<<<<< Updated upstream
 }
 
 .category-title {
@@ -130,8 +137,6 @@ nav {
 }
 #content-pria .category-title {
   background: linear-gradient(90deg, #0b0675, #2cf9e5);
-=======
->>>>>>> Stashed changes
 }
 
 .category-selector:hover .category-title {
@@ -139,35 +144,6 @@ nav {
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-<<<<<<< Updated upstream
-=======
-.category-title {
-  position: absolute;
-  bottom: 12px;               /* jarak dari bawah gambar */
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(90deg, #ff8bb3, #ffb36b); /* gradient cantik */
-  padding: 6px 18px;
-  border-radius: 25px;        /* oval */
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: white;
-  text-align: center;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-  transition: 0.3s;
-}
-#content-pria .category-title {
-  background: linear-gradient(90deg, #0b0675, #2cf9e5);
-}
-
-
-.category-selector:hover .category-title {
-  transform: translateX(-50%) translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-
->>>>>>> Stashed changes
 /* ITEM GRID SLIDER */
 #slider-wrapper { position: relative; margin-top:20px; }
 #item-grid {
@@ -229,33 +205,34 @@ footer { background:#222; color:white; padding:40px 10%; text-align:center; }
 
 <!-- NAVBAR -->
 <nav>
-  <div class="nav-left"><h2>KosEase</h2></div>
+  <a href="index.html" class="nav-left">
+    <h2>KosEase</h2>
+  </a>
+
   <div class="nav-right">
     <a href="#home">Home</a>
     <a href="#team">Outfit</a>
-    <a href="#contact">Contact</a>
-    <a href="index.html">back</a>
+    <a href="#contact">Peta</a>
    <span id="audioToggle" class="audio-icon" style="cursor:pointer; font-size:24px;">
   🔊
 </span>  
   </div>
 </nav>
 <audio id="bgMusic" loop>
-<<<<<<< Updated upstream
   <source src="sound/Cozy Drift.mp3" type="audio/mpeg">
-=======
-  <source src="namafile.mp3" type="audio/mpeg">
->>>>>>> Stashed changes
 </audio>
+
 <!-- HOME -->
 <section id="home">
   <h1>KosEase</h1>
   <p>OUTFIT HEMAT UNTUK ANAK KOS ✨</p>
   <p>Pilih gender:</p>
+   <div class="button-group">
+   <button id="startBtn" onclick="scrollToPria()">Pria</button>
+   <button id="startBtnn" onclick="scrollToWanita()">Wanita</button>
+   </div>
   <div class="gender-row">
-<<<<<<< Updated upstream
-    <button id="btn-pria" class="gender-btn pria">Pria</button>
-     <button id="btn-wanita" class="gender-btn wanita">Wanita</button>
+  
   </div>
 </section>
 
@@ -270,6 +247,7 @@ footer { background:#222; color:white; padding:40px 10%; text-align:center; }
       <div class="category-selector" data-category="dress"><img src="image/Outfitwanita/dress.jpg"><h3 class="category-title">Dress</h3></div>
       <div class="category-selector" data-category="sepatu"><img src="image/Outfitwanita/sepatu wanita.jpg"><h3 class="category-title">Sepatu</h3></div>
       <div class="category-selector" data-category="aksesoris"><img src="image/Outfitwanita/aksesoris.jpg"><h3 class="category-title">Aksesoris</h3></div>
+
     </div>
   </div>
 
@@ -279,47 +257,9 @@ footer { background:#222; color:white; padding:40px 10%; text-align:center; }
     <div class="grid">
       <div class="category-selector" data-category="jaket"><img src="image/outfitpria/jaket.jpg"><h3 class="category-title">Jaket</h3></div>
       <div class="category-selector" data-category="celana"><img src="image/outfitpria/nihhcelana.jpg"><h3 class="category-title">Celana</h3></div>
-      <div class="category-selector" data-category="atasan"><img src="image/outfitpria/jas pria.jpg"><h3 class="category-title"> Atasan</h3></div>
+      <div class="category-selector" data-category="jas"><img src="image/outfitpria/jas pria.jpg"><h3 class="category-title"> Jas</h3></div>
       <div class="category-selector" data-category="sepatu"><img src="image/outfitpria/sepatu.jpg"><h3 class="category-title">Sepatu</h3></div>
-      <div class="category-selector" data-category="aksesoris"><img src="image/outfitpria/atasan (11).jpg"><h3 class="category-title">Aksesoris</h3></div>
-    </div>
-  </div>
-
-  <!-- ITEM GRID + SLIDER -->
-  <div id="slider-wrapper" class="hidden">
-    <button id="prev" class="slider-btn">◀</button>
-    <main id="item-grid"></main>
-    <button id="next" class="slider-btn">▶</button>
-=======
-    <button id="btn-wanita" class="gender-btn wanita">Wanita</button>
-    <button id="btn-pria" class="gender-btn pria">Pria</button>
->>>>>>> Stashed changes
-  </div>
-</section>
-
-<!-- TEAM -->
-<section id="team">
-  <!-- WANITA -->
-  <div id="content-wanita" class="hidden">
-    <h2>--- Toko Wanita ---</h2>
-    <div class="grid">
-      <div class="category-selector" data-category="outer"><img src="outer1.jpg"><h3 class="category-title">Outer</h3></div>
-      <div class="category-selector" data-category="rok"><img src="rok1.jpg"><h3 class="category-title">Rok</h3></div>
-      <div class="category-selector" data-category="dress"><img src="dres1.jpg"><h3 class="category-title">Dress</h3></div>
-      <div class="category-selector" data-category="sepatu"><img src="sepatu1.jpg"><h3 class="category-title">Sepatu</h3></div>
-      <div class="category-selector" data-category="aksesoris"><img src="akser1.jpg"><h3 class="category-title">Aksesoris</h3></div>
-    </div>
-  </div>
-
-  <!-- PRIA -->
-  <div id="content-pria" class="hidden">
-    <h2>--- Toko Pria ---</h2>
-    <div class="grid">
-      <div class="category-selector" data-category="jaket"><img src="jaket1.jpg"><h3 class="category-title">Jaket</h3></div>
-      <div class="category-selector" data-category="celana"><img src="cln1.jpg"><h3 class="category-title">Celana</h3></div>
-      <div class="category-selector" data-category="jas"><img src="jas1.jpg"><h3 class="category-title"> Jas</h3></div>
-      <div class="category-selector" data-category="sepatu"><img src="spt1.jpg"><h3 class="category-title">Sepatu</h3></div>
-      <div class="category-selector" data-category="aksesoris"><img src="ak1.jpg"><h3 class="category-title">Aksesoris</h3></div>
+      <div class="category-selector" data-category="aksesoris"><img src="image/outfitpria/aksesorispria.jpg"><h3 class="category-title">Aksesoris</h3></div>
     </div>
   </div>
 
@@ -330,14 +270,46 @@ footer { background:#222; color:white; padding:40px 10%; text-align:center; }
     <button id="next" class="slider-btn">▶</button>
   </div>
 </section>
+ <!-- MAP SECTION -->
+<section id="contact">
+  <h2>--LIHAT PETA DEPOK--</h2>
+  
+   <div id="map"
+     style="
+        height: 320px;
+        width: 80%;
+        margin: 40px auto;
+        border-radius: 20px;
+        overflow: hidden;
+     ">
+</div>
 
-<!-- 🔻 FOOTER -->
-<footer>
-  <p>© 2025 KosEase Team | Teknologi Informasi UI</p>
-  <p>Sumber: <a href="https://www.kompas.com/" target="_blank">Kompas</a> · 
-  <a href="https://www.idntimes.com/" target="_blank">IDN Times</a> · 
-  <a href="https://greeners.co/" target="_blank">Greeners</a></p>
-</footer>
+    <script>
+      var map = L.map('map').setView([-6.3650, 106.8320], 14);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19
+      }).addTo(map);
+
+      const places = [
+        { name: "Nasi Goreng Cak Syamsul", lat: -6.365321, lng: 106.829912, link: "https://gofood.link/a/BUvbsW5" },
+        { name: "Salam Kafe H. Amat II", lat: -6.367201, lng: 106.833512, link: "https://gofood.link/a/yM8XV4f" },
+        { name: "Nasi Bebek Ayam Kalasan Madura", lat: -6.368502, lng: 106.835201, link: "https://gofood.link/a/CMzXpks" },
+        { name: "Warkop HS", lat: -6.367920, lng: 106.832450, link: "https://gofood.link/u/nyO09" },
+        { name: "Pecel Lele Rela 19", lat: -6.370012, lng: 106.829710, link: "https://gofood.link/u/lrMgK" },
+        { name: "Bakso Wonogiri Beji", lat: -6.367510, lng: 106.821950, link: "https://gofood.link/u/2KLmp" },
+        { name: "Sate Padang Takana Juo 2", lat: -6.368900, lng: 106.825310, link: "https://gofood.link/a/DenFsZW" },
+        { name: "Nasi Uduk & Ketupat Uni May", lat: -6.367200, lng: 106.824110, link: "https://gofood.link/a/Jsa9EMw" },
+        { name: "Catering Dapur Muslimah", lat: -6.369320, lng: 106.826510, link: "https://gofood.link/a/EB3FynW" }
+      ];
+
+      places.forEach(p => {
+        L.marker([p.lat, p.lng]).addTo(map)
+          .bindPopup(`<b>${p.name}</b><br><a href='${p.link}' target='_blank'>Buka GoFood</a>`);
+      });
+    </script>
+  </section>
+
 
 <script>
 // DATA 10 ITEM PER KATEGORI
@@ -354,6 +326,7 @@ const itemsData = {
       { id:8, name:"Outer Wanita 8", price:"Rp160.000", img:"image/Outfitwanita/kardigan/outer (8).jpg", link:"https://id.shp.ee/JwfBC8X" },
       { id:9, name:"Outer Wanita 9", price:"Rp165.000", img:"image/Outfitwanita/kardigan/outer (9).jpg", link:"https://id.shp.ee/JwfBC8X" },
       { id:10,name:"Outer Wanita 10",price:"Rp170.000", img:"image/Outfitwanita/kardigan/outer (10).jpg", link:"https://id.shp.ee/JwfBC8X" }
+
     ],
     rok: [
       { id:11,name:"Rok Wanita 1", price:"Rp95.000", img:"image/Outfitwanita/rok/rok (1).jpg", link:"#" },
@@ -366,6 +339,7 @@ const itemsData = {
       { id:18,name:"Rok Wanita 8", price:"Rp123.000", img:"image/Outfitwanita/rok/rok (8).jpg", link:"#" },
       { id:19,name:"Rok Wanita 9", price:"Rp127.000", img:"image/Outfitwanita/rok/rok (9).jpg", link:"#" },
       { id:20,name:"Rok Wanita 10",price:"Rp131.000", img:"image/Outfitwanita/rok/rok (1).jpg", link:"#" }
+
     ],
    dress: [
       { id:21, name:"dress Wanita 1", price:"Rp125.000", img:"image/Outfitwanita/dress/dres (1).jpg", link:"#" },
@@ -378,6 +352,7 @@ const itemsData = {
       { id:28, name:"dress Wanita 8", price:"Rp160.000", img:"image/Outfitwanita/dress/dres (8).jpg", link:"#" },
       { id:29, name:"dress Wanita 9", price:"Rp165.000", img:"image/Outfitwanita/dress/dres (9).jpg", link:"#" },
       { id:30,name:"dress Wanita 10",price:"Rp170.000", img:"image/Outfitwanita/dress/dres (10).jpg", link:"#" }
+
     ],
     sepatu: [
       { id:31,name:"sepatu Wanita 1", price:"Rp95.000", img:"image/Outfitwanita/sepatu/sepatu (1).jpg", link:"https://s.shopee.co.id/6fY93yxV7E" },
@@ -402,6 +377,7 @@ const itemsData = {
       { id:48,name:"aksesoris Wanita 8", price:"Rp123.000", img:"image/Outfitwanita/aksesoris/1 (8).jpg", link:"#" },
       { id:49,name:"aksesoris Wanita 9", price:"Rp127.000", img:"image/Outfitwanita/aksesoris/1 (9).jpg", link:"#" },
       { id:50,name:"aksesoris Wanita 10",price:"Rp131.000", img:"image/Outfitwanita/aksesoris/1 (10).jpg", link:"#" }
+
     ]
   },
   pria: {
@@ -416,6 +392,7 @@ const itemsData = {
       { id:58, name:"jaket pria 8", price:"Rp160.000", img:"image/outfitpria/jaket/jaket (8).jpg", link:"https://id.shp.ee/x7MJkmL" },
       { id:59, name:"jaket pria 9", price:"Rp165.000", img:"image/outfitpria/jaket/jaket (9).jpg", link:"https://id.shp.ee/x7MJkmL" },
       { id:60,name:"jaket pria 10",price:"Rp170.000", img:"image/outfitpria/jaket/jaket (10).jpg", link:"https://id.shp.ee/x7MJkmL" }
+
     ],
     celana: [
       { id:61,name:"celana pria 1", price:"Rp95.000", img:"image/outfitpria/celana/celana (1).jpg", link:"https://id.shp.ee/A1kx7Kh" },
@@ -429,7 +406,7 @@ const itemsData = {
       { id:69,name:"celana pria 9", price:"Rp127.000", img:"image/outfitpria/celana/celana (9).jpg", link:"https://id.shp.ee/A1kx7Kh" },
       { id:70,name:"celana pria 10",price:"Rp131.000", img:"image/outfitpria/celana/celana (10).jpg", link:"https://id.shp.ee/A1kx7Kh" }
     ],
-   atasan: [
+   jas: [
       { id:71, name:"atasan pria 1", price:"Rp125.000", img:"image/outfitpria/atasan/atasan (2).jpg", link:"https://id.shp.ee/w4JGJti" },
       { id:72, name:"atasan pria 2", price:"Rp130.000", img:"image/outfitpria/atasan/atasan (3).jpg", link:"https://id.shp.ee/w4JGJti" },
       { id:73, name:"atasan pria 3", price:"Rp135.000", img:"image/outfitpria/atasan/atasan (4).jpg", link:"https://id.shp.ee/w4JGJti" },
@@ -440,6 +417,7 @@ const itemsData = {
       { id:78, name:"atasan pria 8", price:"Rp160.000", img:"image/outfitpria/atasan/atasan (9).jpg", link:"https://id.shp.ee/w4JGJti" },
       { id:79, name:"atasan pria 9", price:"Rp165.000", img:"image/outfitpria/atasan/atasan (10).jpg", link:"https://id.shp.ee/w4JGJti" },
       { id:80,name:"atasan pria 10",price:"Rp170.000", img:"image/outfitpria/atasan/atasan (11).jpg", link:"https://id.shp.ee/w4JGJti" }
+
     ],
     sepatu: [
       { id:81,name:"sepatu pria 1", price:"Rp95.000", img:"image/outfitpria/sepatu/sepatu (1).jpg", link:"https://id.shp.ee/tZ8j4kd" },
@@ -454,7 +432,7 @@ const itemsData = {
       { id:90,name:"sepatu pria 10",price:"Rp131.000", img:"image/outfitpria/sepatu/sepatu (10).jpg", link:"https://id.shp.ee/tZ8j4kd" }
     ],
      aksesoris: [
-      { id:91,name:"aksesoris pria 1", price:"Rp95.000", img:"image/outfitpria/aksesoris/aksesoris (1).jpg", link:"https://id.shp.ee/b9awPdH" },
+        { id:91,name:"aksesoris pria 1", price:"Rp95.000", img:"image/outfitpria/aksesoris/aksesoris (1).jpg", link:"https://id.shp.ee/b9awPdH" },
       { id:92,name:"aksesoris pria 2", price:"Rp99.000", img:"image/outfitpria/aksesoris/aksesoris (2).jpg", link:"https://id.shp.ee/b9awPdH" },
       { id:93,name:"aksesoris pria 3", price:"Rp103.000", img:"image/outfitpria/aksesoris/aksesoris (3).jpg", link:"https://id.shp.ee/b9awPdH" },
       { id:94,name:"aksesoris pria 4", price:"Rp107.000", img:"image/outfitpria/aksesoris/aksesoris (4).jpg", link:"https://id.shp.ee/b9awPdH" },
@@ -464,6 +442,7 @@ const itemsData = {
       { id:98,name:"aksesoris pria 8", price:"Rp123.000", img:"image/outfitpria/aksesoris/aksesoris (8).jpg", link:"https://id.shp.ee/b9awPdH" },
       { id:99,name:"aksesoris pria 9", price:"Rp127.000", img:"image/outfitpria/aksesoris/aksesoris (9).jpg", link:"https://id.shp.ee/b9awPdH" },
       { id:100,name:"aksesoris pria 10",price:"Rp131.000", img:"image/outfitpria/aksesoris/aksesoris (10).jpg", link:"https://id.shp.ee/b9awPdH" }
+
     ]
   }
 };
@@ -474,6 +453,10 @@ const btnPria=document.getElementById('btn-pria');
 const contentWanita=document.getElementById('content-wanita');
 const contentPria=document.getElementById('content-pria');
 const itemGrid=document.getElementById('item-grid');
+function scrollToPria() {
+    document.getElementById("team").scrollIntoView({behavior: "smooth"}); }
+ function scrollToWanita() {
+    document.getElementById("team").scrollIntoView({behavior: "smooth"}); }
 
 // STATE
 let currentGender='wanita';
@@ -553,229 +536,27 @@ btnPria.addEventListener('click',()=>{
   updateItemGrid();
 });
 
-<script>
-// DATA 10 ITEM PER KATEGORI
-const itemsData = {
-  wanita: {
-   outer: [
-      { id:1, name:"Outer Wanita 1", price:"Rp125.000", img:"#", link:"#" },
-      { id:2, name:"Outer Wanita 2", price:"Rp130.000", img:"#", link:"#" },
-      { id:3, name:"Outer Wanita 3", price:"Rp135.000", img:"#", link:"#" },
-      { id:4, name:"Outer Wanita 4", price:"Rp140.000", img:"#", link:"#" },
-      { id:5, name:"Outer Wanita 5", price:"Rp145.000", img:"#", link:"#" },
-      { id:6, name:"Outer Wanita 6", price:"Rp150.000", img:"#", link:"#" },
-      { id:7, name:"Outer Wanita 7", price:"Rp155.000", img:"#", link:"#" },
-      { id:8, name:"Outer Wanita 8", price:"Rp160.000", img:"#", link:"#" },
-      { id:9, name:"Outer Wanita 9", price:"Rp165.000", img:"#", link:"#" },
-      { id:10,name:"Outer Wanita 10",price:"Rp170.000", img:"#", link:"#" }
-    ],
-    rok: [
-      { id:11,name:"Rok Wanita 1", price:"Rp95.000", img:"#", link:"#" },
-      { id:12,name:"Rok Wanita 2", price:"Rp99.000", img:"#", link:"#" },
-      { id:13,name:"Rok Wanita 3", price:"Rp103.000", img:"#", link:"#" },
-      { id:14,name:"Rok Wanita 4", price:"Rp107.000", img:"#", link:"#" },
-      { id:15,name:"Rok Wanita 5", price:"Rp111.000", img:"#", link:"#" },
-      { id:16,name:"Rok Wanita 6", price:"Rp115.000", img:"#", link:"#" },
-      { id:17,name:"Rok Wanita 7", price:"Rp119.000", img:"#", link:"#" },
-      { id:18,name:"Rok Wanita 8", price:"Rp123.000", img:"#", link:"#" },
-      { id:19,name:"Rok Wanita 9", price:"Rp127.000", img:"#", link:"#" },
-      { id:20,name:"Rok Wanita 10",price:"Rp131.000", img:"#", link:"#" }
-    ],
-   dress: [
-      { id:21, name:"dress Wanita 1", price:"Rp125.000", img:"#", link:"#" },
-      { id:22, name:"dress Wanita 2", price:"Rp130.000", img:"#", link:"#" },
-      { id:23, name:"dress Wanita 3", price:"Rp135.000", img:"#", link:"#" },
-      { id:24, name:"dress Wanita 4", price:"Rp140.000", img:"#", link:"#" },
-      { id:25, name:"dress Wanita 5", price:"Rp145.000", img:"#", link:"#" },
-      { id:26, name:"dress Wanita 6", price:"Rp150.000", img:"#", link:"#" },
-      { id:27, name:"dress Wanita 7", price:"Rp155.000", img:"#", link:"#" },
-      { id:28, name:"dress Wanita 8", price:"Rp160.000", img:"#", link:"#" },
-      { id:29, name:"dress Wanita 9", price:"Rp165.000", img:"#", link:"#" },
-      { id:30,name:"dress Wanita 10",price:"Rp170.000", img:"#", link:"#" }
-    ],
-    sepatu: [
-      { id:31,name:"sepatu Wanita 1", price:"Rp95.000", img:"#", link:"#" },
-      { id:32,name:"sepatu Wanita 2", price:"Rp99.000", img:"#", link:"#" },
-      { id:33,name:"sepatu Wanita 3", price:"Rp103.000", img:"#", link:"#" },
-      { id:34,name:"sepatu Wanita 4", price:"Rp107.000", img:"#", link:"#" },
-      { id:35,name:"sepatu Wanita 5", price:"Rp111.000", img:"#", link:"#" },
-      { id:36,name:"sepatu Wanita 6", price:"Rp115.000", img:"#", link:"#" },
-      { id:37,name:"sepatu Wanita 7", price:"Rp119.000", img:"#", link:"#" },
-      { id:38,name:"sepatu Wanita 8", price:"Rp123.000", img:"#", link:"#" },
-      { id:39,name:"sepatu Wanita 9", price:"Rp127.000", img:"#", link:"#" },
-      { id:40,name:"sepatu Wanita 10",price:"Rp131.000", img:"#", link:"#" }
-    ],
-     aksesoris: [
-      { id:41,name:"aksesoris Wanita 1", price:"Rp95.000", img:"#", link:"#s" },
-      { id:42,name:"aksesoris Wanita 2", price:"Rp99.000", img:"#", link:"#s" },
-      { id:43,name:"aksesoris Wanita 3", price:"Rp103.000", img:"#", link:"#" },
-      { id:44,name:"aksesoris Wanita 4", price:"Rp107.000", img:"#", link:"#" },
-      { id:45,name:"aksesoris Wanita 5", price:"Rp111.000", img:"#", link:"#" },
-      { id:46,name:"aksesoris Wanita 6", price:"Rp115.000", img:"#", link:"#" },
-      { id:47,name:"aksesoris Wanita 7", price:"Rp119.000", img:"#", link:"#" },
-      { id:48,name:"aksesoris Wanita 8", price:"Rp123.000", img:"#", link:"#" },
-      { id:49,name:"aksesoris Wanita 9", price:"Rp127.000", img:"#", link:"#" },
-      { id:50,name:"aksesoris Wanita 10",price:"Rp131.000", img:"#", link:"#" }
-    ]
-  },
-  pria: {
-    jaket: [
-      { id:51, name:"jaket pria 1", price:"Rp125.000", img:"#", link:"#" },
-      { id:52, name:"jaket pria 2", price:"Rp130.000", img:"#", link:"#" },
-      { id:53, name:"jaket pria 3", price:"Rp135.000", img:"#", link:"#" },
-      { id:54, name:"jaket pria 4", price:"Rp140.000", img:"#", link:"#" },
-      { id:55, name:"jaket pria 5", price:"Rp145.000", img:"#", link:"#" },
-      { id:56, name:"jaket pria 6", price:"Rp150.000", img:"#", link:"#" },
-      { id:57, name:"jaket pria 7", price:"Rp155.000", img:"#", link:"#" },
-      { id:58, name:"jaket pria 8", price:"Rp160.000", img:"#", link:"#" },
-      { id:59, name:"jaket pria 9", price:"Rp165.000", img:"#", link:"#" },
-      { id:60,name:"jaket pria 10",price:"Rp170.000", img:"#", link:"#1" }
-    ],
-    celana: [
-      { id:61,name:"celana pria 1", price:"Rp95.000", img:"#", link:"#" },
-      { id:62,name:"celana pria 2", price:"Rp99.000", img:"#", link:"#" },
-      { id:63,name:"celana pria 3", price:"Rp103.000", img:"#", link:"#" },
-      { id:64,name:"celana pria 4", price:"Rp107.000", img:"#", link:"#" },
-      { id:65,name:"celana pria 5", price:"Rp111.000", img:"#", link:"#" },
-      { id:66,name:"celana pria 6", price:"Rp115.000", img:"#", link:"#" },
-      { id:67,name:"celana pria 7", price:"Rp119.000", img:"#", link:"#" },
-      { id:68,name:"celana pria 8", price:"Rp123.000", img:"#", link:"#" },
-      { id:69,name:"celana pria 9", price:"Rp127.000", img:"#", link:"#" },
-      { id:70,name:"celana pria 10",price:"Rp131.000", img:"#", link:"#" }
-    ],
-   jas: [
-      { id:71, name:"jas pria 1", price:"Rp125.000", img:"", link:"#" },
-      { id:72, name:"jas pria 2", price:"Rp130.000", img:"#", link:"#" },
-      { id:73, name:"jas pria 3", price:"Rp135.000", img:"#", link:"#" },
-      { id:74, name:"jas pria 4", price:"Rp140.000", img:"#", link:"#" },
-      { id:75, name:"jas pria 5", price:"Rp145.000", img:"#", link:"#" },
-      { id:76, name:"jas pria 6", price:"Rp150.000", img:"#", link:"#" },
-      { id:77, name:"jas pria 7", price:"Rp155.000", img:"#", link:"#" },
-      { id:78, name:"jas pria 8", price:"Rp160.000", img:"#", link:"#" },
-      { id:79, name:"jas pria 9", price:"Rp165.000", img:"#", link:"#" },
-      { id:80,name:"jas pria 10",price:"Rp170.000", img:"#", link:"#" }
-    ],
-    sepatu: [
-      { id:81,name:"sepatu pria 1", price:"Rp95.000", img:"#", link:"#" },
-      { id:82,name:"sepatu pria 2", price:"Rp99.000", img:"#", link:"#" },
-      { id:83,name:"sepatu pria 3", price:"Rp103.000", img:"#", link:"#" },
-      { id:84,name:"sepatu pria 4", price:"Rp107.000", img:"#", link:"#" },
-      { id:85,name:"sepatu pria 5", price:"Rp111.000", img:"#", link:"#" },
-      { id:86,name:"sepatu pria 6", price:"Rp115.000", img:"#", link:"#" },
-      { id:87,name:"sepatu pria 7", price:"Rp119.000", img:"#", link:"#" },
-      { id:88,name:"sepatu pria 8", price:"Rp123.000", img:"#", link:"#" },
-      { id:89,name:"sepatu pria 9", price:"Rp127.000", img:"#", link:"#" },
-      { id:90,name:"sepatu pria 10",price:"Rp131.000", img:"#", link:"#" }
-    ],
-     aksesoris: [
-      { id:91,name:"aksesoris pria 1", price:"Rp95.000", img:"#", link:"#" },
-      { id:92,name:"aksesoris pria 2", price:"Rp99.000", img:"#", link:"#" },
-      { id:93,name:"aksesoris pria 3", price:"Rp103.000", img:"#", link:"#" },
-      { id:94,name:"aksesoris pria 4", price:"Rp107.000", img:"#", link:"#" },
-      { id:95,name:"aksesoris pria 5", price:"Rp111.000", img:"#", link:"#" },
-      { id:96,name:"aksesoris pria 6", price:"Rp115.000", img:"#", link:"#" },
-      { id:97,name:"aksesoris pria 7", price:"Rp119.000", img:"#", link:"#" },
-      { id:98,name:"aksesoris pria 8", price:"Rp123.000", img:"#", link:"#" },
-      { id:99,name:"aksesoris pria 9", price:"Rp127.000", img:"#", link:"#" },
-      { id:100,name:"aksesoris pria 10",price:"Rp131.000", img:"#", link:"#" }
-    ]
-  }
-};
-
-<<<<<<< Updated upstream
-=======
-// ELEMENTS
-const btnWanita=document.getElementById('btn-wanita');
-const btnPria=document.getElementById('btn-pria');
-const contentWanita=document.getElementById('content-wanita');
-const contentPria=document.getElementById('content-pria');
-const itemGrid=document.getElementById('item-grid');
-
-// STATE
-let currentGender='wanita';
-let currentCategory='outer';
-
-// UPDATE GRID
-function updateItemGrid(){
-  const items=itemsData[currentGender][currentCategory]||[];
-  itemGrid.innerHTML='';
-  if(items.length===0){
-    itemGrid.innerHTML=<p class="col-span-full text-center text-gray-500">Belum ada item.</p>;
-    return;
-  }
-  items.forEach((item,index)=>{
-    const div=document.createElement('div');
-    div.className='card';
-    div.innerHTML=`
-      <img src="${item.img}">
-      <div class="card-content">
-        <h3>${item.name}</h3>
-        <p>${item.price}</p>
-        <a href="${item.link}" target="_blank">Beli Sekarang</a>
-      </div>
-    `;
-    itemGrid.appendChild(div);
-    setTimeout(()=>{ div.classList.add('show'); }, index*100);
-  });
-}
-
-// GENDER BUTTON
-btnWanita.addEventListener('click',()=>{
-  currentGender='wanita';
-  contentWanita.classList.remove('hidden');
-  contentPria.classList.add('hidden');
-  currentCategory='outer';
-  
-  updateItemGrid();
-});
-btnPria.addEventListener('click',()=>{
-  currentGender='pria';
-  contentPria.classList.remove('hidden');
-  contentWanita.classList.add('hidden');
-  currentCategory='jaket';
-  
-  updateItemGrid();
-});
-
-// CATEGORY SELECTOR
-document.querySelectorAll('.category-selector').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    currentCategory=btn.dataset.category;
-    updateItemGrid();
-  });
-});
-
-// SLIDER BUTTONS
-document.getElementById('prev').addEventListener('click',()=>{ itemGrid.scrollBy({left:-250, behavior:'smooth'}); });
-document.getElementById('next').addEventListener('click',()=>{ itemGrid.scrollBy({left:250, behavior:'smooth'}); });
-
-const sliderWrapper = document.getElementById('slider-wrapper');
-
-btnWanita.addEventListener('click',()=>{
-  currentGender = 'wanita';
-  contentWanita.classList.remove('hidden');
-  contentPria.classList.add('hidden');
-  currentCategory = 'outer'; // pastikan ada kategori default
-  sliderWrapper.classList.remove('hidden'); // tampilkan slider
-  updateItemGrid();
-});
-
-btnPria.addEventListener('click',()=>{
-  currentGender = 'pria';
-  contentPria.classList.remove('hidden');
-  contentWanita.classList.add('hidden');
-  currentCategory = 'jaket'; // pastikan ada kategori default
-  sliderWrapper.classList.remove('hidden'); // tampilkan slider
-  updateItemGrid();
-});
-
-
 
 // INIT
 updateItemGrid();
 itemGrid.innerHTML = ''; // Kosongkan grid saat pertama kali load
 
->>>>>>> Stashed changes
+// Koordinat UI Depok (perkirakan dari data)  
+  const lat = -6.3662;  
+  const lng = 106.8259;  // dari Wikipedia UI :contentReference[oaicite:0]{index=0}  
+
+  var map = L.map('map').setView([lat, lng], 15);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '© OpenStreetMap'
+  }).addTo(map);
+
+  L.marker([lat, lng]).addTo(map)
+    .bindPopup("Universitas Indonesia, Depok")
+    .openPopup();
+
+  
 
  // 🔊 Audio system
  let isPlaying = false;
@@ -791,10 +572,7 @@ toggleBtn.addEventListener("click", function () {
     toggleBtn.textContent = "🔊"; // ikon sound
   }
   isPlaying = !isPlaying;
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
 });
 
 </script>

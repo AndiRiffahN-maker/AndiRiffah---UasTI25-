@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KosEase – Panduan Hidup Hemat Anak Kos</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{color:#333;background:#fffdfd}
+
+ /* NAVBAR */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 10%;
+    border-bottom: 1px solid rgba(255, 150, 120, 0.3);
+    z-index: 20;
+  }
+
+  nav h2 {
+    font-weight: 700;
+    font-size: 1.6rem;
+    background: linear-gradient(90deg, #aa8f5c);
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  nav a {
+    text-decoration: none;
+    margin: 0 12px;
+    color:#aa8f5c;
+    font-weight: 500;
+    transition: 0.3s;
+  }
+
+  nav a:hover {
+    color: #aa8f5c;
+  }
+
+  .audio-icon {
+    cursor: pointer;
+    font-size: 20px;
+    margin-left: 20px;
+    transition: 0.3s;
+  }
+  
+  .audio-icon:hover {
+    transform: scale(1.2);
+  }
+
+/* HOME */
+#home{height:100vh;background:url("image/barang.png") center/cover no-repeat;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#B2C9AD;text-align:center;position:relative}
+#home::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,0.55)}
+#home *{position:relative;z-index:2}
+#home h1{font-size:3.2rem;font-weight:700;margin-bottom:10px}
+#home p{font-size:1.2rem;opacity:0.9}
+
+/* RECIPES */
+#popular-recipes{padding:70px 7%;background:#B5C18E;margin-top:-20px;text-align:center}
+#popular-recipes h2{font-size:2.2rem;font-weight:700;background:linear-gradient(90deg,#4B5945,#91AC8F);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+#popular-recipes p{font-size:1rem;background:linear-gradient(90deg,#4B5945,#91AC8F);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:25px}
+
+/* SLIDER */
+.slider-container{position:relative;overflow:hidden;margin-top:20px}
+.cards-wrapper{display:flex;gap:20px;overflow-x:auto;scroll-behavior:smooth;padding-bottom:10px}
+.cards-wrapper::-webkit-scrollbar{height:8px}
+.cards-wrapper::-webkit-scrollbar-thumb{background:#4B5945;border-radius:4px}
+
+/* CARD */
+.recipe-card{width:250px;min-width:250px;background:white;border-radius:15px;overflow:hidden;box-shadow:0 6px 15px #4B5945;cursor:pointer;transition:0.3s}
+.recipe-card:hover{transform:translateY(-5px)}
+.recipe-card img{width:100%;height:150px;object-fit:cover}
+.card-body{padding:15px}
+.card-body h3{font-size:1.1rem;color:#4B5945;margin-bottom:5px}
+.meta{font-size:0.9rem;color:#4B5945;margin-bottom:8px}
+
+
+/* BUTTON */
+.nav-btn{position:absolute;top:50%;transform:translateY(-50%);background:white;border:none;font-size:2rem;padding:6px 12px;cursor:pointer;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.2);transition:0.3s;z-index:10}
+.nav-btn:hover{background:#4B5945;color:#4B5945}
+#prev{left:0}
+#next{right:0}
+
+/* DETAIL BOX (asli kamu, tetap ada) */
+#recipe-detail{padding:25px;background:#4B5945;border-radius:16px;margin-top:25px;box-shadow:0 6px 15px rgba(0,0,0,0.1)}
+.hidden{display:none}
+
+
+footer{background:#222;color:white;padding:35px;text-align:center}
+
+/* ===========================================================
+   >>>>>   MODAL RESEP (DITAMBAHKAN – TIDAK MENGGANGGU YANG ADA)
+   =========================================================== */
+.modal-overlay{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  background:rgba(0,0,0,0.65);
+  z-index:300;
+}
+.modal-box{
+  width:90%;
+  max-width:550px;
+  max-height:80vh;
+  overflow-y:auto;
+  background:white;
+  padding:25px;
+  border-radius:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.25);
+  animation:popIn .25s ease-out;
+}
+@keyframes popIn{
+  from{transform:scale(.7);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+.close-btn{
+  float:right;
+  font-size:28px;
+  cursor:pointer;
+  color:#4B5945;
+  font-weight:bold;
+}
+
+/* =============================== */
+/*  BACKGROUND SECTION PINK        */
+/* =============================== */
+
+.section-produk {
+    background: #4B5945;
+    padding: 50px 0;
+    text-align: center;
+}
+
+/* JUDUL */
+.section-produk h2 {
+    font-size: 40px;
+    color: #4B5945;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.section-produk p {
+    color: #4B5945;
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+/* =============================== */
+/*  SLIDER                         */
+/* =============================== */
+
+.slider-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 20px 0;
+}
+
+.slider {
+    display: flex;
+    gap: 25px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px 30px;
+}
+
+.slider::-webkit-scrollbar {
+    height: 6px;
+}
+
+.slider::-webkit-scrollbar-thumb {
+    background: #4B5945;
+    border-radius: 10px;
+}
+
+/* =============================== */
+/*             Go Food             */
+/* =============================== */
+
+
+/* =============================== */
+/*  TOMBOL PANAH                   */
+/* =============================== */
+
+.slide-btn {
+    position: absolute;
+    top: 42%;
+    transform: translateY(-50%);
+    background: white;
+    border: none;
+    padding: 14px;
+    font-size: 22px;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    transition: 0.2s;
+}
+
+.slide-btn:hover {
+    background: #FFE1EB;
+}
+
+.slide-btn.left {
+    left: 20px;
+}
+
+.slide-btn.right {
+    right: 20px;
+}
+
+
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="index.html"  class="nav-left">
+    <h2>KosEase</h2>
+  </a>
+
+  <div>
+    <a href="#home">Home</a>
+    <a href="#popular-recipes">Resep</a>
+     <a href="#gofood">GoFood</a>
+    <a href="#contact">Peta</a>
+    <span id="audioToggle" style="cursor:pointer;font-size:24px;">🔊</span>
+  </div>
+
+</nav>
+
+<audio id="bgMusic" loop>
+  <source src="sound/Cozy Drift.mp3" type="audio/mpeg">
+</audio>
+
+<!-- HOME -->
+<section id="home">
+  <h1>KosEase</h1>
+  <p>UBAH BARANG LAMA JADI FUNGSI BARU</p>
+</section>
+
+<!-- POPULAR RECIPES -->
+<section id="popular-recipes">
+<h2>TUTORIAL</h2>
+<p></p>
+
+<div class="slider-container">
+<button id="prev" class="nav-btn">&#10094;</button>
+<button id="next" class="nav-btn">&#10095;</button>
+
+<div class="cards-wrapper" id="cardsWrapper">
+
+<!-- CARD 1 (asli, tidak dihapus) -->
+<div class="recipe-card" 
+     data-title="Pot Tanaman Mini"
+     data-rating="4.9"
+     data-time="30 menit">
+  <img src="image/Barangbekas/WhatsApp Image 2025-11-22 at 17.45.57_25667275.jpg">
+  <div class="card-body">
+    <h3>Pot Tanaman Mini</h3>
+    <p class="meta"> ⭐ lihat Di sini!
+    </p>
+  </div>
+</div>
+
+<!-- (SEMUA CARD LAINNYA TETAP – tidak dihapus!!!) -->
+<div class="recipe-card" data-title="organizer Meja dari Kardus" data-rating="4.7" data-time="30 menit">
+  <img src="image/Barangbekas/WhatsApp Image 2025-11-22 at 17.46.50_f843a706.jpg ">
+  <div class="card-body"><h3>organizer Meja dari Kardus</h3><p class="meta"> ⭐ lihat Di sini!</p></div>
+</div>
+
+<div class="recipe-card" data-title="Lampu Tidur dari Toples" data-rating="4.5" data-time="25 menit">
+  <img src="image/Barangbekas/WhatsApp Image 2025-11-22 at 17.47.05_2825f242.jpg">
+  <div class="card-body"><h3>Lampu Tidur dari Toples</h3><p class="meta">⭐ lihat Di sini!</p></div>
+</div>
+
+<div class="recipe-card" data-title="Tempat Pensil dari Kaleng" data-rating="4.6" data-time="45 menit">
+  <img src="image/Barangbekas/WhatsApp Image 2025-11-22 at 17.47.15_a4d76665.jpg ">
+  <div class="card-body"><h3>Tempat Pensil dari Kaleng</h3><p class="meta">⭐ lihat Di sini!</p></div>
+</div>
+
+<div class="recipe-card" data-title="Gantungan sikat gigi " data-rating="4.6" data-time="45 menit">
+  <img src="image/Barangbekas/WhatsApp Image 2025-11-22 at 18.08.50_3cb20742.jpg ">
+  <div class="card-body"><h3>Gantungan sikat gigi </h3><p class="meta">⭐ lihat Di sini!</p></div>
+</div>
+
+
+<div class="recipe-card" data-title="Sup tahu telor" data-rating="4.6" data-time="45 menit">
+  <img src="image/Barangbekas/WhatsApp Image 2025-11-22 at 18.08.50_3cb20742.jpg">
+  <div class="card-body"><h3>Sup tahu telor</h3><p class="meta">⭐ lihat Di sini!</p></div>
+</div>
+
+
+<div class="recipe-card" data-title="nugget sambal matah" data-rating="4.6" data-time="45 menit">
+  <img src="image/Barangbekas/WhatsApp Image 2025-11-22 at 18.08.50_3cb20742.jpg">
+  <div class="card-body"><h3>nugget sambal matah</h3><p class="meta">⭐ lihat Di sini!</p></div>
+</div>
+
+
+<div class="recipe-card" data-title="sosis donburi" data-rating="4.6" data-time="45 menit">
+  <img src="image/Barangbekas/WhatsApp Image 2025-11-22 at 18.08.50_3cb20742.jpg">
+  <div class="card-body"><h3>sosis donburi</h3><p class="meta">⭐ lihat Di sini!</p></div>
+</div>
+
+
+<div class="recipe-card" data-title="Tempe Karage " data-rating="4.6" data-time="45 menit">
+  <img src="image/Barangbekas/WhatsApp Image 2025-11-22 at 18.08.50_3cb20742.jpg">
+  <div class="card-body"><h3>Tempe Karage </h3><p class="meta">⭐ lihat Di sini!</p></div>
+</div>
+
+
+<div class="recipe-card" data-title="Sayur Sop Telur Puyuh" data-rating="4.6" data-time="45 menit">
+  <img src="image/Barangbekas/WhatsApp Image 2025-11-22 at 18.08.50_3cb20742.jpg ">
+  <div class="card-body"><h3>Sayur Sop Telur Puyuh</h3><p class="meta">⭐ lihat Di sini!</p></div>
+</div>
+
+
+</div></div>
+</section>
+
+
+
+
+<!-- DETAIL ASLI KAMU (TETAP ADA) -->
+<div id="recipe-detail" class="hidden">
+  <h3 id="detail-title"></h3>
+  <p id="detail-rating"></p>
+  <p id="detail-time"></p>
+</div>
+
+<!-- ==================== MODAL BESAR (DITAMBAHKAN) ==================== -->
+<div id="recipeModal" class="modal-overlay">
+  <di class="modal-box">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <h2 id="modal-title"></h2>
+    <p id="modal-rating"></p>
+    <p id="modal-time"></p>
+    <br>
+    <h3>Deskripsi:</h3>   
+Botol plastik bekas minuman bisa diubah jadi pot kecil buat tanaman hias atau tanaman dapur (cabai, kangkung, daun bawang).
+<br>Alat     : Gunting, tanah, air.
+<br>Cara Membuat    :
+<br>Cuci botol plastik sampai bersih.
+<br>Potong bagian tengah atau bawah (sesuai bentuk yang mau dipakai).
+<br>Lubangi bagian bawah untuk aliran air.
+<br>Isi tanah + bibit tanaman.
+<br>Bisa dihias pakai spidol atau stiker.
+<br>Tingkat kesulitan: Mudah.
+
+
+<br> <a href="https://vt.tiktok.com/ZSfJKke4M/">
+    <p id="modal-content" style="white-space:pre-line;"></p>
+  </div>
+</div>
+
+
+<script>
+function scrollSlider(value) {
+    document.getElementById('produkSlider').scrollBy({
+        left: value,
+        behavior: 'smooth'
+    });
+}
+</script>
+
+<!-- CONTACT -->
+
+</section>
+
+<footer>
+  © 2025 KosEase Team | Teknologi Informasi UI
+</footer>
+
+<script>
+/* ========== SLIDER (ASLI) ========== */
+const wrapper=document.getElementById("cardsWrapper");
+document.getElementById("prev").onclick=()=>wrapper.scrollBy({left:-270,behavior:"smooth"});
+document.getElementById("next").onclick=()=>wrapper.scrollBy({left:270,behavior:"smooth"});
+
+/* DETAIL (TETAP ADA) */
+const cards=document.querySelectorAll(".recipe-card");
+const detail=document.getElementById("recipe-detail");
+
+/* ==================== MODAL ==================== */
+const modal=document.getElementById("recipeModal");
+const modalTitle=document.getElementById("modal-title");
+const modalRating=document.getElementById("modal-rating");
+const modalTime=document.getElementById("modal-time");
+const modalContent=document.getElementById("modal-content");
+
+function openModal(title,rating,time,content){
+  modalTitle.textContent=title;
+  modalContent.textContent=content;
+  modal.style.display="flex";
+}
+function closeModal(){modal.style.display="none";}
+modal.addEventListener("click",e=>{if(e.target===modal)closeModal();});
+
+/* CARD CLICK → MODAL */
+cards.forEach(card=>{
+  card.addEventListener("click",()=>{
+    const title=card.dataset.title;
+    const rating=card.dataset.rating;
+    const time=card.dataset.time;
+
+    const content=card.querySelector(".meta + p")?.textContent 
+               || card.querySelector(".meta")?.textContent 
+               || "Tidak ada detail.";
+
+    openModal(title,rating,time,content);
+  });
+});
+
+
+
+
+/* AUDIO */
+let isPlaying=false;
+const audio=document.getElementById("bgMusic");
+const toggleBtn=document.getElementById("audioToggle");
+toggleBtn.addEventListener("click",()=>{isPlaying?audio.pause():audio.play(); isPlaying=!isPlaying;});
+</script>
+
+</body>
+</html>
