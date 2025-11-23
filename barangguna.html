@@ -1,253 +1,154 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>KosEase – Panduan Hidup Hemat Anak Kos</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-body{color:#333;background:#fffdfd}
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
- /* NAVBAR */
-  nav {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(10px);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 10%;
-    border-bottom: 1px solid rgba(255, 150, 120, 0.3);
-    z-index: 20;
-  }
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+    body{color:#333;background:#fffdfd}
 
-  nav h2 {
-    font-weight: 700;
-    font-size: 1.6rem;
-    background: linear-gradient(90deg, #aa8f5c);
-    -webkit-background-clip: text;
-    color: transparent;
-  }
+    /* NAVBAR */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 10%;
+      border-bottom: 1px solid rgba(255,150,120,0.3);
+      z-index: 50;
+    }
+    nav h2 { font-weight:700; font-size:1.6rem; color:#aa8f5c }
+    nav a { text-decoration:none; margin:0 12px; color:#aa8f5c; font-weight:500; transition:.3s }
 
-  nav a {
-    text-decoration: none;
-    margin: 0 12px;
-    color:#aa8f5c;
-    font-weight: 500;
-    transition: 0.3s;
-  }
+    /* HOME */
+    #home{height:100vh;background:url("image/barang.png") center/cover no-repeat;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#B2C9AD;text-align:center;position:relative}
+    #home::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,0.55)}
+    #home *{position:relative;z-index:2}
+    #home h1{font-size:3.2rem;font-weight:700;margin-bottom:10px}
+    #home p{font-size:1.2rem;opacity:0.9}
 
-  nav a:hover {
-    color: #aa8f5c;
-  }
+    /* RECIPES */
+    #popular-recipes{padding:110px 7% 70px;background:#B5C18E;margin-top:-20px;text-align:center}
+    #popular-recipes h2{font-size:2.2rem;font-weight:700;color:#4B5945;margin-bottom:8px}
 
-  .audio-icon {
-    cursor: pointer;
-    font-size: 20px;
-    margin-left: 20px;
-    transition: 0.3s;
-  }
-  
-  .audio-icon:hover {
-    transform: scale(1.2);
-  }
+    /* SLIDER */
+    .slider-container{position:relative;overflow:hidden;margin-top:20px;display:flex;align-items:center}
+    .cards-wrapper{display:flex;gap:20px;overflow-x:auto;scroll-behavior:smooth;padding:20px 10px}
+    .cards-wrapper::-webkit-scrollbar{height:8px}
+    .cards-wrapper::-webkit-scrollbar-thumb{background:#4B5945;border-radius:4px}
 
-/* HOME */
-#home{height:100vh;background:url("image/barang.png") center/cover no-repeat;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#B2C9AD;text-align:center;position:relative}
-#home::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,0.55)}
-#home *{position:relative;z-index:2}
-#home h1{font-size:3.2rem;font-weight:700;margin-bottom:10px}
-#home p{font-size:1.2rem;opacity:0.9}
+    /* CARD */
+    .recipe-card{width:250px;min-width:250px;background:white;border-radius:15px;overflow:hidden;box-shadow:0 6px 15px rgba(75,89,69,0.15);cursor:pointer;transition:0.3s;flex-shrink:0;position:relative;z-index:5}
+    .recipe-card:hover{transform:translateY(-6px)}
+    .recipe-card img{width:100%;height:150px;object-fit:cover;display:block}
+    .card-body{padding:15px}
+    .card-body h3{font-size:1.1rem;color:#4B5945;margin-bottom:6px}
+    .meta{font-size:0.9rem;color:#4B5945;margin-bottom:8px}
 
-/* RECIPES */
-#popular-recipes{padding:70px 7%;background:#B5C18E;margin-top:-20px;text-align:center}
-#popular-recipes h2{font-size:2.2rem;font-weight:700;background:linear-gradient(90deg,#4B5945,#91AC8F);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
-#popular-recipes p{font-size:1rem;background:linear-gradient(90deg,#4B5945,#91AC8F);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:25px}
+    /* NAV ARROWS */
+    .nav-btn{position:absolute;top:50%;transform:translateY(-50%);background:white;border:none;font-size:2rem;padding:6px 12px;cursor:pointer;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.12);transition:0.2s;z-index:30}
+    .nav-btn:hover{background:#f0f0f0}
+    #prev{left:10px}
+    #next{right:10px}
 
-/* SLIDER */
-.slider-container{position:relative;overflow:hidden;margin-top:20px}
-.cards-wrapper{display:flex;gap:20px;overflow-x:auto;scroll-behavior:smooth;padding-bottom:10px}
-.cards-wrapper::-webkit-scrollbar{height:8px}
-.cards-wrapper::-webkit-scrollbar-thumb{background:#4B5945;border-radius:4px}
+    /* MODAL */
+    .modal-overlay{
+      position:fixed;inset:0;
+      display:none;
+      justify-content:center;align-items:center;
+      background:rgba(0,0,0,0.65);
+      z-index:9999;
+    }
+    .modal-box{
+      width:90%;max-width:560px;max-height:80vh;overflow-y:auto;background:white;padding:22px;border-radius:16px;
+      box-shadow:0 12px 30px rgba(0,0,0,0.3);
+    }
+    @keyframes popIn{from{transform:scale(.95);opacity:0}to{transform:scale(1);opacity:1}}
+    .modal-box{animation:popIn .18s ease-out}
+    .close-btn{float:right;font-size:26px;cursor:pointer;color:#4B5945;font-weight:700}
 
-/* CARD */
-.recipe-card{width:250px;min-width:250px;background:white;border-radius:15px;overflow:hidden;box-shadow:0 6px 15px #4B5945;cursor:pointer;transition:0.3s}
-.recipe-card:hover{transform:translateY(-5px)}
-.recipe-card img{width:100%;height:150px;object-fit:cover}
-.card-body{padding:15px}
-.card-body h3{font-size:1.1rem;color:#4B5945;margin-bottom:5px}
-.meta{font-size:0.9rem;color:#4B5945;margin-bottom:8px}
+    /* small responsiveness */
+    @media (max-width:520px){
+      .recipe-card{min-width:210px;width:210px}
+      nav{padding:12px 6%}
+      #popular-recipes{padding-top:130px}
+    }
 
-
-/* BUTTON */
-.nav-btn{position:absolute;top:50%;transform:translateY(-50%);background:white;border:none;font-size:2rem;padding:6px 12px;cursor:pointer;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.2);transition:0.3s;z-index:10}
-.nav-btn:hover{background:#4B5945;color:#4B5945}
-#prev{left:0}
-#next{right:0}
-
-/* DETAIL BOX (asli kamu, tetap ada) */
-#recipe-detail{padding:25px;background:#4B5945;border-radius:16px;margin-top:25px;box-shadow:0 6px 15px rgba(0,0,0,0.1)}
-.hidden{display:none}
-
-
-footer{background:#222;color:white;padding:35px;text-align:center}
-
-/* ===========================================================
-   >>>>>   MODAL RESEP (DITAMBAHKAN – TIDAK MENGGANGGU YANG ADA)
-   =========================================================== */
-.modal-overlay{
-  position:fixed;
-  top:0;left:0;
-  width:100%;height:100%;
-  display:none;
-  justify-content:center;
-  align-items:center;
-  background:rgba(0,0,0,0.65);
-  z-index:300;
-}
-.modal-box{
-  width:90%;
-  max-width:550px;
-  max-height:80vh;
-  overflow-y:auto;
-  background:white;
-  padding:25px;
-  border-radius:20px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.25);
-  animation:popIn .25s ease-out;
-}
-@keyframes popIn{
-  from{transform:scale(.7);opacity:0}
-  to{transform:scale(1);opacity:1}
-}
-.close-btn{
-  float:right;
-  font-size:28px;
-  cursor:pointer;
-  color:#4B5945;
-  font-weight:bold;
+    /* 1. PERBAIKAN AREA PUTIH */
+body {
+  margin: 0;
+  padding: 0;
+  /* Set warna background body sama dengan warna section agar tidak belang jika konten sedikit */
+  background-color: #B5C18E; /* Sesuaikan kode warna hijaumu */
 }
 
-/* =============================== */
-/*  BACKGROUND SECTION PINK        */
-/* =============================== */
-
-.section-produk {
-    background: #4B5945;
-    padding: 50px 0;
-    text-align: center;
+.tutorial-section {
+  background-color: #B5C99A; /* Warna hijau sage */
+  padding: 40px 0;
+  /* Pastikan section ini minimal setinggi layar agar tidak ada putih di bawah */
+  min-height: 100vh; 
+  position: relative;
 }
 
-/* JUDUL */
-.section-produk h2 {
-    font-size: 40px;
-    color: #4B5945;
-    font-weight: 700;
-    margin-bottom: 10px;
+/* 2. POSISI TOMBOL TENGAH */
+.button-wrapper {
+  display: flex;
+  justify-content: center; /* Ini kuncinya biar di tengah */
+  margin-top: 30px;       /* Jarak dari slider ke tombol */
+  margin-bottom: 30px;    /* Jarak dari tombol ke garis bawah */
 }
 
-.section-produk p {
-    color: #4B5945;
-    font-size: 18px;
-    margin-bottom: 40px;
+/* 3. DESAIN TOMBOL KEMBALI */
+.btn-kembali {
+  background-color: #ffffff; /* Warna tombol putih */
+  color: #6B705C;            /* Warna teks (hijau tua/abu) */
+  text-decoration: none;     /* Hilangkan garis bawah link */
+  padding: 12px 30px;        /* Ukuran tombol */
+  border-radius: 25px;       /* Membuat sudut bulat (pill shape) */
+  font-weight: bold;
+  font-family: sans-serif;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Efek bayangan halus */
+  transition: transform 0.2s ease, background-color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* Jarak ikon panah dan teks */
 }
 
-/* =============================== */
-/*  SLIDER                         */
-/* =============================== */
-
-.slider-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    padding: 20px 0;
+/* Efek saat mouse diarahkan ke tombol */
+.btn-kembali:hover {
+  transform: translateY(-2px); /* Tombol naik sedikit */
+  background-color: #f0f0f0;
+  box-shadow: 0 6px 8px rgba(0,0,0,0.15);
 }
 
-.slider {
-    display: flex;
-    gap: 25px;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    padding: 10px 30px;
+/* Style untuk garis divider di bawah */
+.divider-line {
+  height: 6px;
+  background-color: #4A5D45; /* Warna hijau tua garis */
+  width: 90%;
+  margin: 0 auto; /* Garis di tengah */
+  border-radius: 3px;
 }
-
-.slider::-webkit-scrollbar {
-    height: 6px;
-}
-
-.slider::-webkit-scrollbar-thumb {
-    background: #4B5945;
-    border-radius: 10px;
-}
-
-/* =============================== */
-/*             Go Food             */
-/* =============================== */
-
-
-/* =============================== */
-/*  TOMBOL PANAH                   */
-/* =============================== */
-
-.slide-btn {
-    position: absolute;
-    top: 42%;
-    transform: translateY(-50%);
-    background: white;
-    border: none;
-    padding: 14px;
-    font-size: 22px;
-    border-radius: 12px;
-    cursor: pointer;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
-    transition: 0.2s;
-}
-
-.slide-btn:hover {
-    background: #FFE1EB;
-}
-
-.slide-btn.left {
-    left: 20px;
-}
-
-.slide-btn.right {
-    right: 20px;
-}
-
-
-
-</style>
+  </style>
 </head>
-
 <body>
 
-<!-- NAVBAR -->
+<!-- NAV -->
 <nav>
-  <a href="index.html"  class="nav-left">
-    <h2>KosEase</h2>
-  </a>
-
+  <a href="index.html"><h2>KosEase</h2></a>
   <div>
-    <a href="#home">Home</a>
-    <a href="#popular-recipes">Resep</a>
-     <a href="#gofood">GoFood</a>
-    <a href="#contact">Peta</a>
     <span id="audioToggle" style="cursor:pointer;font-size:24px;">🔊</span>
   </div>
-
 </nav>
-
-<audio id="bgMusic" loop>
-  <source src="sound/Cozy Drift.mp3" type="audio/mpeg">
-</audio>
 
 <!-- HOME -->
 <section id="home">
@@ -257,185 +158,231 @@ footer{background:#222;color:white;padding:35px;text-align:center}
 
 <!-- POPULAR RECIPES -->
 <section id="popular-recipes">
-<h2>TUTORIAL</h2>
-<p></p>
+  <h2>TUTORIAL</h2>
+  <div class="slider-container">
+    <button id="prev" class="nav-btn" aria-label="Prev">&#10094;</button>
+    <div class="cards-wrapper" id="cardsWrapper">
 
-<div class="slider-container">
-<button id="prev" class="nav-btn">&#10094;</button>
-<button id="next" class="nav-btn">&#10095;</button>
+      <!-- CARD 1 -->
+      <div class="recipe-card"
+           data-title="Pot Tanaman Mini"
+           data-content="Botol plastik bekas minuman bisa diubah jadi pot kecil untuk tanaman hias atau dapur.
+           Alat dan Bahan : Gunting, tanah, air
+           Cara membuat:
+           1. Cuci botol sampai bersih.
+           2. Potong bagian bawah sesuai desain.
+           3. Lubangi bagian bawah untuk aliran air.
+           4. Isi tanah + bibit tanaman.
+           5. Hias sesuai selera.
+           Tingkat kesulitan: Mudah.">
+        <img src="image/Barangbekas/WhatsApp Image 2025-11-22 at 17.45.57_25667275.jpg" alt="Pot Tanaman Mini">
+        <div class="card-body"><h3>Pot Tanaman Mini</h3><p class="meta">⭐ lihat Di sini!</p></div>
+      </div>
 
-<div class="cards-wrapper" id="cardsWrapper">
+      <!-- CARD 2 -->
+      <div class="recipe-card"
+           data-title="Organizer Meja dari Kardus"
+           data-content="Kardus sepatu bisa dipakai jadi tempat penyimpanan kabel, charger, alat tulis biar meja nggak berantakan.
+           Alat dan Bahan : Kertas kado, lem, cutter.
+           Cara membuat:
+           1. Bersihkan kardus sepatu.
+           2.  Lapisi dengan kertas kado polos / kraft paper biar estetik.
+           3. Potong beberapa sekat dalamnya dari karton lain.
+           4. Susun sekat sesuai kebutuhan (misal: charger, kabel, flashdisk).
+           Tingkat kesulitan: Mudah.">
+        <img src="image/Barangbekas/WhatsApp Image 2025-11-22 at 17.46.50_f843a706.jpg" alt="Organizer Kardus">
+        <div class="card-body"><h3>Organizer Meja dari Kardus</h3><p class="meta">⭐ lihat Di sini!</p></div>
+      </div>
 
-<!-- CARD 1 (asli, tidak dihapus) -->
-<div class="recipe-card" 
-     data-title="Pot Tanaman Mini"
-     data-rating="4.9"
-     data-time="30 menit">
-  <img src="image/Barangbekas/WhatsApp Image 2025-11-22 at 17.45.57_25667275.jpg">
-  <div class="card-body">
-    <h3>Pot Tanaman Mini</h3>
-    <p class="meta"> ⭐ lihat Di sini!
-    </p>
+      <!-- CARD 3 -->
+      <div class="recipe-card"
+           data-title="Lampu Tidur dari Toples"
+           data-content="Stoples kopi atau selai bekas bisa dijadiin lampu tidur yang estetik dan murah.
+           Alat dan Bahan : Lampu LED kecil, kertas minyak, double tape.
+           Cara membuat:
+           1. Cuci stoples sampai benar-benar kering.
+           2. Masukkan lampu LED kecil / fairy light murah (10–15 ribu).
+           3. Tutup kembali atau biarkan terbuka sesuai selera.
+           4. Tambah sedikit dekorasi (tali rami, stiker, pasir mini).
+           5. Taruh di meja belajar / bedside.
+           Tingkat kesulitan: Mudah.">
+        <img src="image/Barangbekas/WhatsApp Image 2025-11-22 at 17.47.05_2825f242.jpg" alt="Lampu Toples">
+        <div class="card-body"><h3>Lampu Tidur dari Toples</h3><p class="meta">⭐ lihat Di sini!</p></div>
+      </div>
+
+      <!-- CARD 4 -->
+      <div class="recipe-card"
+           data-title="Tempat Pensil dari Kaleng"
+           data-content="Kaleng bekas bisa disulap jadi tempat pensil yang rapi.
+           Alat dan Bahan : Cat akrilik/kain flanel, lem.
+           Cara membuat:
+       1. Cuci kaleng lalu keringkan.
+2. Lapisi bagian luar dengan kertas warna atau cat akrilik.
+3. Tambah label atau stiker lucu.
+4. Isi dengan alat tulis, gunting, cutter, dll.
+
+           Tingkat kesulitan: Mudah.">
+        <img src="image/Barangbekas/WhatsApp Image 2025-11-22 at 17.47.15_a4d76665.jpg" alt="Tempat Pensil">
+        <div class="card-body"><h3>Tempat Pensil dari Kaleng</h3><p class="meta">⭐ lihat Di sini!</p></div>
+      </div>
+
+      <!-- CARD 5 -->
+      <div class="recipe-card"
+           data-title="Gantungan Sikat Gigi"
+           data-content="Botol plastik bekas dijadikan gantungan sikat gigi plus tempat odol supaya kamar mandi lebih rapi.
+           Alat dan Bahan : Cutter, gunting, lem, Botol plastik, double tape kuat/paku kecil, spidol opsional.
+           Cara membuat:
+       1. Cuci botol.
+2. Potong bagian tengah jadi ruang odol.
+3. Buat dua lubang kecil bawahnya untuk gantungan sikat gigi.
+4. Hias kalau mau.
+5. Tempel ke dinding pakai double tape/paku.
+
+           Tingkat kesulitan: Sangat Mudah.">
+        <img src="image/Barangbekas/WhatsApp Image 2025-11-22 at 18.08.50_3cb20742.jpg" alt="Gantungan Sikat">
+        <div class="card-body"><h3>Gantungan Sikat Gigi</h3><p class="meta">⭐ lihat Di sini!</p></div>
+      </div>
+
+      <!-- CARD 6 -->
+      <div class="recipe-card"
+           data-title="Jemuran Gantung Serbaguna"
+           data-content="Tutup kipas angin yang udah nggak kepake bisa disulap jadi jemuran gantung buat baju kecil, kaos kaki, masker, atau pakaian ringan lainnya. Kokoh, muat banyak, dan hemat tempat.
+           Alat dan Bahan : Tali, jepitan, lem tembak, Tali/rafia/kawat kecil, Tutup kipas angin bekas
+           Cara membuat:
+          1. Lepas tutup kipas dari mesinnya dan bersihkan.
+2. Siapkan tali atau kawat untuk membuat gantungan di bagian atas (bisa satu tali tebal atau 3 tali disatukan ke satu titik).
+3. Ikatkan talinya ke tutup kipas dengan kuat sampai bisa digantung stabil.
+4. Pasang 10–20 jepitan baju di sekeliling tutup kipas.
+5. Gantung di jendela, kamar mandi, atau pojok kamar.
+6. Siap dipakai untuk jemur kaos kaki, masker, pakaian tipis, atau lap.
+           Tingkat kesulitan: Mudah.">
+        <img src="image/Barangbekas/jemuran.jpg" alt="Jemuran Gantung">
+        <div class="card-body"><h3>Jemuran Gantung Serbaguna</h3><p class="meta">⭐ lihat Di sini!</p></div>
+      </div>
+
+      <!-- CARD 7 -->
+      <div class="recipe-card"
+           data-title="Stand HP Sederhana"
+           data-content="Karton tebal (dari kardus snack / paket) bisa jadi stand HP buat nonton sambil makan atau buat Zoom.
+           Alat dan Bahan : Karton tebal, cutter/gunting, spidol (opsional).
+           Cara membuat:
+           1. Potong karton bentuk persegi panjang ± 12×18 cm.
+2. Lipat jadi bentuk “L”.
+3. Tambahin satu potongan kecil lagi sebagai penahan bagian bawah.
+4. Rekatkan pakai lem atau double tape.
+5. Hias kalau mau.
+
+           Tingkat kesulitan: Sangat Mudah.">
+        <img src="image/Barangbekas/stand hp.jpg" alt="Stand HP">
+        <div class="card-body"><h3>Stand HP Sederhana</h3><p class="meta">⭐ lihat Di sini!</p></div>
+      </div>
+
+      <!-- CARD 8 -->
+      <div class="recipe-card"
+           data-title="Tempat Peralatan Makan"
+           data-content="Botol bekas minuman bisa diubah jadi penampung sendok-garpu biar rak dapur kosan lebih rapi.
+           Alat dan Bahan : Botol kaca/plastik, cutter, cat atau stiker (opsional)
+           Cara membuat:
+           1.  Cuci botol, keringkan.
+           2. Potong bagian atas (kalau botol plastik) atau biarkan utuh (kalau kaca).
+           3. Tambahin sedikit dekorasi.
+           4. Isi dengan peralatan makan.
+           Tingkat kesulitan: Mudah.">
+        <img src="image/Barangbekas/tempay sendok.jpg" alt="Tempat Sendok">
+        <div class="card-body"><h3>Tempat Peralatan Makan</h3><p class="meta">⭐ lihat Di sini!</p></div>
+      </div>
+
+    </div>
+    <button id="next" class="nav-btn" aria-label="Next">&#10095;</button>
   </div>
-</div>
-
-<!-- (SEMUA CARD LAINNYA TETAP – tidak dihapus!!!) -->
-<div class="recipe-card" data-title="organizer Meja dari Kardus" data-rating="4.7" data-time="30 menit">
-  <img src="image/Barangbekas/WhatsApp Image 2025-11-22 at 17.46.50_f843a706.jpg ">
-  <div class="card-body"><h3>organizer Meja dari Kardus</h3><p class="meta"> ⭐ lihat Di sini!</p></div>
-</div>
-
-<div class="recipe-card" data-title="Lampu Tidur dari Toples" data-rating="4.5" data-time="25 menit">
-  <img src="image/Barangbekas/WhatsApp Image 2025-11-22 at 17.47.05_2825f242.jpg">
-  <div class="card-body"><h3>Lampu Tidur dari Toples</h3><p class="meta">⭐ lihat Di sini!</p></div>
-</div>
-
-<div class="recipe-card" data-title="Tempat Pensil dari Kaleng" data-rating="4.6" data-time="45 menit">
-  <img src="image/Barangbekas/WhatsApp Image 2025-11-22 at 17.47.15_a4d76665.jpg ">
-  <div class="card-body"><h3>Tempat Pensil dari Kaleng</h3><p class="meta">⭐ lihat Di sini!</p></div>
-</div>
-
-<div class="recipe-card" data-title="Gantungan sikat gigi " data-rating="4.6" data-time="45 menit">
-  <img src="image/Barangbekas/WhatsApp Image 2025-11-22 at 18.08.50_3cb20742.jpg ">
-  <div class="card-body"><h3>Gantungan sikat gigi </h3><p class="meta">⭐ lihat Di sini!</p></div>
-</div>
-
-
-<div class="recipe-card" data-title="Sup tahu telor" data-rating="4.6" data-time="45 menit">
-  <img src="image/Barangbekas/WhatsApp Image 2025-11-22 at 18.08.50_3cb20742.jpg">
-  <div class="card-body"><h3>Sup tahu telor</h3><p class="meta">⭐ lihat Di sini!</p></div>
-</div>
-
-
-<div class="recipe-card" data-title="nugget sambal matah" data-rating="4.6" data-time="45 menit">
-  <img src="image/Barangbekas/WhatsApp Image 2025-11-22 at 18.08.50_3cb20742.jpg">
-  <div class="card-body"><h3>nugget sambal matah</h3><p class="meta">⭐ lihat Di sini!</p></div>
-</div>
-
-
-<div class="recipe-card" data-title="sosis donburi" data-rating="4.6" data-time="45 menit">
-  <img src="image/Barangbekas/WhatsApp Image 2025-11-22 at 18.08.50_3cb20742.jpg">
-  <div class="card-body"><h3>sosis donburi</h3><p class="meta">⭐ lihat Di sini!</p></div>
-</div>
-
-
-<div class="recipe-card" data-title="Tempe Karage " data-rating="4.6" data-time="45 menit">
-  <img src="image/Barangbekas/WhatsApp Image 2025-11-22 at 18.08.50_3cb20742.jpg">
-  <div class="card-body"><h3>Tempe Karage </h3><p class="meta">⭐ lihat Di sini!</p></div>
-</div>
-
-
-<div class="recipe-card" data-title="Sayur Sop Telur Puyuh" data-rating="4.6" data-time="45 menit">
-  <img src="image/Barangbekas/WhatsApp Image 2025-11-22 at 18.08.50_3cb20742.jpg ">
-  <div class="card-body"><h3>Sayur Sop Telur Puyuh</h3><p class="meta">⭐ lihat Di sini!</p></div>
-</div>
-
-
-</div></div>
 </section>
 
-
-
-
-<!-- DETAIL ASLI KAMU (TETAP ADA) -->
+<!-- DETAIL (optional hidden block kept) -->
 <div id="recipe-detail" class="hidden">
   <h3 id="detail-title"></h3>
   <p id="detail-rating"></p>
   <p id="detail-time"></p>
 </div>
 
-<!-- ==================== MODAL BESAR (DITAMBAHKAN) ==================== -->
-<div id="recipeModal" class="modal-overlay">
-  <di class="modal-box">
-    <span class="close-btn" onclick="closeModal()">&times;</span>
+<!-- SINGLE MODAL (ONLY ONE) -->
+<div id="recipeModal" class="modal-overlay" role="dialog" aria-hidden="true">
+  <div class="modal-box" role="document">
+    <span class="close-btn" onclick="closeModal()" aria-label="Close">&times;</span>
     <h2 id="modal-title"></h2>
-    <p id="modal-rating"></p>
-    <p id="modal-time"></p>
-    <br>
-    <h3>Deskripsi:</h3>   
-Botol plastik bekas minuman bisa diubah jadi pot kecil buat tanaman hias atau tanaman dapur (cabai, kangkung, daun bawang).
-<br>Alat     : Gunting, tanah, air.
-<br>Cara Membuat    :
-<br>Cuci botol plastik sampai bersih.
-<br>Potong bagian tengah atau bawah (sesuai bentuk yang mau dipakai).
-<br>Lubangi bagian bawah untuk aliran air.
-<br>Isi tanah + bibit tanaman.
-<br>Bisa dihias pakai spidol atau stiker.
-<br>Tingkat kesulitan: Mudah.
-
-
-<br> <a href="https://vt.tiktok.com/ZSfJKke4M/">
+    <h3>Deskripsi:</h3>
     <p id="modal-content" style="white-space:pre-line;"></p>
   </div>
 </div>
 
 
-<script>
-function scrollSlider(value) {
-    document.getElementById('produkSlider').scrollBy({
-        left: value,
-        behavior: 'smooth'
-    });
-}
-</script>
+ <div class="button-wrapper">
+    <a href="index.html" class="btn-kembali">
+      <i class="fas fa-arrow-left"></i> Kembali
+    </a>
+  </div>
 
-<!-- CONTACT -->
 
-</section>
 
-<footer>
+<footer style="margin-top:60px;padding:24px;text-align:center;background:#222;color:#fff">
   © 2025 KosEase Team | Teknologi Informasi UI
 </footer>
 
 <script>
-/* ========== SLIDER (ASLI) ========== */
-const wrapper=document.getElementById("cardsWrapper");
-document.getElementById("prev").onclick=()=>wrapper.scrollBy({left:-270,behavior:"smooth"});
-document.getElementById("next").onclick=()=>wrapper.scrollBy({left:270,behavior:"smooth"});
+/* ===== SLIDER NAV ===== */
+const wrapper = document.getElementById("cardsWrapper");
+document.getElementById("prev").onclick = () => wrapper.scrollBy({ left: -270, behavior: "smooth" });
+document.getElementById("next").onclick = () => wrapper.scrollBy({ left: 270, behavior: "smooth" });
 
-/* DETAIL (TETAP ADA) */
-const cards=document.querySelectorAll(".recipe-card");
-const detail=document.getElementById("recipe-detail");
+/* ===== MODAL ===== */
+const modal = document.getElementById("recipeModal");
+const modalTitle = document.getElementById("modal-title");
+const modalContent = document.getElementById("modal-content");
 
-/* ==================== MODAL ==================== */
-const modal=document.getElementById("recipeModal");
-const modalTitle=document.getElementById("modal-title");
-const modalRating=document.getElementById("modal-rating");
-const modalTime=document.getElementById("modal-time");
-const modalContent=document.getElementById("modal-content");
-
-function openModal(title,rating,time,content){
-  modalTitle.textContent=title;
-  modalContent.textContent=content;
-  modal.style.display="flex";
+function openModal(title, content) {
+  modalTitle.textContent = title || "Detail";
+  modalContent.textContent = content || "Tidak ada detail.";
+  modal.style.display = "flex";
+  modal.setAttribute("aria-hidden", "false");
+  // lock body scroll (optional)
+  document.body.style.overflow = "hidden";
 }
-function closeModal(){modal.style.display="none";}
-modal.addEventListener("click",e=>{if(e.target===modal)closeModal();});
 
-/* CARD CLICK → MODAL */
-cards.forEach(card=>{
-  card.addEventListener("click",()=>{
-    const title=card.dataset.title;
-    const rating=card.dataset.rating;
-    const time=card.dataset.time;
+function closeModal() {
+  modal.style.display = "none";
+  modal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
 
-    const content=card.querySelector(".meta + p")?.textContent 
-               || card.querySelector(".meta")?.textContent 
-               || "Tidak ada detail.";
+// click outside to close
+modal.addEventListener("click", e => {
+  if (e.target === modal) closeModal();
+});
 
-    openModal(title,rating,time,content);
+// escape key to close
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeModal();
+});
+
+/* ===== CARD CLICK -> OPEN MODAL WITH data-content ===== */
+document.querySelectorAll(".recipe-card").forEach(card => {
+  card.addEventListener("click", () => {
+    const title = card.dataset.title;
+    const content = card.dataset.content;
+    openModal(title, content);
   });
 });
 
 
-
-
-/* AUDIO */
-let isPlaying=false;
-const audio=document.getElementById("bgMusic");
-const toggleBtn=document.getElementById("audioToggle");
-toggleBtn.addEventListener("click",()=>{isPlaying?audio.pause():audio.play(); isPlaying=!isPlaying;});
+/* ===== AUDIO TOGGLE (optional) ===== */
+const audio = document.getElementById("bgMusic");
+const toggleBtn = document.getElementById("audioToggle");
+let isPlaying = false;
+if (toggleBtn && audio) {
+  toggleBtn.addEventListener("click", () => {
+    if (isPlaying) audio.pause(); else audio.play();
+    isPlaying = !isPlaying;
+  });
+}
 </script>
-
 </body>
 </html>

@@ -1,769 +1,840 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KosEase – Panduan Hidup Hemat Anak Kos</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!DOCTYPE html>
+  <html lang="id">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KosEase – Panduan Hidup Hemat Anak Kos</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-body{color:#333;background:#fffdfd}
+  <style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+  body{color:#333;background:#fffdfd}
 
- /* NAVBAR */
-  nav {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(10px);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 10%;
-    border-bottom: 1px solid rgba(255, 150, 120, 0.3);
-    z-index: 20;
-  }
-
-  nav h2 {
-    font-weight: 700;
-    font-size: 1.6rem;
-    background: linear-gradient(90deg, #aa8f5c);
-    -webkit-background-clip: text;
-    color: transparent;
-  }
-
-  nav a {
-    text-decoration: none;
-    margin: 0 12px;
-    color:#aa8f5c;
-    font-weight: 500;
-    transition: 0.3s;
-  }
-
-  nav a:hover {
-    color: #aa8f5c;
-  }
-
-  .audio-icon {
-    cursor: pointer;
-    font-size: 20px;
-    margin-left: 20px;
-    transition: 0.3s;
-  }
-  
-  .audio-icon:hover {
-    transform: scale(1.2);
-  }
-
-/* HOME */
-#home{height:100vh;background:url("image/來!\ Makan!\ -\ Lee\ Xin\ Li.jpeg") center/cover no-repeat;display:flex;flex-direction:column;justify-content:center;align-items:center;color:white;text-align:center;position:relative}
-#home::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,0.55)}
-#home *{position:relative;z-index:2}
-#home h1{font-size:3.2rem;font-weight:700;margin-bottom:10px}
-#home p{font-size:1.2rem;opacity:0.9}
-  #startBtn {
-    background-color: #C9485B; border: none; padding: 12px 30px; border-radius: 30px;
-    font-size: 1em; cursor: pointer; transition: 0.3s; font-weight: 600;
-    color:  #fff5e2;
-  }
-   #startBtnn {
-    background-color:  #DD356E; border: none; padding: 12px 30px; border-radius: 30px;
-    font-size: 1em; cursor: pointer; transition: 0.3s; font-weight: 600;
-    color:  #fff5e2;
-  }
-   #startBtnnn {
-    background-color: #f1757d; border: none; padding: 12px 30px; border-radius: 30px;
-    font-size: 1em; cursor: pointer; transition: 0.3s; font-weight: 600;
-    color:  #fff5e2;
-  }
-  #startBtn:hover { background-color: #fff5e2; transform: scale(1.05); }
-
-  .button-group {
-  display: flex;
-  justify-content: center; /* biar tombol tetap di tengah */
-  gap: 20px;               /* jarak antar tombol */
-  margin-top: 20px;        /* jarak dari elemen atas */
-}
-
-.button-group button {
-  padding: 12px 25px;
-  border-radius: 30px;
-  border: none;
-  background: #b38959;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-
-/* RECIPES */
-#popular-recipes{padding:70px 7%;background:#FFE8F1;margin-top:-20px;text-align:center}
-#popular-recipes h2{font-size:2.2rem;font-weight:700;background:linear-gradient(90deg,#C9485B);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
-#popular-recipes p{font-size:1rem;background:linear-gradient(90deg,#C9485B);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:25px}
-
-/* SLIDER */
-.slider-container{position:relative;overflow:hidden;margin-top:20px}
-.cards-wrapper{display:flex;gap:20px;overflow-x:auto;scroll-behavior:smooth;padding-bottom:10px}
-.cards-wrapper::-webkit-scrollbar{height:8px}
-.cards-wrapper::-webkit-scrollbar-thumb{background:#C9485B;border-radius:4px}
-
-/* CARD */
-.recipe-card{width:250px;min-width:250px;background:white;border-radius:15px;overflow:hidden;box-shadow:0 6px 15px rgba(2, 2, 2, 0.12);cursor:pointer;transition:0.3s}
-.recipe-card:hover{transform:translateY(-5px)}
-.recipe-card img{width:100%;height:150px;object-fit:cover}
-.card-body{padding:15px}
-.card-body h3{font-size:1.1rem;color : #C9485B;margin-bottom:5px}
-.meta{font-size:0.9rem;color:#555;margin-bottom:8px}
-
-/* BUTTON */
-.nav-btn{position:absolute;top:50%;transform:translateY(-50%);background:white;border:none;font-size:2rem;padding:6px 12px;cursor:pointer;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.2);transition:0.3s;z-index:10}
-.nav-btn:hover{background:#C9485B;color:white}
-#prev{left:0}
-#next{right:0}
-
-/* DETAIL BOX (asli kamu, tetap ada) */
-#recipe-detail{padding:25px;background:#ffecf5;border-radius:16px;margin-top:25px;box-shadow:0 6px 15px rgba(0,0,0,0.1)}
-.hidden{display:none}
-
-/* CONTACT */
-#contact{margin-top:40px;padding:80px 5%;background:linear-gradient(135deg,#f1757d);text-align:center;color:white}
-footer{background:#222;color:white;padding:35px;text-align:center}
-
-/* ===========================================================
-   >>>>>   MODAL RESEP (DITAMBAHKAN – TIDAK MENGGANGGU YANG ADA)
-   =========================================================== */
-.modal-overlay{
-  position:fixed;
-  top:0;left:0;
-  width:100%;height:100%;
-  display:none;
-  justify-content:center;
-  align-items:center;
-  background:rgba(0,0,0,0.65);
-  z-index:300;
-}
-.modal-box{
-  width:90%;
-  max-width:550px;
-  max-height:80vh;
-  overflow-y:auto;
-  background:white;
-  padding:25px;
-  border-radius:20px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.25);
-  animation:popIn .25s ease-out;
-}
-@keyframes popIn{
-  from{transform:scale(.7);opacity:0}
-  to{transform:scale(1);opacity:1}
-}
-.close-btn{
-  float:right;
-  font-size:28px;
-  cursor:pointer;
-  color:#ff4d6d;
-  font-weight:bold;
-}
-
-/* =============================== */
-/*  BACKGROUND SECTION PINK        */
-/* =============================== */
-
-.section-produk {
-    background: #FFE8F1;
-    padding: 50px 0;
-    text-align: center;
-}
-
-/* JUDUL */
-.section-produk h2 {
-    font-size: 40px;
-    color: #DD356E;
-    font-weight: 700;
-    margin-bottom: 10px;
-}
-
-.section-produk p {
-    color: #DD356E;
-    font-size: 18px;
-    margin-bottom: 40px;
-}
-
-/* =============================== */
-/*  SLIDER                         */
-/* =============================== */
-
-.slider-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    padding: 20px 0;
-}
-
-.slider {
-    display: flex;
-    gap: 25px;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    padding: 10px 30px;
-}
-
-.slider::-webkit-scrollbar {
-    height: 6px;
-}
-
-.slider::-webkit-scrollbar-thumb {
-    background: #DD356E;
-    border-radius: 10px;
-}
-
-/* =============================== */
-/*             Go Food             */
-/* =============================== */
-
-.product-card {
-    min-width: 280px;
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 4px 18px rgba(255, 140, 160, 0.25);
-    padding-bottom: 20px;
-    text-align: center;
-    overflow: hidden;
-    transition: 0.2s ease;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(255, 140, 160, 0.35);
-}
-
-.product-card img {
-    width: 100%;
-    height: 260px;
-    object-fit: cover;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-}
-
-/* Nama Gofood */
-.product-card h3 {
-    margin-top: 15px;
-    font-size: 20px;
-    font-weight: 700;
-    color: #DD356E;
-}
-
-/* Harga */
-.product-card .harga {
-    color: #DD356E;
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 12px;
-}
-
-/* Tombol Beli */
-.btn-beli {
-    display: inline-block;
-    margin-top: 5px;
-    background: #DD356E;
-    color: white;
-    padding: 10px 18px;
-    border-radius: 12px;
-    font-size: 16px;
-    text-decoration: none;
-    transition: 0.2s;
-}
-
-.btn-beli:hover {
-    background: #DD356E;
-}
-
-/* =============================== */
-/*  TOMBOL PANAH                   */
-/* =============================== */
-
-.slide-btn {
-    position: absolute;
-    top: 42%;
-    transform: translateY(-50%);
-    background: white;
-    border: none;
-    padding: 14px;
-    font-size: 22px;
-    border-radius: 12px;
-    cursor: pointer;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
-    transition: 0.2s;
-}
-
-.slide-btn:hover {
-    background: white;
-}
-
-.slide-btn.left {
-    left: 20px;
-}
-
-.slide-btn.right {
-    right: 20px;
-}
-
-/* MAP */
-
-    #map {
+  /* NAVBAR */
+    nav {
+      position: fixed;
+      top: 0;
       width: 100%;
-      height: 400px;
-      border-radius: 15px;
-      margin-top: 20px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 10%;
+      border-bottom: 1px solid rgba(255, 150, 120, 0.3);
+      z-index: 20;
     }
 
-</style>
-</head>
+    nav h2 {
+      font-weight: 700;
+      font-size: 1.6rem;
+      background: linear-gradient(90deg, #aa8f5c);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
 
-<body>
+    nav a {
+      text-decoration: none;
+      margin: 0 12px;
+      color:#aa8f5c;
+      font-weight: 500;
+      transition: 0.3s;
+    }
 
-<!-- NAVBAR -->
-<nav>
-  <a href="index.html"  class="nav-left">
-    <h2>KosEase</h2>
-  </a>
+    nav a:hover {
+      color: #aa8f5c;
+    }
 
-  <div>
-    <a href="#home">Home</a>
-    <a href="#popular-recipes">Resep</a>
-     <a href="#gofood">GoFood</a>
-    <a href="#contact">Peta</a>
-    <span id="audioToggle" style="cursor:pointer;font-size:24px;">🔊</span>
-  </div>
+    .audio-icon {
+      cursor: pointer;
+      font-size: 20px;
+      margin-left: 20px;
+      transition: 0.3s;
+    }
+    
+    .audio-icon:hover {
+      transform: scale(1.2);
+    }
 
-</nav>
+  /* HOME */
+  #home{height:100vh;background:url("image/來!\ Makan!\ -\ Lee\ Xin\ Li.jpeg") center/cover no-repeat;display:flex;flex-direction:column;justify-content:center;align-items:center;color:white;text-align:center;position:relative}
+  #home::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,0.55)}
+  #home *{position:relative;z-index:2}
+  #home h1{font-size:3.2rem;font-weight:700;margin-bottom:10px}
+  #home p{font-size:1.2rem;opacity:0.9}
+    #startBtn {
+      background-color: #C9485B; border: none; padding: 12px 30px; border-radius: 30px;
+      font-size: 1em; cursor: pointer; transition: 0.3s; font-weight: 600;
+      color:  #fff5e2;
+    }
+    #startBtnn {
+      background-color:  #DD356E; border: none; padding: 12px 30px; border-radius: 30px;
+      font-size: 1em; cursor: pointer; transition: 0.3s; font-weight: 600;
+      color:  #fff5e2;
+    }
+    #startBtnnn {
+      background-color: #f1757d; border: none; padding: 12px 30px; border-radius: 30px;
+      font-size: 1em; cursor: pointer; transition: 0.3s; font-weight: 600;
+      color:  #fff5e2;
+    }
+    #startBtn:hover { background-color: #fff5e2; transform: scale(1.05); }
 
-<audio id="bgMusic" loop>
-  <source src="sound/Cozy Drift.mp3" type="audio/mpeg">
-</audio>
-
-<!-- HOME -->
-<section id="home">
-  <h1>KosEase</h1>
-  <p>MAKANAN IRIT BUAT ANAK KOST ✨</p>
-   <div class="button-group">
-   <button id="startBtn" onclick="scrollToResep()">Resep </button>
-   <button id="startBtnn" onclick="scrollToGofood()">Go Food </button>
-   <button id="startBtnnn" onclick="scrollToRestorant()"> Restorant </button>
-   </div>
-</section>
-
-<!-- POPULAR RECIPES -->
-<section id="popular-recipes">
-<h2>Resep Populer</h2>
-<p>Resep yang paling banyak dicoba para anak kos.</p>
-
-<div class="slider-container">
-<button id="prev" class="nav-btn">&#10094;</button>
-<button id="next" class="nav-btn">&#10095;</button>
-<div class="cards-wrapper" id="cardsWrapper">
-
-<!--  Data Resep Makanan -->
-<div class="recipe-card"  data-title="Tumis Telur Sosis" data-rating="4.9" data-time="30 menit">
-  <img src="image/makanan/tumis telor.png">
-  <div class="card-body"><h3>Tumis Telur Sosis</h3><p class="meta"> ⭐ lihat Di sini!</p></div>
-</div>
-
-<div class="recipe-card" data-title="Tahu Crispy Saus Pedas" data-rating="4.7" data-time="30 menit">
-  <img src="image/makanan/tahu crispy saus pedas.png">
-  <div class="card-body"><h3>Tahu Crispy Saus Pedas</h3><p class="meta"> ⭐ lihat Di sini!</p></div>
-</div>
-
-<div class="recipe-card" data-title="Ayam Pedas Manis " data-rating="4.5" data-time="25 menit">
-  <img src="image/makanan/ayam pedas manis.png">
-  <div class="card-body"><h3>Ayam Pedas Manis </h3><p class="meta">⭐ lihat Di sini!</p></div>
-</div>
-
-<div class="recipe-card" data-title="Telor ceplok kecap" data-rating="4.6" data-time="45 menit">
-  <img src="image/makanan/telor ceplok kecap.png">
-  <div class="card-body"><h3>Telor ceplok kecap</h3><p class="meta">⭐ lihat Di sini!</p></div>
-</div>
-
-<div class="recipe-card" data-title="Tumis buncis orak arik " data-rating="4.6" data-time="45 menit">
-  <img src="image/makanan/tumis buncis orak orik.png">
-  <div class="card-body"><h3>Tumis buncis orak arik </h3><p class="meta">⭐ lihat Di sini!</p></div>
-</div>
-
-<div class="recipe-card" data-title="Sup tahu telor" data-rating="4.6" data-time="45 menit">
-  <img src="image/makanan/sup tahu telor.png">
-  <div class="card-body"><h3>Sup tahu telor</h3><p class="meta">⭐ lihat Di sini!</p></div>
-</div>
-
-<div class="recipe-card" data-title="nugget sambal matah" data-rating="4.6" data-time="45 menit">
-  <img src="image/makanan/nugget sambal matah.png">
-  <div class="card-body"><h3>nugget sambal matah</h3><p class="meta">⭐ lihat Di sini!</p></div>
-</div>
-
-<div class="recipe-card" data-title="sosis donburi" data-rating="4.6" data-time="45 menit">
-  <img src="image/makanan/sosis donburi.png">
-  <div class="card-body"><h3>sosis donburi</h3><p class="meta">⭐ lihat Di sini!</p></div>
-</div>
-
-<div class="recipe-card" data-title="Tempe Karage " data-rating="4.6" data-time="45 menit">
-  <img src="image/makanan/tempe karage.png">
-  <div class="card-body"><h3>Tempe Karage </h3><p class="meta">⭐ lihat Di sini!</p></div>
-</div>
-
-<div class="recipe-card" data-title="Sayur Sop Telur Puyuh" data-rating="4.6" data-time="45 menit">
-  <img src="image/makanan/Sayur Sop Telur Puyuh (1).png">
-  <div class="card-body"><h3>Sayur Sop Telur Puyuh</h3><p class="meta">⭐ lihat Di sini!</p></div>
-</div>
-</div>
-</div>
-</section>
-
-
-<!-- DETAIL ASLI KAMU (TETAP ADA) -->
-<div id="recipe-detail" class="hidden">
-  <h3 id="detail-title"></h3>
-  <p id="detail-rating"></p>
-  <p id="detail-time"></p>
-</div>
-
-<!-- Isian Data Resep Makanan -->
-<div id="recipeModal" class="modal-overlay">
-  <di class="modal-box">
-    <span class="close-btn" onclick="closeModal()">&times;</span>
-    <h2 id="modal-title"></h2>
-    <p id="modal-rating"></p>
-    <p id="modal-time"></p>
-    <br>
-    <h3>Bahan & Cara Memasak:</h3>
-    Alat-alat : 
-<br>wajan, pisau,talenan, mangkuk
-<br> 
-<br>Bahan-bahan :</p>
-1 pack sosis atau sosis secukupnya
-<br>3 siung bawang merah
-<br>2 siung bawang putih
-<br>3 butir telur
-<br>1 sdm saus tiram
-<br>½ sdt saus tomat
-<br>
-1 sdm saus sambal
-<br>air secukupnya
-<br>1sdt kaldu jamur
-<br>½ sdt gula 
-<br>minyak goreng secukupnya
-<br>Cara pembuatan : </br>
-
-goreng sosis hingga kecoklatan 
-tumis 3 siung bawang merah, 2 siung bawang putih, 3 butir telur, 1 sdm saus tiram, ½ sdt saus tomat, 1 sdm saus sambal .
-tambahkan air secukupnya, 1sdt kaldu jamur, ½ sdt gula.
-masukkan sosis, kemudian taburkan daun bawang dan cabe merah (opsional), dan hidangakan</p>
-<br> <a class="btn" href="https://vt.tiktok.com/ZSfJKke4M/" target="_blank" rel="noopener noreferrer">
-  Lihat Video di TikTok
-</a>
-  </div>
-</div>
-
-<!-- ==================== MODAL BESAR (DITAMBAHKAN) ==================== -->
-<div id="recipeModal" class="modal-overlay">
-  <div class="modal-box">
-    <span class="close-btn" onclick="closeModal()">&times;</span>
-    <h2 id="modal-title"></h2>
-    <p id="modal-rating"></p>
-    <p id="modal-time"></p>
-
-    <h3>Bahan & Cara Memasak:</h3>
-    <br>Alat-alat : wajan, pisau,talenan, mangkuk
-
-<br>Bahan-bahan :</p>
-<br>1 pack sosis atau sosis secukupnya</br>
-<br>3 siung bawang merah</br>
-<br>2 siung bawang putih</br>
-<br>3 butir telur</br>
-<br>1 sdm saus tiram</br>
-<br>½ sdt saus tomat</br>
-<br>
-1 sdm saus sambal</br>
-<br>air secukupnya</br>
-<br>1sdt kaldu jamur</br>
-<br>½ sdt gula </br>
-<br>minyak goreng secukupnya</br>
-<br>Cara pembuatan : </br>
-
-goreng sosis 
-tumis 3 siung bawang merah, 2 siung bawang putih, 3 butir telur, 1 sdm saus tiram, ½ sdt saus tomat, 1 sdm saus sambal .
-tambahkan air secukupnya, 1sdt kaldu jamur, ½ sdt gula.
-masukkan sosis, kemudian taburkan daun bawang dan cabe merah (opsional), dan hidangakan</p>
-    <p id="modal-content" style="white-space:pre-line;"></p>
-  </div>
-</div>
-
-
-
-<section id="gofood" class="section-produk">
-    <h2>Go Food Murah</h2> 
-    <p>Males masak? Go Food solusinya</p>
-
-    <div class="slider-container">
-        <button class="slide-btn left" onclick="scrollSlider(-300)">&#10094;</button>
-
-        <div class="slider" id="produkSlider">
-
-            <!-- PRODUK 1 -->
-            <div class="product-card">
-                <img src="image/makanan/preksuuu.jpg" alt="">
-                <h3>Preksu Chicken</h3>
-                <p class="harga">Rp14.000</p>
-                <a href="https://gofood.link/a/KD9cUk7" target="_blank" class="btn-beli">Beli Sekarang</a>
-            </div>
-
-            <!-- PRODUK 2 -->
-            <div class="product-card">
-                <img src="image/makanan/Screenshot 2025-11-20 214054.png" alt="">
-                <h3>Warkop HS</h3>
-                <p class="harga">Rp12.000</p>
-                <a href="https://gofood.link/u/nyO09"  target="_blank" class="btn-beli">Beli Sekarang</a>
-            </div>
-
-            <!-- PRODUK 3 -->
-            <div class="product-card">
-                <img src="image/makanan/Screenshot 2025-11-20 214041.png" alt="">
-                <h3>Pecel Lele</h3>
-                <p class="harga">Rp10.000</p>
-                <a href="https://gofood.link/u/lrMgK" target="_blank" class="btn-beli">Beli Sekarang</a>
-            </div>
-
-            <!-- PRODUK 4 -->
-            <div class="product-card">
-                <img src="image/makanan/Catering Dapur Muslimah.png" alt="">
-                <h3>Nasi Uduk Dan Ketupat Sayur Uni May</h3>
-                <p class="harga">Rp12.000</p>
-                <a href="https://gofood.link/a/Jsa9EMw" target="_blank" class="btn-beli">Beli Sekarang</a>
-            </div>
-
-            <!-- PRODUK 5 -->
-            <div class="product-card">
-                <img src="image/makanan/Ketupat Sayur Uni May.png" alt="">
-                <h3> Sate Padang Takana </h3>
-                <p class="harga">Rp15.000</p>
-                <a href="https://gofood.link/a/DenFsZW" target="_blank" class="btn-beli">Beli Sekarang</a>
-            </div>
-
-            <!-- PRODUK 6 -->
-            <div class="product-card">
-                <img src="image/makanan/Screenshot 2025-11-20 214015.png" alt="">
-                <h3>Bakso Wonogiri</h3>
-                <p class="harga">Rp10.000</p>
-                <a href="https://gofood.link/u/2KLmp" target="_blank" class="btn-beli">Beli Sekarang</a>
-            </div>
-
-            <!-- PRODUK 7 -->
-            <div class="product-card">
-                <img src="image/makanan/Screenshot 2025-11-20 214108.png" alt="">
-                <h3>Nasi Bebek Ayam Kalasan Madura</h3>
-                <p class="harga">Rp10.000</p>
-                <a href="https://gofood.link/a/CMzXpks" target="_blank" class="btn-beli">Beli Sekarang</a>
-            </div>
-
-            <!-- PRODUK 8 -->
-            <div class="product-card">
-                <img src="image/makanan/Screenshot 2025-11-20 214126.png" alt="">
-                <h3>Nasi Goreng Cak Syamsul</h3>
-                <p class="harga">Rp12.000</p>
-                <a href="https://gofood.link/a/BUvbsW5" target="_blank" class="btn-beli">Beli Sekarang</a>
-            </div>
-
-            <!-- PRODUK 9 -->
-            <div class="product-card">
-                <img src="image/makanan/IMG-20251118-WA0016.jpg" alt="">
-                <h3>Mie Gacoan</h3>
-                <p class="harga">Rp10.000</p>
-                <a href="https://gofood.link/a/yM8XV4f" target="_blank" class="btn-beli">Beli Sekarang</a>
-            </div> 
-
-            <!-- PRODUK 10 -->
-            <div class="product-card">
-                <img src="image/makanan/IMG-20251118-WA0013.jpg" alt="">
-                <h3>Rice Boll</h3>
-                <p class="harga">Rp10.000</p>
-                <a href="https://gofood.link/a/EB3FynW" target="_blank" class="btn-beli">Beli Sekarang</a>
-            </div>
-        </div>
-        <button class="slide-btn right" onclick="scrollSlider(300)">&#10095;</button>
-    </div>
-</section>
-
-<script>
-function scrollSlider(value) {
-    document.getElementById('produkSlider').scrollBy({
-        left: value,
-        behavior: 'smooth'
-    });
-}
-</script>
-
-<!-- CONTACT -->
-<section id="contact">
-  <h2> LIHAT PETA DEPOK</h2>
-<div id="map"
-     style="
-        height: 350px; 
-        width: 85%; 
-        margin: 40px auto;
-        border-radius: 15px;
-        overflow: hidden;
-     ">
-</div>
-</section>
-
-    <script>
-
- function scrollToResep() {
-    document.getElementById("popular-recipes").scrollIntoView({behavior: "smooth"}); }
- function scrollToGofood() {
-    document.getElementById("gofood").scrollIntoView({behavior: "smooth"}); }
- function scrollToRestorant() {
-    document.getElementById("contact").scrollIntoView({behavior: "smooth"}); }
-
-
-      var map = L.map('map').setView([-6.3650, 106.8320], 14);
-
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19
-      }).addTo(map);
-
-      const places = [
-  { 
-    name: "Nasi Goreng Cak Syamsul", 
-    lat: -6.365321, 
-    lng: 106.829912, 
-    link: "https://gofood.link/a/BUvbsW5", 
-    mapLink: "https://www.google.com/maps/search/?api=1&query=Nasi+Goreng+Cak+Syamsul" 
-  },
-  { 
-    name: "Salam Kafe H. Amat II", 
-    lat: -6.367201, 
-    lng: 106.833512, 
-    link: "https://gofood.link/a/yM8XV4f", 
-    mapLink: "https://www.google.com/maps/search/?api=1&query=Salam+Kafe+H.+Amat+II" 
-  },
-  { 
-    name: "Nasi Bebek Ayam Kalasan Madura", 
-    lat: -6.368502, 
-    lng: 106.835201, 
-    link: "https://gofood.link/a/CMzXpks", 
-    mapLink: "https://www.google.com/maps/search/?api=1&query=Nasi+Bebek+Ayam+Kalasan+Madura" 
-  },
-  { 
-    name: "Warkop HS", 
-    lat: -6.367920, 
-    lng: 106.832450, 
-    link: "https://gofood.link/u/nyO09", 
-    mapLink: "https://www.google.com/maps/search/?api=1&query=Warkop+HS" 
-  },
-  { 
-    name: "Pecel Lele Rela 19", 
-    lat: -6.370012, 
-    lng: 106.829710, 
-    link: "https://gofood.link/u/lrMgK", 
-    mapLink: "https://www.google.com/maps/search/?api=1&query=Pecel+Lele+Rela+19" 
-  },
-  { 
-    name: "Bakso Wonogiri Beji", 
-    lat: -6.367510, 
-    lng: 106.821950, 
-    link: "https://gofood.link/u/2KLmp", 
-    mapLink: "https://www.google.com/maps/search/?api=1&query=Bakso+Wonogiri+Beji" 
-  },
-  { 
-    name: "Sate Padang Takana Juo 2", 
-    lat: -6.368900, 
-    lng: 106.825310, 
-    link: "https://gofood.link/a/DenFsZW", 
-    mapLink: "https://www.google.com/maps/search/?api=1&query=Sate+Padang+Takana+Juo+2" 
-  },
-  { 
-    name: "Nasi Uduk & Ketupat Uni May", 
-    lat: -6.367200, 
-    lng: 106.824110, 
-    link: "https://gofood.link/a/Jsa9EMw", 
-    mapLink: "https://www.google.com/maps/search/?api=1&query=Nasi+Uduk+%26+Ketupat+Uni+May" 
-  },
-  { 
-    name: "Catering Dapur Muslimah", 
-    lat: -6.369320, 
-    lng: 106.826510, 
-    link: "https://gofood.link/a/EB3FynW", 
-    mapLink: "https://www.google.com/maps/search/?api=1&query=Catering+Dapur+Muslimah" 
+    .button-group {
+    display: flex;
+    justify-content: center; /* biar tombol tetap di tengah */
+    gap: 20px;               /* jarak antar tombol */
+    margin-top: 20px;        /* jarak dari elemen atas */
   }
-];
+
+  .button-group button {
+    padding: 12px 25px;
+    border-radius: 30px;
+    border: none;
+    background: #b38959;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+  }
 
 
-      places.forEach(p => {
-        L.marker([p.lat, p.lng]).addTo(map)
-          .bindPopup(`<b>${p.name}</b><br><a href='${p.link}' target='_blank'>Buka Map</a>`);
-      });
+  /* Ganti blok #popular-recipes kamu dengan ini */
+  #popular-recipes {
+      /* 1. Ganti padding penulisannya biar aman */
+      /* Atas-Bawah 40px, Kiri-Kanan 7% */
+      padding: 40px 7% 10px 7%;
       
-    </script>
+      /* 2. INI KUNCINYA: Ubah min-height jadi auto */
+      /* Supaya tingginya ngikutin isi konten (ga maksa full layar) */
+      min-height: auto !important;
+      
+    
+      flex-direction: column;
+      box-sizing: border-box;
+      /* Hapus justify-content: center kalau mau elemen nempel ke atas */
+    justify-content: flex-start !important;
+      
+      background: #FFE8F1;
+      text-align: center;
+      
+      /* Margin negatif ini kadang bikin numpuk, tapi kalau desainmu butuh, biarkan */
+      margin-top: -20px; 
+  }
+  #popular-recipes h2{font-size:2.2rem;font-weight:700;background:linear-gradient(90deg,#C9485B);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+  #popular-recipes p{font-size:1rem;background:linear-gradient(90deg,#C9485B);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:25px}
+
+  /* SLIDER */
+  .slider-container{position:relative;overflow:hidden;margin-top:20px;margin-bottom: 10px !important;}
+  .cards-wrapper{display:flex;gap:20px;overflow-x:auto;scroll-behavior:smooth;padding-bottom:10px}
+  .cards-wrapper::-webkit-scrollbar{height:8px}
+  .cards-wrapper::-webkit-scrollbar-thumb{background:#C9485B;border-radius:4px}
+
+  /* CARD */
+  .recipe-card{width:210px;min-width:210px;background:white;border-radius:15px;overflow:hidden;box-shadow:0 6px 15px rgba(2, 2, 2, 0.12);cursor:pointer;transition:0.3s}
+  .recipe-card:hover{transform:translateY(-5px)}
+  .recipe-card img{width:100%;height:120px;object-fit:cover}
+  .card-body{padding:15px}
+  .card-body h3{font-size:1.1rem;color : #C9485B;margin-bottom:5px}
+  .meta{font-size:0.9rem;color:#555;margin-bottom:8px}
+
+  /* BUTTON */
+  .nav-btn{position:absolute;top:50%;transform:translateY(-50%);background:white;border:none;font-size:2rem;padding:6px 12px;cursor:pointer;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.2);transition:0.3s;z-index:10}
+  .nav-btn:hover{background:#C9485B;color:white}
+  #prev{left:0}
+  #next{right:0}
+
+  /* DETAIL BOX (asli kamu, tetap ada) */
+  #recipe-detail{padding:25px;background:#ffecf5;border-radius:16px;margin-top:25px;box-shadow:0 6px 15px rgba(0,0,0,0.1)}
+  .hidden{display:none}
+
+  /* CONTACT */
+  #contact{margin-top:40px;padding:80px 5%;background:linear-gradient(135deg, #FFE8F1);text-align:center;color:#f1757d}
+  footer{background:#222;color:white;padding:35px;text-align:center}
+
+  /* ===========================================================
+    >>>>>   MODAL RESEP (DITAMBAHKAN – TIDAK MENGGANGGU YANG ADA)
+    =========================================================== */
+  .modal-overlay{
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    background:rgba(0,0,0,0.65);
+    z-index:300;
+  }
+  .modal-box{
+    width:90%;
+    max-width:550px;
+    max-height:80vh;
+    overflow-y:auto;
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.25);
+    animation:popIn .25s ease-out;
+  }
+  @keyframes popIn{
+    from{transform:scale(.7);opacity:0}
+    to{transform:scale(1);opacity:1}
+  }
+  .close-btn{
+    float:right;
+    font-size:28px;
+    cursor:pointer;
+    color:#ff4d6d;
+    font-weight:bold;
+  }
+
+  /* =============================== */
+  /*  BACKGROUND SECTION PINK        */
+  /* =============================== */
+
+  .section-produk {
+      background: #FFE8F1;
+      padding: 50px 0;
+      text-align: center;
+  }
+
+  /* JUDUL */
+  .section-produk h2 {
+      font-size: 40px;
+      color: #DD356E;
+      font-weight: 700;
+      margin-bottom: 10px;
+  }
+
+  .section-produk p {
+      color: #DD356E;
+      font-size: 18px;
+      margin-bottom: 40px;
+  }
+
+  /* =============================== */
+  /*  SLIDER                         */
+  /* =============================== */
+
+  .slider-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 20px 0;
+  }
+
+  .slider {
+      display: flex;
+      gap: 25px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding: 10px 30px;
+  }
+
+  .slider::-webkit-scrollbar {
+      height: 6px;
+  }
+
+  .slider::-webkit-scrollbar-thumb {
+      background: #DD356E;
+      border-radius: 10px;
+  }
+
+  /* =============================== */
+  /*             Go Food             */
+  /* =============================== */
+
+  .product-card {
+      min-width: 280px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 4px 18px rgba(255, 140, 160, 0.25);
+      padding-bottom: 20px;
+      text-align: center;
+      overflow: hidden;
+      transition: 0.2s ease;
+  }
+
+  .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(255, 140, 160, 0.35);
+  }
+
+  .product-card img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+  }
+
+  /* Nama Gofood */
+  .product-card h3 {
+      margin-top: 15px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #DD356E;
+  }
+
+  /* Harga */
+  .product-card .harga {
+      color: #DD356E;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
+  }
+
+  /* Tombol Beli */
+  .btn-beli {
+      display: inline-block;
+      margin-top: 5px;
+      background: #DD356E;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 16px;
+      text-decoration: none;
+      transition: 0.2s;
+  }
+
+  .btn-beli:hover {
+      background: #DD356E;
+  }
+
+  /* =============================== */
+  /*  TOMBOL PANAH                   */
+  /* =============================== */
+
+  .slide-btn {
+      position: absolute;
+      top: 42%;
+      transform: translateY(-50%);
+      background: white;
+      border: none;
+      padding: 14px;
+      
+      font-size: 22px;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+      transition: 0.2s;
+  }
+
+  .slide-btn:hover {
+      background: white;
+  }
+
+  .slide-btn.left {
+      left: 20px;
+  }
+
+  .slide-btn.right {
+      right: 20px;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    /* Set warna background body sama dengan warna section agar tidak belang jika konten sedikit */
+    background-color: #FFE8F1; /* Sesuaikan kode warna hijaumu */
+  }
+
+  /* --- 1. WADAH TOMBOL (Supaya selalu di Tengah) --- */
+  .button-wrapper {
+    display: flex;
+    justify-content: center; /* Kunci posisi tengah */
+    width: 100%;
+    margin-top: 0px !important;      /* Jarak dari konten atas */
+    margin-bottom: 10px;    /* Jarak ke konten bawah */
+  }
+
+  /* --- 2. BENTUK DASAR TOMBOL (Dipakai semua tombol) --- */
+  .btn-kembali-base {
+    display: inline-flex;     /* Supaya ikon dan teks sejajar */
+    align-items: center;
+    justify-content: center;
+    gap: 8px;                 /* Jarak ikon ke teks */
+    
+    padding: 12px 35px;       /* Ukuran tombol */
+    border-radius: 50px;      /* Bentuk kapsul/lonjong */
+    background-color: #ffffff;/* Background dasar putih */
+    
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: none;    /* Hilangkan garis bawah link */
+    
+    transition: all 0.3s ease;/* Efek animasi halus */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Bayangan tipis */
+    border: 2px solid transparent; /* Persiapan untuk border */
+  }
+
+  /* --- 3. VARIASI WARNA (Tinggal Pilih) --- */
+
+  /* TEMA 1: HIJAU (Untuk Tutorial) */
+  .tema-hijau {
+    color: #C9485B; /* Warna Teks Hijau */
+  }
+  .tema-hijau:hover {
+    background-color: #C9485B; /* Background jadi Hijau */
+    color: #C9485B;            /* Teks jadi Putih */
+    transform: translateY(-3px); /* Tombol naik dikit */
+    box-shadow: 0 6px 12px rgba(107, 112, 92, 0.3);
+  }
+
+  /* TEMA 2: PINK (Untuk Resep) */
+  .tema-pink {
+    color: #D65A66; /* Warna Teks Pink */
+  }
+  .tema-pink:hover {
+    background-color: #D65A66;
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(214, 90, 102, 0.3);
+  }
+
+  /* TEMA 3: MERAH MAROON (Untuk GoFood/Lainnya) */
+  .tema-merah {
+    color: #A0153E; /* Warna Teks Merah Gelap */
+  }
+  .tema-merah:hover {
+    background-color: #A0153E;
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(160, 21, 62, 0.3);
+  }
+
+
+  /* MAP */
+
+      #map {
+        width: 100%;
+        height: 400px;
+        border-radius: 15px;
+        margin-top: 20px;
+      }
+
+  </style>
+  </head>
+
+  <body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="index.html"  class="nav-left">
+      <h2>KosEase</h2>
+    </a>
+
+    <div>
+      <a href="#home">Home</a>
+      <a href="#popular-recipes">Resep</a>
+      <a href="#gofood">GoFood</a>
+      <a href="#contact">Peta</a>
+      <span id="audioToggle" style="cursor:pointer;font-size:24px;">🔊</span>
+    </div>
+
+  </nav>
+
+  <audio id="bgMusic" loop>
+    <source src="sound/Cozy Drift.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- HOME -->
+  <section id="home">
+    <h1>KosEase</h1>
+    <p>MAKANAN IRIT BUAT ANAK KOST ✨</p>
+    <div class="button-group">
+    <button id="startBtn" onclick="scrollToResep()">Resep </button>
+    <button id="startBtnn" onclick="scrollToGofood()">Go Food </button>
+    <button id="startBtnnn" onclick="scrollToRestorant()"> Restorant </button>
+    </div>
   </section>
 
-<footer>
-  © 2025 KosEase Team | Teknologi Informasi UI
-</footer>
+  <!-- POPULAR RECIPES -->
+  <section id="popular-recipes">
+  <h2>Resep Populer</h2>
+  <p>Resep yang paling banyak dicoba para anak kos.</p>
 
-<script>
-/* ========== SLIDER (ASLI) ========== */
-const wrapper=document.getElementById("cardsWrapper");
-document.getElementById("prev").onclick=()=>wrapper.scrollBy({left:-270,behavior:"smooth"});
-document.getElementById("next").onclick=()=>wrapper.scrollBy({left:270,behavior:"smooth"});
+  <div class="slider-container">
+  <button id="prev" class="nav-btn">&#10094;</button>
+  <button id="next" class="nav-btn">&#10095;</button>
+  <div class="cards-wrapper" id="cardsWrapper">
 
-/* DETAIL (TETAP ADA) */
-const cards=document.querySelectorAll(".recipe-card");
-const detail=document.getElementById("recipe-detail");
+  <!--  Data Resep Makanan -->
+  <div class="recipe-card"  data-title="Tumis Telur Sosis" data-rating="4.9" data-time="30 menit">
+    <img src="image/makanan/tumis telor.png">
+    <div class="card-body"><h3>Tumis Telur Sosis</h3><p class="meta"> ⭐ lihat Di sini!</p></div>
+  </div>
 
-/* ==================== MODAL ==================== */
-const modal=document.getElementById("recipeModal");
-const modalTitle=document.getElementById("modal-title");
-const modalRating=document.getElementById("modal-rating");
-const modalTime=document.getElementById("modal-time");
-const modalContent=document.getElementById("modal-content");
+  <div class="recipe-card" data-title="Tahu Crispy Saus Pedas" data-rating="4.7" data-time="30 menit">
+    <img src="image/makanan/tahu crispy saus pedas.png">
+    <div class="card-body"><h3>Tahu Crispy Saus Pedas</h3><p class="meta"> ⭐ lihat Di sini!</p></div>
+  </div>
 
-function openModal(title,rating,time,content){
-  modalTitle.textContent=title;
-  modalRating.textContent="⭐ Rating: "+rating;
-  modalTime.textContent="⏱ Waktu: "+time;
-  modalContent.textContent=content;
-  modal.style.display="flex";
-}
-function closeModal(){modal.style.display="none";}
-modal.addEventListener("click",e=>{if(e.target===modal)closeModal();});
+  <div class="recipe-card" data-title="Ayam Pedas Manis " data-rating="4.5" data-time="25 menit">
+    <img src="image/makanan/ayam pedas manis.png">
+    <div class="card-body"><h3>Ayam Pedas Manis </h3><p class="meta">⭐ lihat Di sini!</p></div>
+  </div>
 
-/* CARD CLICK → MODAL */
-cards.forEach(card=>{
-  card.addEventListener("click",()=>{
-    const title=card.dataset.title;
-    const rating=card.dataset.rating;
-    const time=card.dataset.time;
+  <div class="recipe-card" data-title="Telor ceplok kecap" data-rating="4.6" data-time="45 menit">
+    <img src="image/makanan/telor ceplok kecap.png">
+    <div class="card-body"><h3>Telor ceplok kecap</h3><p class="meta">⭐ lihat Di sini!</p></div>
+  </div>
 
-    const content=card.querySelector(".meta + p")?.textContent 
-               || card.querySelector(".meta")?.textContent 
-               || "Tidak ada detail.";
+  <div class="recipe-card" data-title="Tumis buncis orak arik " data-rating="4.6" data-time="45 menit">
+    <img src="image/makanan/tumis buncis orak orik.png">
+    <div class="card-body"><h3>Tumis buncis orak arik </h3><p class="meta">⭐ lihat Di sini!</p></div>
+  </div>
 
-    openModal(title,rating,time,content);
+  <div class="recipe-card" data-title="Sup tahu telor" data-rating="4.6" data-time="45 menit">
+    <img src="image/makanan/sup tahu telor.png">
+    <div class="card-body"><h3>Sup tahu telor</h3><p class="meta">⭐ lihat Di sini!</p></div>
+  </div>
+
+  <div class="recipe-card" data-title="nugget sambal matah" data-rating="4.6" data-time="45 menit">
+    <img src="image/makanan/nugget sambal matah.png">
+    <div class="card-body"><h3>nugget sambal matah</h3><p class="meta">⭐ lihat Di sini!</p></div>
+  </div>
+
+  <div class="recipe-card" data-title="sosis donburi" data-rating="4.6" data-time="45 menit">
+    <img src="image/makanan/sosis donburi.png">
+    <div class="card-body"><h3>sosis donburi</h3><p class="meta">⭐ lihat Di sini!</p></div>
+  </div>
+
+  <div class="recipe-card" data-title="Tempe Karage " data-rating="4.6" data-time="45 menit">
+    <img src="image/makanan/tempe karage.png">
+    <div class="card-body"><h3>Tempe Karage </h3><p class="meta">⭐ lihat Di sini!</p></div>
+  </div>
+
+  <div class="recipe-card" data-title="Sayur Sop Telur Puyuh" data-rating="4.6" data-time="45 menit">
+    <img src="image/makanan/Sayur Sop Telur Puyuh (1).png">
+    <div class="card-body"><h3>Sayur Sop Telur Puyuh</h3><p class="meta">⭐ lihat Di sini!</p></div>
+  </div>
+  </div>
+  </div>
+  </section>
+
+
+  <!-- DETAIL ASLI KAMU (TETAP ADA) -->
+  <div id="recipe-detail" class="hidden">
+    <h3 id="detail-title"></h3>
+    <p id="detail-rating"></p>
+    <p id="detail-time"></p>
+  </div>
+  <!-- ==================== MODAL BESAR (DITAMBAHKAN) ==================== -->
+  <div id="recipeModal" class="modal-overlay">
+    <div class="modal-box">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h2 id="modal-title"></h2>
+      <p id="modal-rating"></p>
+      <p id="modal-time"></p>
+
+      <h3>Bahan & Cara Memasak:</h3>
+      <br>Alat-alat : wajan, pisau,talenan, mangkuk
+
+  <br>Bahan-bahan :</p>
+  <br>1 pack sosis atau sosis secukupnya</br>
+  <br>3 siung bawang merah</br>
+  <br>2 siung bawang putih</br>
+  <br>3 butir telur</br>
+  <br>1 sdm saus tiram</br>
+  <br>½ sdt saus tomat</br>
+  <br>
+  1 sdm saus sambal</br>
+  <br>air secukupnya</br>
+  <br>1sdt kaldu jamur</br>
+  <br>½ sdt gula </br>
+  <br>minyak goreng secukupnya</br>
+  <br>Cara pembuatan : </br>
+
+  goreng sosis 
+  tumis 3 siung bawang merah, 2 siung bawang putih, 3 butir telur, 1 sdm saus tiram, ½ sdt saus tomat, 1 sdm saus sambal .
+  tambahkan air secukupnya, 1sdt kaldu jamur, ½ sdt gula.
+  masukkan sosis, kemudian taburkan daun bawang dan cabe merah (opsional), dan hidangakan</p>
+      <p id="modal-content" style="white-space:pre-line;"></p>
+    </div>
+  </div>
+
+
+  <!-- Button  kembali -->
+  <div class="button-wrapper">
+      <a href="#home" class="btn-kembali-base tema-hijau">
+        <i class="fas fa-arrow-left"></i> Kembali
+      </a>
+    </div>
+
+  <section id="gofood" class="section-produk">
+      <h2>Go Food Murah</h2> 
+      <p>Males masak? Go Food solusinya</p>
+
+      <div class="slider-container">
+          <button class="slide-btn left" onclick="scrollSlider(-300)">&#10094;</button>
+
+          <div class="slider" id="produkSlider">
+
+              <!-- PRODUK 1 -->
+              <div class="product-card">
+                  <img src="image/makanan/preksuuu.jpg" alt="">
+                  <h3>Preksu Chicken</h3>
+                  <p class="harga">Rp14.000</p>
+                  <a href="https://gofood.link/a/KD9cUk7" target="_blank" class="btn-beli">Beli Sekarang</a>
+              </div>
+
+              <!-- PRODUK 2 -->
+              <div class="product-card">
+                  <img src="image/makanan/Screenshot 2025-11-20 214054.png" alt="">
+                  <h3>Warkop HS</h3>
+                  <p class="harga">Rp12.000</p>
+                  <a href="https://gofood.link/u/nyO09"  target="_blank" class="btn-beli">Beli Sekarang</a>
+              </div>
+
+              <!-- PRODUK 3 -->
+              <div class="product-card">
+                  <img src="image/makanan/Screenshot 2025-11-20 214041.png" alt="">
+                  <h3>Pecel Lele</h3>
+                  <p class="harga">Rp10.000</p>
+                  <a href="https://gofood.link/u/lrMgK" target="_blank" class="btn-beli">Beli Sekarang</a>
+              </div>
+
+              <!-- PRODUK 4 -->
+              <div class="product-card">
+                  <img src="image/makanan/Catering Dapur Muslimah.png" alt="">
+                  <h3>Nasi Uduk Dan Ketupat Sayur Uni May</h3>
+                  <p class="harga">Rp12.000</p>
+                  <a href="https://gofood.link/a/Jsa9EMw" target="_blank" class="btn-beli">Beli Sekarang</a>
+              </div>
+
+              <!-- PRODUK 5 -->
+              <div class="product-card">
+                  <img src="image/makanan/Ketupat Sayur Uni May.png" alt="">
+                  <h3> Sate Padang Takana </h3>
+                  <p class="harga">Rp15.000</p>
+                  <a href="https://gofood.link/a/DenFsZW" target="_blank" class="btn-beli">Beli Sekarang</a>
+              </div>
+
+              <!-- PRODUK 6 -->
+              <div class="product-card">
+                  <img src="image/makanan/Screenshot 2025-11-20 214015.png" alt="">
+                  <h3>Bakso Wonogiri</h3>
+                  <p class="harga">Rp10.000</p>
+                  <a href="https://gofood.link/u/2KLmp" target="_blank" class="btn-beli">Beli Sekarang</a>
+              </div>
+
+              <!-- PRODUK 7 -->
+              <div class="product-card">
+                  <img src="image/makanan/Screenshot 2025-11-20 214108.png" alt="">
+                  <h3>Nasi Bebek Ayam Kalasan Madura</h3>
+                  <p class="harga">Rp10.000</p>
+                  <a href="https://gofood.link/a/CMzXpks" target="_blank" class="btn-beli">Beli Sekarang</a>
+              </div>
+
+              <!-- PRODUK 8 -->
+              <div class="product-card">
+                  <img src="image/makanan/Screenshot 2025-11-20 214126.png" alt="">
+                  <h3>Nasi Goreng Cak Syamsul</h3>
+                  <p class="harga">Rp12.000</p>
+                  <a href="https://gofood.link/a/BUvbsW5" target="_blank" class="btn-beli">Beli Sekarang</a>
+              </div>
+
+              <!-- PRODUK 9 -->
+              <div class="product-card">
+                  <img src="image/makanan/IMG-20251118-WA0016.jpg" alt="">
+                  <h3>Mie Gacoan</h3>
+                  <p class="harga">Rp10.000</p>
+                  <a href="https://gofood.link/a/yM8XV4f" target="_blank" class="btn-beli">Beli Sekarang</a>
+              </div> 
+
+              <!-- PRODUK 10 -->
+              <div class="product-card">
+                  <img src="image/makanan/IMG-20251118-WA0013.jpg" alt="">
+                  <h3>Rice Boll</h3>
+                  <p class="harga">Rp10.000</p>
+                  <a href="https://gofood.link/a/EB3FynW" target="_blank" class="btn-beli">Beli Sekarang</a>
+              </div>
+          </div>
+          <button class="slide-btn right" onclick="scrollSlider(300)">&#10095;</button>
+      </div>
+  </section>
+  <!-- button kembali -->
+  <div class="button-wrapper">
+      <a href="#home" class="btn-kembali-base tema-pink">
+        <i class="fas fa-arrow-left"></i> Kembali
+      </a>
+    </div>
+  <script>
+  function scrollSlider(value) {
+      document.getElementById('produkSlider').scrollBy({
+          left: value,
+          behavior: 'smooth'
+      });
+  }
+  </script>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2> LIHAT PETA DEPOK</h2>
+  <div id="map"
+      style="
+          height: 350px; 
+          width: 85%; 
+          margin: 40px auto;
+          border-radius: 15px;
+          overflow: hidden;
+      ">
+  </div>
+  </section>
+
+      <script>
+
+  function scrollToResep() {
+      document.getElementById("popular-recipes").scrollIntoView({behavior: "smooth"}); }
+  function scrollToGofood() {
+      document.getElementById("gofood").scrollIntoView({behavior: "smooth"}); }
+  function scrollToRestorant() {
+      document.getElementById("contact").scrollIntoView({behavior: "smooth"}); }
+
+
+        var map = L.map('map').setView([-6.3650, 106.8320], 14);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19
+        }).addTo(map);
+
+        const places = [
+    { 
+      name: "Nasi Goreng Cak Syamsul", 
+      lat: -6.365321, 
+      lng: 106.829912, 
+      link: "https://gofood.link/a/BUvbsW5", 
+      mapLink: "https://www.google.com/maps/search/?api=1&query=Nasi+Goreng+Cak+Syamsul" 
+    },
+    { 
+      name: "Salam Kafe H. Amat II", 
+      lat: -6.367201, 
+      lng: 106.833512, 
+      link: "https://gofood.link/a/yM8XV4f", 
+      mapLink: "https://www.google.com/maps/search/?api=1&query=Salam+Kafe+H.+Amat+II" 
+    },
+    { 
+      name: "Nasi Bebek Ayam Kalasan Madura", 
+      lat: -6.368502, 
+      lng: 106.835201, 
+      link: "https://gofood.link/a/CMzXpks", 
+      mapLink: "https://www.google.com/maps/search/?api=1&query=Nasi+Bebek+Ayam+Kalasan+Madura" 
+    },
+    { 
+      name: "Warkop HS", 
+      lat: -6.367920, 
+      lng: 106.832450, 
+      link: "https://gofood.link/u/nyO09", 
+      mapLink: "https://www.google.com/maps/search/?api=1&query=Warkop+HS" 
+    },
+    { 
+      name: "Pecel Lele Rela 19", 
+      lat: -6.370012, 
+      lng: 106.829710, 
+      link: "https://gofood.link/u/lrMgK", 
+      mapLink: "https://www.google.com/maps/search/?api=1&query=Pecel+Lele+Rela+19" 
+    },
+    { 
+      name: "Bakso Wonogiri Beji", 
+      lat: -6.367510, 
+      lng: 106.821950, 
+      link: "https://gofood.link/u/2KLmp", 
+      mapLink: "https://www.google.com/maps/search/?api=1&query=Bakso+Wonogiri+Beji" 
+    },
+    { 
+      name: "Sate Padang Takana Juo 2", 
+      lat: -6.368900, 
+      lng: 106.825310, 
+      link: "https://gofood.link/a/DenFsZW", 
+      mapLink: "https://www.google.com/maps/search/?api=1&query=Sate+Padang+Takana+Juo+2" 
+    },
+    { 
+      name: "Nasi Uduk & Ketupat Uni May", 
+      lat: -6.367200, 
+      lng: 106.824110, 
+      link: "https://gofood.link/a/Jsa9EMw", 
+      mapLink: "https://www.google.com/maps/search/?api=1&query=Nasi+Uduk+%26+Ketupat+Uni+May" 
+    },
+    { 
+      name: "Catering Dapur Muslimah", 
+      lat: -6.369320, 
+      lng: 106.826510, 
+      link: "https://gofood.link/a/EB3FynW", 
+      mapLink: "https://www.google.com/maps/search/?api=1&query=Catering+Dapur+Muslimah" 
+    }
+  ];
+
+
+        places.forEach(p => {
+          L.marker([p.lat, p.lng]).addTo(map)
+            .bindPopup(`<b>${p.name}</b><br><a href='${p.link}' target='_blank'>Buka Map</a>`);
+        });
+        
+      </script>
+    </section>
+  <div class="button-wrapper">
+      <a href="index.html" class="btn-kembali-base tema-merah">
+        <i class="fas fa-arrow-left"></i> Kembali
+      </a>
+    </div>
+  <footer>
+    © 2025 KosEase Team | Teknologi Informasi UI
+  </footer>
+
+  <script>
+  /* ========== SLIDER (ASLI) ========== */
+  const wrapper=document.getElementById("cardsWrapper");
+  document.getElementById("prev").onclick=()=>wrapper.scrollBy({left:-270,behavior:"smooth"});
+  document.getElementById("next").onclick=()=>wrapper.scrollBy({left:270,behavior:"smooth"});
+
+  /* DETAIL (TETAP ADA) */
+  const cards=document.querySelectorAll(".recipe-card");
+  const detail=document.getElementById("recipe-detail");
+
+  /* ==================== MODAL ==================== */
+  const modal=document.getElementById("recipeModal");
+  const modalTitle=document.getElementById("modal-title");
+  const modalRating=document.getElementById("modal-rating");
+  const modalTime=document.getElementById("modal-time");
+  const modalContent=document.getElementById("modal-content");
+
+  function openModal(title,rating,time,content){
+    modalTitle.textContent=title;
+    modalRating.textContent="⭐ Rating: "+rating;
+    modalTime.textContent="⏱ Waktu: "+time;
+    modalContent.textContent=content;
+    modal.style.display="flex";
+  }
+  function closeModal(){modal.style.display="none";}
+  modal.addEventListener("click",e=>{if(e.target===modal)closeModal();});
+
+  /* CARD CLICK → MODAL */
+  cards.forEach(card=>{
+    card.addEventListener("click",()=>{
+      const title=card.dataset.title;
+      const rating=card.dataset.rating;
+      const time=card.dataset.time;
+
+      const content=card.querySelector(".meta + p")?.textContent 
+                || card.querySelector(".meta")?.textContent 
+                || "Tidak ada detail.";
+
+      openModal(title,rating,time,content);
+    });
   });
-});
 
 
 
 
-/* AUDIO */
-let isPlaying=false;
-const audio=document.getElementById("bgMusic");
-const toggleBtn=document.getElementById("audioToggle");
-toggleBtn.addEventListener("click",()=>{isPlaying?audio.pause():audio.play(); isPlaying=!isPlaying;});
-</script>
+  /* AUDIO */
+  let isPlaying=false;
+  const audio=document.getElementById("bgMusic");
+  const toggleBtn=document.getElementById("audioToggle");
+  toggleBtn.addEventListener("click",()=>{isPlaying?audio.pause():audio.play(); isPlaying=!isPlaying;});
+  </script>
 
-</body>
-</html>
+  </body>
+  </html>

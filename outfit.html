@@ -191,8 +191,7 @@ nav {
 #prev { left:0; }
 #next { right:0; }
 
-/* CONTACT */
-#contact { background: linear-gradient(135deg,#ff8bb3, #ffb36b); padding:100px 5%; text-align:center; color:#fff; }
+
 
 /* FOOTER */
 footer { background:#222; color:white; padding:40px 10%; text-align:center; }
@@ -212,7 +211,7 @@ footer { background:#222; color:white; padding:40px 10%; text-align:center; }
   <div class="nav-right">
     <a href="#home">Home</a>
     <a href="#team">Outfit</a>
-    <a href="#contact">Peta</a>
+    
    <span id="audioToggle" class="audio-icon" style="cursor:pointer; font-size:24px;">
   🔊
 </span>  
@@ -227,20 +226,17 @@ footer { background:#222; color:white; padding:40px 10%; text-align:center; }
   <h1>KosEase</h1>
   <p>OUTFIT HEMAT UNTUK ANAK KOS ✨</p>
   <p>Pilih gender:</p>
-   <div class="button-group">
-   <button id="startBtn" onclick="scrollToPria()">Pria</button>
-   <button id="startBtnn" onclick="scrollToWanita()">Wanita</button>
-   </div>
   <div class="gender-row">
-  
-  </div>
+    <button id="startBtnPria"  class="gender-btn pria" onclick="scrollToPria()"> Pria</button>
+    <button id="startBtnWanita" class="gender-btn wanita" onclick="scrollToWanita()"> Wanita</button>
+    </div>
 </section>
 
 <!-- TEAM -->
 <section id="team">
   <!-- WANITA -->
   <div id="content-wanita" class="hidden">
-    <h2>--- Toko Wanita ---</h2>
+    <h2>✨ Toko Outfit Wanita ✨</h2>
     <div class="grid">
       <div class="category-selector" data-category="outer"><img src="image/Outfitwanita/outerr.jpg"><h3 class="category-title">Outer</h3></div>
       <div class="category-selector" data-category="rok"><img src="image/Outfitwanita/rok wanita.jpg"><h3 class="category-title">Rok</h3></div>
@@ -253,7 +249,7 @@ footer { background:#222; color:white; padding:40px 10%; text-align:center; }
 
   <!-- PRIA -->
   <div id="content-pria" class="hidden">
-    <h2>--- Toko Pria ---</h2>
+    <h2>✨ Toko Outfit Wanita ✨</h2>
     <div class="grid">
       <div class="category-selector" data-category="jaket"><img src="image/outfitpria/jaket.jpg"><h3 class="category-title">Jaket</h3></div>
       <div class="category-selector" data-category="celana"><img src="image/outfitpria/nihhcelana.jpg"><h3 class="category-title">Celana</h3></div>
@@ -270,45 +266,6 @@ footer { background:#222; color:white; padding:40px 10%; text-align:center; }
     <button id="next" class="slider-btn">▶</button>
   </div>
 </section>
- <!-- MAP SECTION -->
-<section id="contact">
-  <h2>--LIHAT PETA DEPOK--</h2>
-  
-   <div id="map"
-     style="
-        height: 320px;
-        width: 80%;
-        margin: 40px auto;
-        border-radius: 20px;
-        overflow: hidden;
-     ">
-</div>
-
-    <script>
-      var map = L.map('map').setView([-6.3650, 106.8320], 14);
-
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19
-      }).addTo(map);
-
-      const places = [
-        { name: "Nasi Goreng Cak Syamsul", lat: -6.365321, lng: 106.829912, link: "https://gofood.link/a/BUvbsW5" },
-        { name: "Salam Kafe H. Amat II", lat: -6.367201, lng: 106.833512, link: "https://gofood.link/a/yM8XV4f" },
-        { name: "Nasi Bebek Ayam Kalasan Madura", lat: -6.368502, lng: 106.835201, link: "https://gofood.link/a/CMzXpks" },
-        { name: "Warkop HS", lat: -6.367920, lng: 106.832450, link: "https://gofood.link/u/nyO09" },
-        { name: "Pecel Lele Rela 19", lat: -6.370012, lng: 106.829710, link: "https://gofood.link/u/lrMgK" },
-        { name: "Bakso Wonogiri Beji", lat: -6.367510, lng: 106.821950, link: "https://gofood.link/u/2KLmp" },
-        { name: "Sate Padang Takana Juo 2", lat: -6.368900, lng: 106.825310, link: "https://gofood.link/a/DenFsZW" },
-        { name: "Nasi Uduk & Ketupat Uni May", lat: -6.367200, lng: 106.824110, link: "https://gofood.link/a/Jsa9EMw" },
-        { name: "Catering Dapur Muslimah", lat: -6.369320, lng: 106.826510, link: "https://gofood.link/a/EB3FynW" }
-      ];
-
-      places.forEach(p => {
-        L.marker([p.lat, p.lng]).addTo(map)
-          .bindPopup(`<b>${p.name}</b><br><a href='${p.link}' target='_blank'>Buka GoFood</a>`);
-      });
-    </script>
-  </section>
 
 
 <script>
@@ -448,15 +405,12 @@ const itemsData = {
 };
 
 // ELEMENTS
-const btnWanita=document.getElementById('btn-wanita');
-const btnPria=document.getElementById('btn-pria');
+const btnWanita=document.getElementById('startBtnWanita');
+const btnPria=document.getElementById('startBtnPria');
 const contentWanita=document.getElementById('content-wanita');
 const contentPria=document.getElementById('content-pria');
 const itemGrid=document.getElementById('item-grid');
-function scrollToPria() {
-    document.getElementById("team").scrollIntoView({behavior: "smooth"}); }
- function scrollToWanita() {
-    document.getElementById("team").scrollIntoView({behavior: "smooth"}); }
+const sliderWrapper = document.getElementById('slider-wrapper'); 
 
 // STATE
 let currentGender='wanita';
@@ -486,75 +440,53 @@ function updateItemGrid(){
   });
 }
 
-// GENDER BUTTON
+// GENDER BUTTON LISTENERS (PERBAIKAN 3: Satukan logika dan Tambahkan Scroll Smooth)
+// Blok listener lama dihapus dan diganti dengan ini
+
 btnWanita.addEventListener('click',()=>{
-  currentGender='wanita';
-  contentWanita.classList.remove('hidden');
-  contentPria.classList.add('hidden');
-  currentCategory='outer';
-  
-  updateItemGrid();
+  currentGender = 'wanita';
+  contentWanita.classList.remove('hidden');
+  contentPria.classList.add('hidden');
+  currentCategory = 'outer';
+  sliderWrapper.classList.remove('hidden'); 
+  updateItemGrid();
+  
+  // 👇 SCROLL SMOOTH KE BAGIAN ID="TEAM" (Toko)
+  document.getElementById("team").scrollIntoView({behavior: "smooth"}); 
 });
+
 btnPria.addEventListener('click',()=>{
-  currentGender='pria';
-  contentPria.classList.remove('hidden');
-  contentWanita.classList.add('hidden');
-  currentCategory='jaket';
-  
-  updateItemGrid();
+  currentGender = 'pria';
+  contentPria.classList.remove('hidden');
+  contentWanita.classList.add('hidden');
+  currentCategory = 'jaket'; 
+  sliderWrapper.classList.remove('hidden'); 
+  updateItemGrid();
+  
+  // 👇 SCROLL SMOOTH KE BAGIAN ID="TEAM" (Toko)
+  document.getElementById("team").scrollIntoView({behavior: "smooth"}); 
 });
+
 
 // CATEGORY SELECTOR
 document.querySelectorAll('.category-selector').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    currentCategory=btn.dataset.category;
-    updateItemGrid();
-  });
+  btn.addEventListener('click',()=>{
+    currentCategory=btn.dataset.category;
+    updateItemGrid();
+  });
 });
 
 // SLIDER BUTTONS
 document.getElementById('prev').addEventListener('click',()=>{ itemGrid.scrollBy({left:-250, behavior:'smooth'}); });
 document.getElementById('next').addEventListener('click',()=>{ itemGrid.scrollBy({left:250, behavior:'smooth'}); });
 
-const sliderWrapper = document.getElementById('slider-wrapper');
-
-btnWanita.addEventListener('click',()=>{
-  currentGender = 'wanita';
-  contentWanita.classList.remove('hidden');
-  contentPria.classList.add('hidden');
-  currentCategory = 'outer'; // pastikan ada kategori default
-  sliderWrapper.classList.remove('hidden'); // tampilkan slider
-  updateItemGrid();
-});
-
-btnPria.addEventListener('click',()=>{
-  currentGender = 'pria';
-  contentPria.classList.remove('hidden');
-  contentWanita.classList.add('hidden');
-  currentCategory = 'jaket'; // pastikan ada kategori default
-  sliderWrapper.classList.remove('hidden'); // tampilkan slider
-  updateItemGrid();
-});
-
 
 // INIT
 updateItemGrid();
 itemGrid.innerHTML = ''; // Kosongkan grid saat pertama kali load
 
-// Koordinat UI Depok (perkirakan dari data)  
-  const lat = -6.3662;  
-  const lng = 106.8259;  // dari Wikipedia UI :contentReference[oaicite:0]{index=0}  
 
-  var map = L.map('map').setView([lat, lng], 15);
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '© OpenStreetMap'
-  }).addTo(map);
-
-  L.marker([lat, lng]).addTo(map)
-    .bindPopup("Universitas Indonesia, Depok")
-    .openPopup();
 
   
 
