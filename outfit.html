@@ -88,6 +88,7 @@ nav {
 .gender-btn.pria { background: #3c8dff; }
 .gender-btn:hover { opacity:0.9; transform:scale(1.05); }
 
+
 /* CATEGORY TITLES */
 #content-wanita h2, #content-pria h2 {
   font-size:2rem;
@@ -105,93 +106,139 @@ nav {
   100% { opacity:1; transform:translateY(0);}
 }
 
-/* GRID CATEGORY */
-.grid { display:flex; justify-content:center; flex-wrap:wrap; gap:50px; margin-bottom:70px; }
-.category-selector { text-align:center; cursor:pointer; transition:0.3s ease; }
-.category-selector:hover { transform:scale(1.05); }
-.category-selector img { width:200px; border-radius:12px; transition:0.3s ease; object-fit:cover; aspect-ratio:3/4; }
-.category-title { font-size:0.85rem; margin-top:8px; color:#a7a09e; font-weight:300; transition:0.3s ease; }
-.category-selector:hover .category-title { color:#545151; }
-
-.category-selector {
-  position: relative; /* biar badge .category-title ngikut gambar */
-  display: inline-block;
-  cursor: pointer;
-  overflow: hidden;
+/* GRID CATEGORY (DIPERBAIKI) */
+/* Mengganti display:flex menjadi display:grid agar lebih mudah mengatur kolom yang seragam */
+.grid { 
+    display: grid;
+    /* Membuat kolom responsif: minimal 150px, maksimal 1fr */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+    justify-content: center; /* Untuk menengahkan konten */
+    gap: 20px; /* Mengurangi jarak antar card agar lebih efisien */
+    margin-bottom: 50px; /* Mengurangi margin bawah */
+    padding: 0 15px; /* Memberi padding samping agar tidak menempel ke tepi */
 }
 
+.category-selector { 
+    text-align: center; 
+    cursor: pointer; 
+    transition: 0.3s ease; 
+    position: relative; 
+    display: block; /* Menggunakan block agar mengisi ruang grid */
+    overflow: hidden;
+    /* Menghapus transform:scale(1.05) di sini, pindah ke gambar */
+}
+
+
+
+.category-selector img { 
+    /* KRITIS: Menghilangkan width:200px agar responsif mengikuti lebar grid */
+    width: 100%; 
+    /* KRITIS: Menetapkan tinggi gambar agar semua seragam */
+    height: 250px; 
+    object-fit: cover; /* KRITIS: Penting agar gambar tidak distorsi */
+    border-radius: 12px; 
+    transition: 0.3s ease; 
+    /* Menghapus aspect-ratio:3/4 karena kita menetapkan tinggi (height: 250px) */
+}
+.category-selector:hover img {
+    transform: scale(1.05); /* Efek hover scale dipindahkan ke gambar */
+}
+
+
+/* Category Title (Badge) - Tidak ada perubahan signifikan, hanya penyesuaian margin */
 .category-title {
-  position: absolute;
-  bottom: 12px;               /* jarak dari bawah gambar */
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(90deg, #ff8bb3, #ffb36b); /* gradient cantik */
-  padding: 6px 18px;
-  border-radius: 25px;        /* oval */
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: white;
-  text-align: center;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-  transition: 0.3s;
-}
-#content-pria .category-title {
-  background: linear-gradient(90deg, #0b0675, #2cf9e5);
+    /* Tetap seperti sebelumnya */
+    position: absolute;
+    bottom: 15px; /* Menyesuaikan jarak dari bawah gambar */
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, #ff8bb3, #24408d);
+    padding: 6px 18px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    transition: 0.3s;
 }
 
 .category-selector:hover .category-title {
-  transform: translateX(-50%) translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transform: translateX(-50%) translateY(-5px); /* Menambahkan efek sedikit naik */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+/* ITEM GRID SLIDER (DIPERBAIKI) */
+#slider-wrapper { 
+    position: relative; 
+    margin-top: 30px; /* Menambah sedikit margin atas */
+    padding: 0 10px; /* Tambahkan padding agar tombol slider tidak menempel di tepi */
 }
 
-/* ITEM GRID SLIDER */
-#slider-wrapper { position: relative; margin-top:20px; }
 #item-grid {
-  display:flex;
-  overflow-x:auto;
-  gap:20px;
-  scroll-behavior:smooth;
-  padding-bottom:10px;
-  padding-left:10px;
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    scroll-behavior: smooth;
+    padding-bottom: 20px; /* Menambah padding agar scrollbar tidak menempel */
+    padding-left: 0; /* Hapus padding-left yang lama */
 }
-#item-grid::-webkit-scrollbar { height:8px; }
-#item-grid::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius:4px; }
 
+/* Card Produk di Slider */
 .card {
-  flex:0 0 220px;
-  background:linear-gradient(145deg,#fff,#f0f0f0);
-  border-radius:12px;
-  overflow:hidden;
-  box-shadow:0 6px 15px rgba(0,0,0,0.15);
-  transition:0.3s, transform 0.3s ease;
-  opacity:0;
-  transform:translateY(20px) scale(0.95);
+    /* KRITIS: Mengatur lebar tetap 220px dan tidak boleh menyusut/melar */
+    flex: 0 0 220px; 
+    /* WARNA DEFAULT UNTUK CARD WANITA */
+    background: white; /* Menggunakan warna pink muda agar tidak terlalu mencolok */
+    border: 1px solid white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: 0.3s, transform 0.3s ease;
+    opacity: 1;
+    padding: 0.7rem; 
+    /* KRITIS: Tambahkan ini untuk menengahkan semua teks di dalam konten */
+    text-align: center;
+    transform: none;
 }
-.card.show { opacity:1; transform:translateY(0) scale(1); }
-.card:hover { transform:scale(1.05); }
-.card img { width:100%; object-fit:cover; aspect-ratio:3/4; border-bottom:1px solid #ddd; }
-.card .card-content { padding:0.7rem; text-align:center; }
-.card .card-content h3 { font-size:1rem; margin-bottom:4px; }
-.card .card-content p { font-size:0.85rem; margin-bottom:2px; color:#555; }
-.card .card-content a { display:inline-block; margin-top:4px; text-decoration:none; color:#ec9c23; font-weight:500; transition:0.3s; }
-.card .card-content a:hover { color:#ff70a6; }
+.card:hover { 
+    transform: scale(1.03); 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
 
-/* SLIDER BUTTONS */
+/* KODE BARU: STYLE KHUSUS UNTUK CARD PRIA */
+.card.card-pria {
+    /* Warna latar belakang biru/gelap untuk Pria */
+    background: #e0f7fa; /* Warna biru muda */
+    border: 1px solid #00bcd4;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.card img { 
+    width: 100%; 
+    height: 250px;  
+    object-fit: cover; 
+    border-bottom: 1px solid #ddd; 
+}
+/* SLIDER BUTTONS (DIPERBAIKI) */
 .slider-btn {
-  position:absolute; top:50%;
-  transform:translateY(-50%);
-  background: rgba(240, 130, 5, 0.4);
-  border:none; color:rgb(177, 168, 168);
-  font-size:24px; padding:10px 14px;
-  border-radius:50%;
-  cursor:pointer; z-index:5;
-  transition:0.3s;
+    position: absolute; 
+    top: 50%;
+    /* KRITIS: Menggunakan margin-left/right negatif untuk menempatkannya sedikit di luar slider */
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5); /* Mengubah warna agar lebih terlihat */
+    border: none; 
+    color: white; /* Mengubah warna teks/ikon */
+    font-size: 20px; 
+    padding: 8px 12px; /* Mengurangi padding agar tombol lebih kecil */
+    border-radius: 50%;
+    cursor: pointer; 
+    z-index: 5;
+    transition: 0.3s;
 }
-.slider-btn:hover { background:#ff70a6; }
-#prev { left:0; }
-#next { right:0; }
+.slider-btn:hover { background: #ff70a6; }
 
-
+#prev { left: 0; margin-left: -5px; } /* Sedikit bergeser ke kiri */
+#next { right: 0; margin-right: -5px; } /* Sedikit bergeser ke kanan */
 
 /* FOOTER */
 footer { background:#222; color:white; padding:40px 10%; text-align:center; }
@@ -249,7 +296,7 @@ footer { background:#222; color:white; padding:40px 10%; text-align:center; }
 
   <!-- PRIA -->
   <div id="content-pria" class="hidden">
-    <h2>✨ Toko Outfit Wanita ✨</h2>
+    <h2>✨ Toko Outfit Pria ✨</h2>
     <div class="grid">
       <div class="category-selector" data-category="jaket"><img src="image/outfitpria/jaket.jpg"><h3 class="category-title">Jaket</h3></div>
       <div class="category-selector" data-category="celana"><img src="image/outfitpria/nihhcelana.jpg"><h3 class="category-title">Celana</h3></div>
@@ -260,7 +307,7 @@ footer { background:#222; color:white; padding:40px 10%; text-align:center; }
   </div>
 
   <!-- ITEM GRID + SLIDER -->
-  <div id="slider-wrapper" class="hidden">
+  <div id="slider-wrapper" class="card">
     <button id="prev" class="slider-btn">◀</button>
     <main id="item-grid"></main>
     <button id="next" class="slider-btn">▶</button>
@@ -273,67 +320,67 @@ footer { background:#222; color:white; padding:40px 10%; text-align:center; }
 const itemsData = {
   wanita: {
    outer: [
-      { id:1, name:"Outer Wanita 1", price:"Rp125.000", img:"image/Outfitwanita/kardigan/outer (1).jpg", link:"https://id.shp.ee/JwfBC8X" },
-      { id:2, name:"Outer Wanita 2", price:"Rp130.000", img:"image/Outfitwanita/kardigan/outer (2).jpg", link:"https://id.shp.ee/JwfBC8X" },
+      { id:1, name:"Outer Wanita 1", price:"Rp125.000", img:"image/Outfitwanita/kardigan/outer (1).jpg", link:"https://id.shp.ee/THDcjKz" },
+      { id:2, name:"Outer Wanita 2", price:"Rp130.000", img:"image/Outfitwanita/kardigan/outer (2).jpg", link:"https://id.shp.ee/oToEWPU" },
       { id:3, name:"Outer Wanita 3", price:"Rp135.000", img:"image/Outfitwanita/kardigan/outer (3).jpg", link:"https://id.shp.ee/JwfBC8X" },
-      { id:4, name:"Outer Wanita 4", price:"Rp140.000", img:"image/Outfitwanita/kardigan/outer (4).jpg", link:"https://id.shp.ee/JwfBC8X" },
-      { id:5, name:"Outer Wanita 5", price:"Rp145.000", img:"image/Outfitwanita/kardigan/outer (5).jpg", link:"https://id.shp.ee/JwfBC8X" },
-      { id:6, name:"Outer Wanita 6", price:"Rp150.000", img:"image/Outfitwanita/kardigan/outer (6).jpg", link:"https://id.shp.ee/JwfBC8X" },
-      { id:7, name:"Outer Wanita 7", price:"Rp155.000", img:"image/Outfitwanita/kardigan/outer (7).jpg", link:"https://id.shp.ee/JwfBC8X" },
-      { id:8, name:"Outer Wanita 8", price:"Rp160.000", img:"image/Outfitwanita/kardigan/outer (8).jpg", link:"https://id.shp.ee/JwfBC8X" },
-      { id:9, name:"Outer Wanita 9", price:"Rp165.000", img:"image/Outfitwanita/kardigan/outer (9).jpg", link:"https://id.shp.ee/JwfBC8X" },
-      { id:10,name:"Outer Wanita 10",price:"Rp170.000", img:"image/Outfitwanita/kardigan/outer (10).jpg", link:"https://id.shp.ee/JwfBC8X" }
+      { id:4, name:"Outer Wanita 4", price:"Rp140.000", img:"image/Outfitwanita/kardigan/outer (4).jpg", link:"https://id.shp.ee/NkFPBtF" },
+      { id:5, name:"Outer Wanita 5", price:"Rp145.000", img:"image/Outfitwanita/kardigan/outer (5).jpg", link:"https://id.shp.ee/NkFPBtF" },
+      { id:6, name:"Outer Wanita 6", price:"Rp150.000", img:"image/Outfitwanita/kardigan/outer (6).jpg", link:"https://id.shp.ee/wdjF8vh" },
+      { id:7, name:"Outer Wanita 7", price:"Rp155.000", img:"image/Outfitwanita/kardigan/outer (7).jpg", link:"https://id.shp.ee/AxTsJHk" },
+      { id:8, name:"Outer Wanita 8", price:"Rp160.000", img:"image/Outfitwanita/kardigan/outer (8).jpg", link:"https://id.shp.ee/x8iiKuk" },
+      { id:9, name:"Outer Wanita 9", price:"Rp165.000", img:"image/Outfitwanita/kardigan/outer (9).jpg", link:"https://id.shp.ee/PV69FPJ" },
+      { id:10,name:"Outer Wanita 10",price:"Rp170.000", img:"image/Outfitwanita/kardigan/outer (10).jpg", link:"https://id.shp.ee/47ZWoDo" }
 
     ],
     rok: [
-      { id:11,name:"Rok Wanita 1", price:"Rp95.000", img:"image/Outfitwanita/rok/rok (1).jpg", link:"#" },
-      { id:12,name:"Rok Wanita 2", price:"Rp99.000", img:"image/Outfitwanita/rok/rok (2).jpg", link:"#" },
-      { id:13,name:"Rok Wanita 3", price:"Rp103.000", img:"image/Outfitwanita/rok/rok (3).jpg", link:"#" },
-      { id:14,name:"Rok Wanita 4", price:"Rp107.000", img:"image/Outfitwanita/rok/rok (4).jpg", link:"#" },
-      { id:15,name:"Rok Wanita 5", price:"Rp111.000", img:"image/Outfitwanita/rok/rok (5).jpg", link:"#" },
-      { id:16,name:"Rok Wanita 6", price:"Rp115.000", img:"image/Outfitwanita/rok/rok (6).jpg", link:"#" },
-      { id:17,name:"Rok Wanita 7", price:"Rp119.000", img:"image/Outfitwanita/rok/rok (7).jpg", link:"#" },
-      { id:18,name:"Rok Wanita 8", price:"Rp123.000", img:"image/Outfitwanita/rok/rok (8).jpg", link:"#" },
-      { id:19,name:"Rok Wanita 9", price:"Rp127.000", img:"image/Outfitwanita/rok/rok (9).jpg", link:"#" },
-      { id:20,name:"Rok Wanita 10",price:"Rp131.000", img:"image/Outfitwanita/rok/rok (1).jpg", link:"#" }
+      { id:11,name:"Rok Wanita 1", price:"Rp95.000", img:"image/Outfitwanita/rok/rok (1).jpg", link:"https://s.shopee.co.id/50LjSVI6Dd." },
+      { id:12,name:"Rok Wanita 2", price:"Rp99.000", img:"image/Outfitwanita/rok/rok (2).jpg", link:"https://s.shopee.co.id/50LjSVI6Dd." },
+      { id:13,name:"Rok Wanita 3", price:"Rp103.000", img:"image/Outfitwanita/rok/rok (3).jpg", link:"https://s.shopee.co.id/50LjSVI6Dd." },
+      { id:14,name:"Rok Wanita 4", price:"Rp107.000", img:"image/Outfitwanita/rok/rok (4).jpg", link:"https://s.shopee.co.id/50LjSVI6Dd." },
+      { id:15,name:"Rok Wanita 5", price:"Rp111.000", img:"image/Outfitwanita/rok/rok (5).jpg", link:"https://s.shopee.co.id/50LjSVI6Dd." },
+      { id:16,name:"Rok Wanita 6", price:"Rp115.000", img:"image/Outfitwanita/rok/rok (6).jpg", link:"https://s.shopee.co.id/50LjSVI6Dd." },
+      { id:17,name:"Rok Wanita 7", price:"Rp119.000", img:"image/Outfitwanita/rok/rok (7).jpg", link:"https://s.shopee.co.id/50LjSVI6Dd." },
+      { id:18,name:"Rok Wanita 8", price:"Rp123.000", img:"image/Outfitwanita/rok/rok (8).jpg", link:"https://s.shopee.co.id/50LjSVI6Dd." },
+      { id:19,name:"Rok Wanita 9", price:"Rp127.000", img:"image/Outfitwanita/rok/rok (9).jpg", link:"https://s.shopee.co.id/50LjSVI6Dd." },
+      { id:20,name:"Rok Wanita 10",price:"Rp131.000", img:"image/Outfitwanita/rok/rok (1).jpg", link:"https://s.shopee.co.id/50LjSVI6Dd." }
 
     ],
    dress: [
-      { id:21, name:"dress Wanita 1", price:"Rp125.000", img:"image/Outfitwanita/dress/dres (1).jpg", link:"#" },
-      { id:22, name:"dress Wanita 2", price:"Rp130.000", img:"image/Outfitwanita/dress/dres (2).jpg", link:"#" },
-      { id:23, name:"dress Wanita 3", price:"Rp135.000", img:"image/Outfitwanita/dress/dres (3).jpg", link:"#" },
-      { id:24, name:"dress Wanita 4", price:"Rp140.000", img:"image/Outfitwanita/dress/dres (4).jpg", link:"#" },
-      { id:25, name:"dress Wanita 5", price:"Rp145.000", img:"image/Outfitwanita/dress/dres (5).jpg", link:"#" },
-      { id:26, name:"dress Wanita 6", price:"Rp150.000", img:"image/Outfitwanita/dress/dres (6).jpg", link:"#" },
-      { id:27, name:"dress Wanita 7", price:"Rp155.000", img:"image/Outfitwanita/dress/dres (7).jpg", link:"#" },
-      { id:28, name:"dress Wanita 8", price:"Rp160.000", img:"image/Outfitwanita/dress/dres (8).jpg", link:"#" },
-      { id:29, name:"dress Wanita 9", price:"Rp165.000", img:"image/Outfitwanita/dress/dres (9).jpg", link:"#" },
-      { id:30,name:"dress Wanita 10",price:"Rp170.000", img:"image/Outfitwanita/dress/dres (10).jpg", link:"#" }
+      { id:21, name:"dress Wanita 1", price:"Rp125.000", img:"image/Outfitwanita/dress/dres (1).jpg", link:"https://id.shp.ee/PwwP2zY" },
+      { id:22, name:"dress Wanita 2", price:"Rp130.000", img:"image/Outfitwanita/dress/dres (2).jpg", link:"https://id.shp.ee/Q4MCe4u" },
+      { id:23, name:"dress Wanita 3", price:"Rp135.000", img:"image/Outfitwanita/dress/dres (3).jpg", link:"https://id.shp.ee/dTwnHiS" },
+      { id:24, name:"dress Wanita 4", price:"Rp140.000", img:"image/Outfitwanita/dress/dres (4).jpg", link:"https://id.shp.ee/6uB5oXc" },
+      { id:25, name:"dress Wanita 5", price:"Rp145.000", img:"image/Outfitwanita/dress/dres (5).jpg", link:"https://id.shp.ee/VF6KPoP" },
+      { id:26, name:"dress Wanita 6", price:"Rp150.000", img:"image/Outfitwanita/dress/dres (6).jpg", link:"https://id.shp.ee/GJHjB7E" },
+      { id:27, name:"dress Wanita 7", price:"Rp155.000", img:"image/Outfitwanita/dress/dres (7).jpg", link:"https://id.shp.ee/ebgXKCb" },
+      { id:28, name:"dress Wanita 8", price:"Rp160.000", img:"image/Outfitwanita/dress/dres (8).jpg", link:"https://id.shp.ee/uNuo5bh" },
+      { id:29, name:"dress Wanita 9", price:"Rp165.000", img:"image/Outfitwanita/dress/dres (9).jpg", link:"https://id.shp.ee/yxaCrMg" },
+      { id:30,name:"dress Wanita 10",price:"Rp170.000", img:"image/Outfitwanita/dress/dres (10).jpg", link:"https://id.shp.ee/7nLQCis" }
 
     ],
     sepatu: [
       { id:31,name:"sepatu Wanita 1", price:"Rp95.000", img:"image/Outfitwanita/sepatu/sepatu (1).jpg", link:"https://s.shopee.co.id/6fY93yxV7E" },
-      { id:32,name:"sepatu Wanita 2", price:"Rp99.000", img:"image/Outfitwanita/sepatu/sepatu (2).jpg", link:"#" },
-      { id:33,name:"sepatu Wanita 3", price:"Rp103.000", img:"image/Outfitwanita/sepatu/sepatu (3).jpg", link:"#" },
-      { id:34,name:"sepatu Wanita 4", price:"Rp107.000", img:"image/Outfitwanita/sepatu/sepatu (4).jpg", link:"#" },
-      { id:35,name:"sepatu Wanita 5", price:"Rp111.000", img:"image/Outfitwanita/sepatu/sepatu (5).jpg", link:"#" },
-      { id:36,name:"sepatu Wanita 6", price:"Rp115.000", img:"image/Outfitwanita/sepatu/sepatu (6).jpg", link:"#" },
-      { id:37,name:"sepatu Wanita 7", price:"Rp119.000", img:"image/Outfitwanita/sepatu/sepatu (7).jpg", link:"#" },
-      { id:38,name:"sepatu Wanita 8", price:"Rp123.000", img:"image/Outfitwanita/sepatu/sepatu (8).jpg", link:"#" },
-      { id:39,name:"sepatu Wanita 9", price:"Rp127.000", img:"image/Outfitwanita/sepatu/sepatu (9).jpg", link:"#" },
-      { id:40,name:"sepatu Wanita 10",price:"Rp131.000", img:"image/Outfitwanita/sepatu/sepatu (10).jpg", link:"#" }
+      { id:32,name:"sepatu Wanita 2", price:"Rp99.000", img:"image/Outfitwanita/sepatu/sepatu (2).jpg", link:"https://s.shopee.co.id/803WedZlh4." },
+      { id:33,name:"sepatu Wanita 3", price:"Rp103.000", img:"image/Outfitwanita/sepatu/sepatu (3).jpg", link:"https://s.shopee.co.id/803WedZlh4." },
+      { id:34,name:"sepatu Wanita 4", price:"Rp107.000", img:"image/Outfitwanita/sepatu/sepatu (4).jpg", link:"https://s.shopee.co.id/803WedZlh4." },
+      { id:35,name:"sepatu Wanita 5", price:"Rp111.000", img:"image/Outfitwanita/sepatu/sepatu (5).jpg", link:"https://s.shopee.co.id/803WedZlh4." },
+      { id:36,name:"sepatu Wanita 6", price:"Rp115.000", img:"image/Outfitwanita/sepatu/sepatu (6).jpg", link:"https://s.shopee.co.id/803WedZlh4." },
+      { id:37,name:"sepatu Wanita 7", price:"Rp119.000", img:"image/Outfitwanita/sepatu/sepatu (7).jpg", link:"https://s.shopee.co.id/803WedZlh4." },
+      { id:38,name:"sepatu Wanita 8", price:"Rp123.000", img:"image/Outfitwanita/sepatu/sepatu (8).jpg", link:"https://s.shopee.co.id/803WedZlh4." },
+      { id:39,name:"sepatu Wanita 9", price:"Rp127.000", img:"image/Outfitwanita/sepatu/sepatu (9).jpg", link:"https://s.shopee.co.id/803WedZlh4." },
+      { id:40,name:"sepatu Wanita 10",price:"Rp131.000", img:"image/Outfitwanita/sepatu/sepatu (10).jpg", link:"https://s.shopee.co.id/803WedZlh4." }
     ],
      aksesoris: [
-      { id:41,name:"aksesoris Wanita 1", price:"Rp95.000", img:"image/Outfitwanita/aksesoris/1 (1).jpg", link:"#s" },
-      { id:42,name:"aksesoris Wanita 2", price:"Rp99.000", img:"image/Outfitwanita/aksesoris/1 (2).jpg", link:"#s" },
-      { id:43,name:"aksesoris Wanita 3", price:"Rp103.000", img:"image/Outfitwanita/aksesoris/1 (3).jpg", link:"#" },
-      { id:44,name:"aksesoris Wanita 4", price:"Rp107.000", img:"image/Outfitwanita/aksesoris/1 (4).jpg", link:"#" },
-      { id:45,name:"aksesoris Wanita 5", price:"Rp111.000", img:"image/Outfitwanita/aksesoris/1 (5).jpg", link:"#" },
-      { id:46,name:"aksesoris Wanita 6", price:"Rp115.000", img:"image/Outfitwanita/aksesoris/1 (6).jpg", link:"#" },
-      { id:47,name:"aksesoris Wanita 7", price:"Rp119.000", img:"image/Outfitwanita/aksesoris/1 (7).jpg", link:"#" },
-      { id:48,name:"aksesoris Wanita 8", price:"Rp123.000", img:"image/Outfitwanita/aksesoris/1 (8).jpg", link:"#" },
-      { id:49,name:"aksesoris Wanita 9", price:"Rp127.000", img:"image/Outfitwanita/aksesoris/1 (9).jpg", link:"#" },
-      { id:50,name:"aksesoris Wanita 10",price:"Rp131.000", img:"image/Outfitwanita/aksesoris/1 (10).jpg", link:"#" }
+      { id:41,name:"aksesoris Wanita 1", price:"Rp95.000", img:"image/Outfitwanita/aksesoris/1 (1).jpg", link:"https://id.shp.ee/JNW39AR" },
+      { id:42,name:"aksesoris Wanita 2", price:"Rp99.000", img:"image/Outfitwanita/aksesoris/1 (2).jpg", link:"https://id.shp.ee/2faizUj" },
+      { id:43,name:"aksesoris Wanita 3", price:"Rp103.000", img:"image/Outfitwanita/aksesoris/1 (3).jpg", link:"https://id.shp.ee/kZDJbYq" },
+      { id:44,name:"aksesoris Wanita 4", price:"Rp107.000", img:"image/Outfitwanita/aksesoris/1 (4).jpg", link:"https://id.shp.ee/hooJz8w" },
+      { id:45,name:"aksesoris Wanita 5", price:"Rp111.000", img:"image/Outfitwanita/aksesoris/1 (5).jpg", link:"https://id.shp.ee/zn3FH7v" },
+      { id:46,name:"aksesoris Wanita 6", price:"Rp115.000", img:"image/Outfitwanita/aksesoris/1 (6).jpg", link:"https://id.shp.ee/vQcENYY" },
+      { id:47,name:"aksesoris Wanita 7", price:"Rp119.000", img:"image/Outfitwanita/aksesoris/1 (7).jpg", link:"https://id.shp.ee/gnu7ea2" },
+      { id:48,name:"aksesoris Wanita 8", price:"Rp123.000", img:"image/Outfitwanita/aksesoris/1 (8).jpg", link:"https://id.shp.ee/MkDescV" },
+      { id:49,name:"aksesoris Wanita 9", price:"Rp127.000", img:"image/Outfitwanita/aksesoris/1 (9).jpg", link:"https://id.shp.ee/7tBAFFD" },
+      { id:50,name:"aksesoris Wanita 10",price:"Rp131.000", img:"image/Outfitwanita/aksesoris/1 (10).jpg", link:"https://id.shp.ee/Yvxjru" }
 
     ]
   },
@@ -373,7 +420,7 @@ const itemsData = {
       { id:77, name:"atasan pria 7", price:"Rp155.000", img:"image/outfitpria/atasan/atasan (8).jpg", link:"https://id.shp.ee/w4JGJti" },
       { id:78, name:"atasan pria 8", price:"Rp160.000", img:"image/outfitpria/atasan/atasan (9).jpg", link:"https://id.shp.ee/w4JGJti" },
       { id:79, name:"atasan pria 9", price:"Rp165.000", img:"image/outfitpria/atasan/atasan (10).jpg", link:"https://id.shp.ee/w4JGJti" },
-      { id:80,name:"atasan pria 10",price:"Rp170.000", img:"image/outfitpria/atasan/atasan (11).jpg", link:"https://id.shp.ee/w4JGJti" }
+      { id:80,name:"atasan pria 10",price:"Rp170.000", img:"image/outfitpria/atasan/atasan (2).jpg", link:"https://id.shp.ee/w4JGJti" }
 
     ],
     sepatu: [

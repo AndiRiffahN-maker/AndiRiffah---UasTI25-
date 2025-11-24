@@ -133,7 +133,7 @@
   /* CARD */
   .recipe-card{width:210px;min-width:210px;background:white;border-radius:15px;overflow:hidden;box-shadow:0 6px 15px rgba(2, 2, 2, 0.12);cursor:pointer;transition:0.3s}
   .recipe-card:hover{transform:translateY(-5px)}
-  .recipe-card img{width:100%;height:120px;object-fit:cover}
+  .recipe-card img{width:100%;height:180px;object-fit:cover;border-bottom: 1px solid #ddd;}
   .card-body{padding:15px}
   .card-body h3{font-size:1.1rem;color : #C9485B;margin-bottom:5px}
   .meta{font-size:0.9rem;color:#555;margin-bottom:8px}
@@ -372,27 +372,6 @@
 
   /* --- 3. VARIASI WARNA (Tinggal Pilih) --- */
 
-  /* TEMA 1: HIJAU (Untuk Tutorial) */
-  .tema-hijau {
-    color: #C9485B; /* Warna Teks Hijau */
-  }
-  .tema-hijau:hover {
-    background-color: #C9485B; /* Background jadi Hijau */
-    color: #C9485B;            /* Teks jadi Putih */
-    transform: translateY(-3px); /* Tombol naik dikit */
-    box-shadow: 0 6px 12px rgba(107, 112, 92, 0.3);
-  }
-
-  /* TEMA 2: PINK (Untuk Resep) */
-  .tema-pink {
-    color: #D65A66; /* Warna Teks Pink */
-  }
-  .tema-pink:hover {
-    background-color: #D65A66;
-    color: #ffffff;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(214, 90, 102, 0.3);
-  }
 
   /* TEMA 3: MERAH MAROON (Untuk GoFood/Lainnya) */
   .tema-merah {
@@ -516,12 +495,8 @@
   </section>
 
 
-  <!-- DETAIL ASLI KAMU (TETAP ADA) -->
-  <div id="recipe-detail" class="hidden">
-    <h3 id="detail-title"></h3>
-    <p id="detail-rating"></p>
-    <p id="detail-time"></p>
-  </div>
+ 
+  
   <!-- ==================== MODAL BESAR (DITAMBAHKAN) ==================== -->
   <div id="recipeModal" class="modal-overlay">
     <div class="modal-box">
@@ -529,26 +504,23 @@
       <h2 id="modal-title"></h2>
       <p id="modal-rating"></p>
       <p id="modal-time"></p>
-
-      <h3>Bahan & Cara Memasak:</h3>
+     <h3>Bahan & Cara Memasak:</h3>
       <br>Alat-alat : wajan, pisau,talenan, mangkuk
-
   <br>Bahan-bahan :</p>
-  <br>1 pack sosis atau sosis secukupnya</br>
-  <br>3 siung bawang merah</br>
-  <br>2 siung bawang putih</br>
-  <br>3 butir telur</br>
-  <br>1 sdm saus tiram</br>
-  <br>½ sdt saus tomat</br>
-  <br>
-  1 sdm saus sambal</br>
-  <br>air secukupnya</br>
-  <br>1sdt kaldu jamur</br>
-  <br>½ sdt gula </br>
-  <br>minyak goreng secukupnya</br>
-  <br>Cara pembuatan : </br>
+  <br>1 pack sosis atau sosis secukupnya
+  <br>3 siung bawang merah
+  <br>2 siung bawang putih
+  <br>3 butir telur
+  <br>1 sdm saus tiram
+  <br>½ sdt saus tomat
+  <br>1 sdm saus sambal
+ <br> air secukupnya
+ <br> 1sdt kaldu jamur
+  <br>½ sdt gula 
+  <br>minyak goreng secukupnya
+  <br>Cara pembuatan : 
 
-  goreng sosis 
+  <br>goreng sosis 
   tumis 3 siung bawang merah, 2 siung bawang putih, 3 butir telur, 1 sdm saus tiram, ½ sdt saus tomat, 1 sdm saus sambal .
   tambahkan air secukupnya, 1sdt kaldu jamur, ½ sdt gula.
   masukkan sosis, kemudian taburkan daun bawang dan cabe merah (opsional), dan hidangakan</p>
@@ -557,13 +529,8 @@
   </div>
 
 
-  <!-- Button  kembali -->
-  <div class="button-wrapper">
-      <a href="#home" class="btn-kembali-base tema-hijau">
-        <i class="fas fa-arrow-left"></i> Kembali
-      </a>
-    </div>
-
+  
+ <!-- GO FOOD -->
   <section id="gofood" class="section-produk">
       <h2>Go Food Murah</h2> 
       <p>Males masak? Go Food solusinya</p>
@@ -656,12 +623,7 @@
           <button class="slide-btn right" onclick="scrollSlider(300)">&#10095;</button>
       </div>
   </section>
-  <!-- button kembali -->
-  <div class="button-wrapper">
-      <a href="#home" class="btn-kembali-base tema-pink">
-        <i class="fas fa-arrow-left"></i> Kembali
-      </a>
-    </div>
+  
   <script>
   function scrollSlider(value) {
       document.getElementById('produkSlider').scrollBy({
@@ -673,7 +635,7 @@
 
   <!-- CONTACT -->
   <section id="contact">
-    <h2> LIHAT PETA DEPOK</h2>
+    <h2> LIHAT RESTORANT TERDEKAT</h2>
   <div id="map"
       style="
           height: 350px; 
@@ -770,7 +732,7 @@
 
         places.forEach(p => {
           L.marker([p.lat, p.lng]).addTo(map)
-            .bindPopup(`<b>${p.name}</b><br><a href='${p.link}' target='_blank'>Buka Map</a>`);
+            .bindPopup(`<b>${p.name}</b><br><a href='${p.link}' target='_blank'></a>`);
         });
         
       </script>
@@ -813,7 +775,7 @@
 
   /* CARD CLICK → MODAL */
   cards.forEach(card=>{
-    card.addEventListener("click",()=>{
+    card.addEventListener("click",()=>{ 
       const title=card.dataset.title;
       const rating=card.dataset.rating;
       const time=card.dataset.time;
